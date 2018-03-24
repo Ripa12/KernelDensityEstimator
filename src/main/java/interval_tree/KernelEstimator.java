@@ -31,6 +31,7 @@ import weka.estimators.Estimator;
 import weka.estimators.IncrementalEstimator;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Simple kernel density estimator. Uses one gaussian kernel per observed
@@ -41,35 +42,54 @@ import java.util.List;
  */
 public class KernelEstimator extends Estimator implements IncrementalEstimator {
 
-    /** for serialization */
+    /**
+     * for serialization
+     */
     private static final long serialVersionUID = 3646923563367683925L;
 
-    /** Vector containing all of the values seen */
-    private double [] m_Values;
+    /**
+     * Vector containing all of the values seen
+     */
+//    private double[][] m_Values;
+    private double[] m_Values;
 
     private static int minStart = Integer.MAX_VALUE;
     private static int maxEnd = Integer.MIN_VALUE;
     IntervalTree<Integer> intervalTree;
 
-    /** Vector containing the associated weights */
-    private double [] m_Weights;
+    /**
+     * Vector containing the associated weights
+     */
+    private double[] m_Weights;
 
-    /** Number of values stored in m_Weights and m_Values so far */
+    /**
+     * Number of values stored in m_Weights and m_Values so far
+     */
     private int m_NumValues;
 
-    /** The sum of the weights so far */
+    /**
+     * The sum of the weights so far
+     */
     private double m_SumOfWeights;
 
-    /** The standard deviation */
+    /**
+     * The standard deviation
+     */
     private double m_StandardDev;
 
-    /** The precision of data values */
+    /**
+     * The precision of data values
+     */
     private double m_Precision;
 
-    /** Whether we can optimise the kernel summation */
+    /**
+     * Whether we can optimise the kernel summation
+     */
     private boolean m_AllWeightsOne;
 
-    /** Maximum percentage error permitted in probability calculations */
+    /**
+     * Maximum percentage error permitted in probability calculations
+     */
     private static double MAX_ERROR = 0.01;
 
 
@@ -86,6 +106,7 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
         int middle = 0;
         while (low < high) {
             middle = (low + high) / 2;
+//            double current = m_Values[middle][0];
             double current = m_Values[middle];
             if (current == key) {
                 return middle;
@@ -118,13 +139,13 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
      * Constructor that takes a precision argument.
      *
      * @param precision the  precision to which numeric values are given. For
-     * example, if the precision is stated to be 0.1, the values in the
-     * interval (0.25,0.35] are all treated as 0.3.
+     *                  example, if the precision is stated to be 0.1, the values in the
+     *                  interval (0.25,0.35] are all treated as 0.3.
      */
     public KernelEstimator(double precision) {
 
-        m_Values = new double [50];
-        m_Weights = new double [50];
+        m_Values = new double[50];
+        m_Weights = new double[50];
         m_NumValues = 0;
         m_SumOfWeights = 0;
         m_AllWeightsOne = true;
@@ -137,12 +158,17 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
         intervalTree = new IntervalTree<>();
     }
 
+    public void addRange(int start, int end, double weight) {
+        IntStream.rangeClosed(start, end).boxed().forEach(x-> addValue(x, weight));
+    }
+
     /**
      * Add a new data value to the current estimator.
      *
      * @param data the new data value
      * @param weight the weight assigned to the data value
      */
+    @Override
     public void addValue(double data, double weight) {
 
         if (weight == 0) {
@@ -153,26 +179,26 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
         if ((m_NumValues <= insertIndex) || (m_Values[insertIndex] != data)) {
             if (m_NumValues < m_Values.length) {
                 int left = m_NumValues - insertIndex;
-                System.arraycopy(m_Values, insertIndex,
-                        m_Values, insertIndex + 1, left);
-                System.arraycopy(m_Weights, insertIndex,
-                        m_Weights, insertIndex + 1, left);
+                System
+                        .arraycopy(m_Values, insertIndex, m_Values, insertIndex + 1, left);
+                System.arraycopy(m_Weights, insertIndex, m_Weights, insertIndex + 1,
+                        left);
 
                 m_Values[insertIndex] = data;
                 m_Weights[insertIndex] = weight;
                 m_NumValues++;
             } else {
-                double [] newValues = new double [m_Values.length * 2];
-                double [] newWeights = new double [m_Values.length * 2];
+                double[] newValues = new double[m_Values.length * 2];
+                double[] newWeights = new double[m_Values.length * 2];
                 int left = m_NumValues - insertIndex;
                 System.arraycopy(m_Values, 0, newValues, 0, insertIndex);
                 System.arraycopy(m_Weights, 0, newWeights, 0, insertIndex);
                 newValues[insertIndex] = data;
                 newWeights[insertIndex] = weight;
-                System.arraycopy(m_Values, insertIndex,
-                        newValues, insertIndex + 1, left);
-                System.arraycopy(m_Weights, insertIndex,
-                        newWeights, insertIndex + 1, left);
+                System.arraycopy(m_Values, insertIndex, newValues, insertIndex + 1,
+                        left);
+                System.arraycopy(m_Weights, insertIndex, newWeights, insertIndex + 1,
+                        left);
                 m_NumValues++;
                 m_Values = newValues;
                 m_Weights = newWeights;
@@ -193,27 +219,69 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
         }
     }
 
-    public void addValue(int start, int end, double weight){
-
-//        minStart = minStart > start ? start : minStart;
-//        maxEnd = maxEnd > end ? end : maxEnd;
-
-        intervalTree.add(new IntegerInterval(start, end, Interval.Bounded.CLOSED));
-
-        m_SumOfWeights += end - start - 2;
-        addValue(start, weight);
-        addValue(end, weight);
-
-//        m_SumOfWeights += weight;
-////        double range = m_Values[m_NumValues - 1] - m_Values[0];
-//        double range = maxEnd - minStart;
+    //ToDo: Try this solution later
+//    /**
+//     * Add a new data value to the current estimator.
+//     *
+//     * @param start  the new start value
+//     * @param end  the new end value
+//     * @param weight the weight assigned to the data value
+//     */
+//    public void addValue(double start, double end, double weight) {
 //
+//        if (weight == 0) {
+//            return;
+//        }
+//
+//        start = round(start);
+//        end = round(end);
+//
+//        int insertIndex = findNearestValue(start);
+//        if ((m_NumValues <= insertIndex) || ((m_Values[insertIndex][0] != start) || (m_Values[insertIndex][1] != end))) {
+//            if (m_NumValues < m_Values.length) {
+//                int left = m_NumValues - insertIndex;
+//                System.arraycopy(m_Values, insertIndex,
+//                        m_Values, insertIndex + 1, left);
+//                System.arraycopy(m_Weights, insertIndex,
+//                        m_Weights, insertIndex + 1, left);
+//
+//                m_Values[insertIndex][0] = start;
+//                m_Values[insertIndex][1] = end;
+//                m_Weights[insertIndex] = (weight) * (end - start + 1);
+//                m_NumValues++;
+//            } else {
+//                double[][] newValues = new double[m_Values.length * 2][2];
+//                double[] newWeights = new double[m_Values.length * 2];
+//                int left = m_NumValues - insertIndex;
+//                System.arraycopy(m_Values, 0, newValues, 0, insertIndex);
+//                System.arraycopy(m_Weights, 0, newWeights, 0, insertIndex);
+//                newValues[insertIndex][0] = start;
+//                newValues[insertIndex][1] = end;
+//                newWeights[insertIndex] = (weight) * (end - start + 1);
+//                System.arraycopy(m_Values, insertIndex,
+//                        newValues, insertIndex + 1, left);
+//                System.arraycopy(m_Weights, insertIndex,
+//                        newWeights, insertIndex + 1, left);
+//                m_NumValues++;
+//                m_Values = newValues;
+//                m_Weights = newWeights;
+//            }
+//            if (weight != 1) {
+//                m_AllWeightsOne = false;
+//            }
+//        } else {
+//            m_Weights[insertIndex] += (weight) * (end - start + 1);
+//            m_AllWeightsOne = false;
+//        }
+////        m_SumOfWeights += m_Weights[insertIndex];
+//        m_SumOfWeights += (weight) * (end - start + 1);
+//        double range = m_Values[m_NumValues - 1][1] - m_Values[0][0];
 //        if (range > 0) {
 //            m_StandardDev = Math.max(range / Math.sqrt(m_SumOfWeights),
 //                    // allow at most 3 sds within one interval
 //                    m_Precision / (2 * 3));
 //        }
-    }
+//    }
 
     /**
      * Get a probability estimate for a value.
@@ -221,61 +289,43 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
      * @param data the value to estimate the probability of
      * @return the estimated probability of the supplied value
      */
-    public double getProbability(int data) {
+    @Override
+    public double getProbability(double data) {
 
         double delta = 0, sum = 0, currentProb = 0;
         double zLower = 0, zUpper = 0;
         if (m_NumValues == 0) {
             zLower = (data - (m_Precision / 2)) / m_StandardDev;
             zUpper = (data + (m_Precision / 2)) / m_StandardDev;
-            return (Statistics.normalProbability(zUpper)
-                    - Statistics.normalProbability(zLower));
+            return (Statistics.normalProbability(zUpper) - Statistics
+                    .normalProbability(zLower));
         }
         double weightSum = 0;
-
-        int startIdx = findNearestValue(data); // ToDo!
-        int currentData = 0;
-
-        List<Interval<Integer>> intervals = intervalTree.query(data);
-
-        for (int i = startIdx; i < m_NumValues; i++) {
-            for(Interval<Integer> interval : intervals){
-
-
-                // ToDo: dividing integers here might cause incorrect deltas
-                // ToDo: maybe do the calculation in interval class instead (polymorphism)
-                int sequenceLength = (interval.getEnd() - currentData);
-                int nrOfMeans = (sequenceLength) / 2;
-                int arithmeticMean = (interval.getEnd() + currentData);
-
-                int sumOfSequence = nrOfMeans * arithmeticMean;
-                delta = -sumOfSequence;
-
-                zLower = (delta - (m_Precision / 2)) / m_StandardDev;
-                zUpper = (delta + (m_Precision / 2)) / m_StandardDev;
-                currentProb = (Statistics.normalProbability(zUpper)// ToDo: will currProb be correct this way?
-                        - Statistics.normalProbability(zLower));
-                sum += currentProb * m_Weights[i];
-            }
-            //delta = m_Values[i] - data;
-
+        int start = findNearestValue(data);
+        for (int i = start; i < m_NumValues; i++) {
+            delta = m_Values[i] - data;
+            zLower = (delta - (m_Precision / 2)) / m_StandardDev;
+            zUpper = (delta + (m_Precision / 2)) / m_StandardDev;
+            currentProb = (Statistics.normalProbability(zUpper) - Statistics
+                    .normalProbability(zLower));
+            sum += currentProb * m_Weights[i];
       /*
-      System.out.print("zL" + (i + 1) + ": " + zLower + " ");
-      System.out.print("zU" + (i + 1) + ": " + zUpper + " ");
-      System.out.print("P" + (i + 1) + ": " + currentProb + " ");
-      System.out.println("total: " + (currentProb * m_Weights[i]) + " ");
-      */
+       * System.out.print("zL" + (i + 1) + ": " + zLower + " ");
+       * System.out.print("zU" + (i + 1) + ": " + zUpper + " ");
+       * System.out.print("P" + (i + 1) + ": " + currentProb + " ");
+       * System.out.println("total: " + (currentProb * m_Weights[i]) + " ");
+       */
             weightSum += m_Weights[i];
             if (currentProb * (m_SumOfWeights - weightSum) < sum * MAX_ERROR) {
                 break;
             }
         }
-        for (int i = startIdx - 1; i >= 0; i--) {
+        for (int i = start - 1; i >= 0; i--) {
             delta = m_Values[i] - data;
             zLower = (delta - (m_Precision / 2)) / m_StandardDev;
             zUpper = (delta + (m_Precision / 2)) / m_StandardDev;
-            currentProb = (Statistics.normalProbability(zUpper)
-                    - Statistics.normalProbability(zLower));
+            currentProb = (Statistics.normalProbability(zUpper) - Statistics
+                    .normalProbability(zLower));
             sum += currentProb * m_Weights[i];
             weightSum += m_Weights[i];
             if (currentProb * (m_SumOfWeights - weightSum) < sum * MAX_ERROR) {
@@ -285,13 +335,14 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
         return sum / m_SumOfWeights;
     }
 
+    // ToDo: Try to fix later
 //    /**
 //     * Get a probability estimate for a value.
 //     *
 //     * @param data the value to estimate the probability of
 //     * @return the estimated probability of the supplied value
 //     */
-//    public double getProbability(double data) {
+//    public double getOldProbability(double data) {
 //
 //        double delta = 0, sum = 0, currentProb = 0;
 //        double zLower = 0, zUpper = 0;
@@ -304,7 +355,7 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
 //        double weightSum = 0;
 //        int start = findNearestValue(data);
 //        for (int i = start; i < m_NumValues; i++) {
-//            delta = m_Values[i] - data;
+//            delta = m_Values[i][0] - data;
 //            zLower = (delta - (m_Precision / 2)) / m_StandardDev;
 //            zUpper = (delta + (m_Precision / 2)) / m_StandardDev;
 //            currentProb = (Statistics.normalProbability(zUpper)
@@ -322,7 +373,7 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
 //            }
 //        }
 //        for (int i = start - 1; i >= 0; i--) {
-//            delta = m_Values[i] - data;
+//            delta = m_Values[i][0] - data;
 //            zLower = (delta - (m_Precision / 2)) / m_StandardDev;
 //            zUpper = (delta + (m_Precision / 2)) / m_StandardDev;
 //            currentProb = (Statistics.normalProbability(zUpper)
@@ -336,11 +387,13 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
 //        return sum / m_SumOfWeights;
 //    }
 
-    /** Display a representation of this estimator */
+    /**
+     * Display a representation of this estimator
+     */
     public String toString() {
 
         String result = m_NumValues + " Normal Kernels. \nStandardDev = "
-                + Utils.doubleToString(m_StandardDev,6,4)
+                + Utils.doubleToString(m_StandardDev, 6, 4)
                 + " Precision = " + m_Precision;
         if (m_NumValues == 0) {
             result += "  \nMean = 0";
@@ -407,7 +460,7 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
     /**
      * Returns default capabilities of the classifier.
      *
-     * @return      the capabilities of this classifier
+     * @return the capabilities of this classifier
      */
     public Capabilities getCapabilities() {
         Capabilities result = super.getCapabilities();
@@ -428,7 +481,7 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
     /**
      * Returns the revision string.
      *
-     * @return		the revision
+     * @return the revision
      */
     public String getRevision() {
         return RevisionUtils.extract("$Revision: 5540 $");
@@ -439,7 +492,7 @@ public class KernelEstimator extends Estimator implements IncrementalEstimator {
      *
      * @param argv should contain a sequence of numeric values
      */
-    public static void main(String [] argv) {
+    public static void main(String[] argv) {
 
         try {
             if (argv.length < 2) {
