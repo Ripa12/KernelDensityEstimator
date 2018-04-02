@@ -8,9 +8,6 @@ import java.util.stream.IntStream;
 // ToDO: Implement Red-Black tree self-balancing
 public class MyIntervalTree {
 
-
-
-
     public class TreeNode{
         TreeNode left, right;
         NodeData data;
@@ -119,24 +116,34 @@ public class MyIntervalTree {
 
 
     private Histogram histogram;
+    private UnivariateKernelEstimator estimator;
     private TreeNode root;
     private int minVal;
     private int maxVal;
+    private int frequency;
 
     public MyIntervalTree(){
+        frequency = 0;
         histogram = null;
         root = null;
         minVal = Integer.MAX_VALUE;
         maxVal = Integer.MIN_VALUE;
     }
 
+    public int getFrequency(){
+        return frequency;
+    }
+
     public void insert(NodeData data){
+        frequency++;
+
         minVal = Math.min(minVal, data.getLow());
         maxVal = Math.max(maxVal, data.getHigh());
 
         TreeNode node = insert(root, data);
         if(this.root == null)
             this.root = node;
+
     }
 
     private TreeNode insert(TreeNode root, NodeData data){
@@ -161,29 +168,34 @@ public class MyIntervalTree {
         return root;
     }
 
-    public void iterate(UnivariateKernelEstimator e){
-        histogram = new Histogram(MaxNew+1);
+    public double[][] predictIntervals(double conf){
+        return estimator.predictIntervals(conf);
+    }
 
-        iterate(this.root, e);
+    public void iterate(){
+        histogram = new Histogram(MaxNew+1);
+        estimator = new UnivariateKernelEstimator(); // ToDo: maybe check if null here to avoid creating a new instance every invocation
+
+        iterate(this.root);
 
         // display using standard draw
         StdDraw.setCanvasSize(1500, 700);
         histogram.draw(minVal, maxVal);
     }
 
-    private void iterate(TreeNode root, UnivariateKernelEstimator e)
+    private void iterate(TreeNode root)
     {
         if (root == null)
             return;
 
-        iterate(root.left, e);
+        iterate(root.left);
 
         System.out.println(root.toString());
 
-        root.data.insertToKernel(e);
+        root.data.insertToKernel(estimator);
         root.data.insertToHistogram(histogram, minVal, maxVal);
 
-        iterate(root.right, e);
+        iterate(root.right);
     }
 
     private final static int MaxNew = 100;

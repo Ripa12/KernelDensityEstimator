@@ -17,6 +17,7 @@ package interval_tree;
         import net.sf.jsqlparser.statement.select.PlainSelect;
         import net.sf.jsqlparser.statement.select.Select;
 
+        import java.sql.SQLException;
         import java.util.*;
         import java.util.stream.IntStream;
 
@@ -32,23 +33,6 @@ public class App
         //https://github.com/lodborg/interval-tree/tree/master/src/main/java/com/lodborg/intervaltree
 
         // https://github.com/bnjmn/weka/blob/master/weka/src/main/java/weka/estimators/KernelEstimator.java
-        // https://www.programcreek.com/java-api-examples/index.php?source_dir=Weka-for-Android-master/src/weka/classifiers/meta/RegressionByDiscretization.java#
-
-        UnivariateKernelEstimator e = new UnivariateKernelEstimator();
-//        e.addValue((1000000) , 30000);
-//        e.addValue((500000) , 100);
-//        e.addValue((500001) , 30000);
-//        e.addValue((500002) , 100);
-//        e.addValue((50000) , 50);
-//        e.addValue((-15000) , 50);
-//        e.addValue((10000) , 50);
-//        e.addValue((-1000000) , 50);
-//
-//        IntStream.range(55000, 90000).filter(x->x%100==0).mapToDouble(x->x).forEach(x->e.addValue(x, 100/100));
-//        IntStream.range(50000, 60000).filter(x->x%100==0).mapToDouble(x->x).forEach(x->e.addValue(x, 100/100));
-//        IntStream.range(57000, 59000).filter(x->x%100==0).mapToDouble(x->x).forEach(x->e.addValue(x, 100/100));
-//        IntStream.range(40000, 55000).filter(x->x%100==0).mapToDouble(x->x).forEach(x->e.addValue(x, 100/100));
-
         // https://www.programcreek.com/java-api-examples/index.php?source_dir=Weka-for-Android-master/src/weka/classifiers/meta/RegressionByDiscretization.java#
 
 
@@ -74,10 +58,12 @@ public class App
         Select select = null;
         try {
             generatorStartTime = System.nanoTime();
-            Statements stats = CCJSqlParserUtil.parseStatements(QueryGenerator.generateBatchOfQueries());
+            String queryBatch = QueryGenerator.generateBatchOfQueries();
             generatorEstimatedTime = System.nanoTime() - generatorStartTime;
 
+
             parseStartTime = System.nanoTime();
+            Statements stats = CCJSqlParserUtil.parseStatements(queryBatch); // ToDo: Insertion into interval trees might take longer time than the actual parsing of queries (try to fix if possible)...
             for(Statement statement : stats.getStatements()){
                 select = (Select) statement;
                 PlainSelect ps = (PlainSelect) select.getSelectBody();
@@ -92,22 +78,58 @@ public class App
             e1.printStackTrace();
         }
 
-        kernelPrepStartTime = System.nanoTime();
+        //UnivariateKernelEstimator[] e = new UnivariateKernelEstimator[QueryGenerator.COLUMNS.length];
+
+        int counter = 0;
+        List<CandidateIndex> indexList = new ArrayList<>();
+
+//        kernelPrepStartTime = System.nanoTime();
         for (Map.Entry<String, MyIntervalTree> entry : intervalTrees.entrySet())
         {
-            entry.getValue().iterate(e);
+            //e[counter] = new UnivariateKernelEstimator();
+            kernelPrepStartTime = System.nanoTime();
+            entry.getValue().iterate(); // ToDo: combine iterate and predictInterval
+            kernelPrepEstimatedTime += System.nanoTime() - kernelPrepStartTime;
+
+//            counter++;
+
+            kernelStartTime = System.nanoTime();
+            double[][] interval = entry.getValue().predictIntervals(.85);
+            kernelEstimatedTime += System.nanoTime() - kernelStartTime;
+            for (int p = 0; p < interval.length; p++) {
+                System.out.println("Left: " + (interval[p][0]) + "\t Right: " + (interval[p][1]) + "\t Probability: " + (interval[p][2]));
+                indexList.add(new PartialIndex(((double)entry.getValue().getFrequency() * (interval[p][2])), 0, entry.getKey(), (int)interval[p][0], (int)interval[p][1]));
+            }
+
         }
-        kernelPrepEstimatedTime = System.nanoTime() - kernelPrepStartTime;
 
-        //e.addValue(-50000000, 99);
-
-        kernelStartTime = System.nanoTime();
-        double[][] Intervals =  e.predictIntervals(.75);
-        kernelEstimatedTime = System.nanoTime() - kernelStartTime;
-
-        for (int k = 0; k < Intervals.length; k++) {
-            System.out.println("Left: " + (Intervals[k][0]) + "\t Right: " + (Intervals[k][1]));
+      PostgreSql postSql = new PostgreSql();
+        try {
+            postSql.estimateWeights(indexList);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
+
+//        kernelPrepEstimatedTime = System.nanoTime() - kernelPrepStartTime;
+
+//        double[][][] intervals = new double[QueryGenerator.COLUMNS.length][][];
+
+//        kernelStartTime = System.nanoTime();
+//        for(int i = 0; i < counter; i++) {
+//            intervals[i] = e[i].predictIntervals(.85);
+//        }
+//        kernelEstimatedTime = System.nanoTime() - kernelStartTime;
+
+
+
+//        for (int p = 0; p < intervals.length; p++) {
+//            System.out.println("--- " + p + " ---");
+//            for (int k = 0; k < intervals[p].length; k++) {
+//                System.out.println("Left: " + (intervals[p][k][0]) + "\t Right: " + (intervals[p][k][1]) + "\t Probability: " + (intervals[p][k][2]));
+//                indexList.add(new PartialIndex(0, 0, null, 6, 6));
+//            }
+//        }
 
         System.out.println("generatorStartTime: " + generatorEstimatedTime/ 1000000000.0);
         System.out.println("parseStartTime: " + parseEstimatedTime/ 1000000000.0);

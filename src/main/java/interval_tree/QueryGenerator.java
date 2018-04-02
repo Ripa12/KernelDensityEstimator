@@ -40,12 +40,12 @@ public class QueryGenerator {
                 int start;
                 int end;
 
-                int random = rand.nextInt(11);
-                if (random <= 8) { //This is 20% more
+                int random = rand.nextInt(101);
+                if (random <= 87) { //This is 20% more
                     start = rand.nextInt((firstUpperBound - firstLowerBound) + 1) + firstLowerBound;
                     end = rand.nextInt((firstUpperBound - start) + 1) + start;
                 }
-                else if(random <= 9){
+                else if(random <= 92){
                     start = rand.nextInt((secondUpperBound - secondLowerBound) + 1) + secondLowerBound;
                     end = rand.nextInt((secondUpperBound - start) + 1) + start;
                 }
@@ -62,11 +62,11 @@ public class QueryGenerator {
             else {
                 int start;
 
-                int random = rand.nextInt(11);
-                if (random <= 8) { //This is 20% more
+                int random = rand.nextInt(101);
+                if (random <= 87) { //This is 20% more
                     start = rand.nextInt((firstUpperBound - firstLowerBound) + 1) + firstLowerBound;
                 }
-                else if(random <= 9){
+                else if(random <= 92){
                     start = rand.nextInt((secondUpperBound - secondLowerBound) + 1) + secondLowerBound;
                 }
                 else {

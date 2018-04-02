@@ -125,9 +125,6 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
         }
         else{
             // ToDo: no support for infinity yet...
-            //intervalTrees.get(leftCol).insert(new MyIntervalTree.Point(start));
-
-            //intervalTrees.get(rightCol).insert(new MyIntervalTree.Point(end));
         }
 
         isInterval = false;

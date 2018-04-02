@@ -45,6 +45,7 @@ import weka.estimators.UnivariateQuantileEstimator;
 public class UnivariateKernelEstimator implements UnivariateDensityEstimator,
         UnivariateIntervalEstimator, UnivariateQuantileEstimator, Serializable {
 
+
     /** For serialization */
     private static final long serialVersionUID = -1163983347810498880L;
 
@@ -76,7 +77,7 @@ public class UnivariateKernelEstimator implements UnivariateDensityEstimator,
     protected double m_Threshold = 1.0E-6;
 
     /** The number of intervals used to approximate prediction interval. */
-    protected int m_NumIntervals = 3000;
+    protected int m_NumIntervals = 1000;
 
     /**
      * Returns a string describing the estimator.
@@ -175,7 +176,7 @@ public class UnivariateKernelEstimator implements UnivariateDensityEstimator,
         }
 
         // Don't need probabilities anymore
-        probabilities = null;
+        //probabilities = null;
 
         // Create final list of intervals
         ArrayList<double[]> intervals = new ArrayList<double[]>();
@@ -190,15 +191,19 @@ public class UnivariateKernelEstimator implements UnivariateDensityEstimator,
             // Should the current bin be used?
             if (toUse[i]) {
 
+                //double temp = probabilities[i];
+
                 // Do we need to create a new interval?
                 if (haveStartedInterval == false) {
                     haveStartedInterval = true;
-                    interval = new double[2];
+                    interval = new double[3];
                     interval[0] = min + i * delta;
+                    interval[2] = 0;
                 }
 
                 // Regardless, we should update the upper boundary
                 interval[1] = min + (i + 1) * delta;
+                interval[2] += probabilities[i];
             } else {
 
                 // We need to finalize and store the last interval

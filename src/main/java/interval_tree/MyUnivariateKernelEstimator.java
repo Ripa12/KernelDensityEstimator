@@ -42,29 +42,14 @@
 // * @author Eibe Frank (eibe@cs.waikato.ac.nz)
 // * @version $Revision$
 // */
-//public class MyUnivariateKernelEstimator implements UnivariateDensityEstimator,
+//public class UnivariateKernelEstimator implements UnivariateDensityEstimator,
 //        UnivariateIntervalEstimator, UnivariateQuantileEstimator, Serializable {
-//
-//    public class ValuePair{
-//        public double start, end;
-//        public double weight;
-//
-//        public ValuePair(double start, double end, double weight){
-//            this.start = start;
-//            this.end = end;
-//            this.weight = weight;
-//        }
-//
-//        public void incWeight(double w){
-//            weight += w;
-//        }
-//    }
 //
 //    /** For serialization */
 //    private static final long serialVersionUID = -1163983347810498880L;
 //
 //    /** The collection used to store the weighted values. */
-//    protected TreeMap<Double, ValuePair> m_TM = new TreeMap<Double, ValuePair>();
+//    protected TreeMap<Double, Double> m_TM = new TreeMap<Double, Double>();
 //
 //    /** The weighted sum of values */
 //    protected double m_WeightedSum = 0;
@@ -91,7 +76,7 @@
 //    protected double m_Threshold = 1.0E-6;
 //
 //    /** The number of intervals used to approximate prediction interval. */
-//    protected int m_NumIntervals = 1000;
+//    protected int m_NumIntervals = 3000;
 //
 //    /**
 //     * Returns a string describing the estimator.
@@ -108,28 +93,13 @@
 //    @Override
 //    public void addValue(double value, double weight) {
 //
-////        m_WeightedSum += value * weight;
-////        m_WeightedSumSquared += value * value * weight;
-////        m_SumOfWeights += weight;
-////        if (m_TM.get(value) == null) {
-////            m_TM.put(value, weight);
-////        } else {
-////            m_TM.put(value, m_TM.get(value) + weight);
-////        }
-//    }
-//
-//    public void addInterval(ValuePair value) {
-//
-//        m_WeightedSum += value.start * value.weight;  // ToDo: Maybe sum weight of all bins within interval
-//        m_WeightedSum += value.end * value.weight;
-//        m_WeightedSumSquared += value.start * value.start * value.weight;
-//        m_WeightedSumSquared += value.end * value.end * value.weight;
-//        m_SumOfWeights += value.weight;// * 2;
-//        if (m_TM.get(value.start) == null) {
-//            m_TM.put(value.start, value);
+//        m_WeightedSum += value * weight;
+//        m_WeightedSumSquared += value * value * weight;
+//        m_SumOfWeights += weight;
+//        if (m_TM.get(value) == null) {
+//            m_TM.put(value, weight);
 //        } else {
-////            m_TM.put(value, m_TM.get(value) + weight);
-//            m_TM.get(value.start).incWeight(value.weight);
+//            m_TM.put(value, m_TM.get(value) + weight);
 //        }
 //    }
 //

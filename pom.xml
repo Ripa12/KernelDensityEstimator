@@ -40,6 +40,12 @@
       <!--<version>1.0.0</version>-->
     <!--</dependency>-->
 
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>42.1.4.jre7</version>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka/weka-stable -->
     <dependency>
       <groupId>nz.ac.waikato.cms.weka</groupId>
