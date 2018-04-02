@@ -10,7 +10,7 @@ public class QueryGenerator {
 
     final static String COLUMNS[] = {"A", "B", "C"};
 //    final static long RANGE[] = {0, 100000000L};
-    final static int NR_OF_QUERIES = 3000;
+    final static int NR_OF_QUERIES = 5000;
 
     private static int nrOfQueries = 0;
 
@@ -22,14 +22,14 @@ public class QueryGenerator {
 
         Random rand = new Random();
 
-        final int maxDuplicates = 100;
-        final int maxUpperBound = 30000;
+        final int maxDuplicates = 300;
+        final int maxUpperBound = 300000;
 
         final int firstLowerBound = 20000;
-        final int firstUpperBound = 25000;
+        final int firstUpperBound = 75000;
 
-        final int secondLowerBound = -25000;
-        final int secondUpperBound = -20000;
+        final int secondLowerBound = 100000;
+        final int secondUpperBound = 120000;
 
         StringBuilder tempStmt = new StringBuilder();
         for(int k = 0; k < NR_OF_QUERIES; k++) {
@@ -41,11 +41,11 @@ public class QueryGenerator {
                 int end;
 
                 int random = rand.nextInt(11);
-                if (random <= 5) { //This is 20% more
+                if (random <= 8) { //This is 20% more
                     start = rand.nextInt((firstUpperBound - firstLowerBound) + 1) + firstLowerBound;
                     end = rand.nextInt((firstUpperBound - start) + 1) + start;
                 }
-                else if(random <= 8){
+                else if(random <= 9){
                     start = rand.nextInt((secondUpperBound - secondLowerBound) + 1) + secondLowerBound;
                     end = rand.nextInt((secondUpperBound - start) + 1) + start;
                 }
@@ -63,10 +63,10 @@ public class QueryGenerator {
                 int start;
 
                 int random = rand.nextInt(11);
-                if (random <= 5) { //This is 20% more
+                if (random <= 8) { //This is 20% more
                     start = rand.nextInt((firstUpperBound - firstLowerBound) + 1) + firstLowerBound;
                 }
-                else if(random <= 8){
+                else if(random <= 9){
                     start = rand.nextInt((secondUpperBound - secondLowerBound) + 1) + secondLowerBound;
                 }
                 else {
@@ -84,6 +84,8 @@ public class QueryGenerator {
                 nrOfQueries++;
             }
         }
+
+        System.out.println("NrOfQueries: " + nrOfQueries);
 
         return stmts.toString();
     }

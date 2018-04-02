@@ -501,7 +501,7 @@ public final class StdStats {
         StdDraw.setXscale(-1, n);
         for (int i = 0; i < n; i++) {
             StdDraw.setPenColor(Color.black);
-            StdDraw.filledRectangle(i, a[i]/2, 2, (a[i]/2));
+            StdDraw.filledRectangle(i, a[i]/2, .2, (a[i]/2));
             if(a[i] > 0) {
                 StdDraw.setPenColor(Color.red);
                 StdDraw.text(i, a[i] + 1, Integer.toString(rescale(i, minVal, maxVal)));

@@ -8,6 +8,9 @@ import java.util.stream.IntStream;
 // ToDO: Implement Red-Black tree self-balancing
 public class MyIntervalTree {
 
+
+
+
     public class TreeNode{
         TreeNode left, right;
         NodeData data;
@@ -76,6 +79,8 @@ public class MyIntervalTree {
     }
 
     public static class Interval extends NodeData {
+        private static final int BinRange = 500;
+
         public int start;
         public int end;
 
@@ -98,14 +103,15 @@ public class MyIntervalTree {
 
         @Override
         void insertToKernel(UnivariateKernelEstimator e) {
-            IntStream.range(start, end).filter(x->x%1000==0)
+            IntStream.range(start, end).filter(x->x%BinRange==0)
                     .mapToDouble(x->x)
-                    .forEach(x->e.addValue(x, weight/100));
+                    .forEach(x->e.addValue(x, weight/1));
+//                    .forEach(x->e.addValue(x, weight/100));
         }
 
         @Override
         void insertToHistogram(Histogram e, int oldMin, int oldMax) {
-            IntStream.range(start, end).filter(x->x%1000==0)
+            IntStream.range(start, end).filter(x->x%BinRange==0)
                     .forEach(x->e.addDataPoint(scale(x, oldMin, oldMax)));
         }
 
@@ -161,7 +167,7 @@ public class MyIntervalTree {
         iterate(this.root, e);
 
         // display using standard draw
-        StdDraw.setCanvasSize(1000, 700);
+        StdDraw.setCanvasSize(1500, 700);
         histogram.draw(minVal, maxVal);
     }
 
@@ -180,7 +186,7 @@ public class MyIntervalTree {
         iterate(root.right, e);
     }
 
-    private final static int MaxNew = 1000;
+    private final static int MaxNew = 100;
     private final static int MinNew = 0;
 
     public static int scale(double v, int oldMin, int oldMax){

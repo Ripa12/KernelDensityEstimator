@@ -53,6 +53,15 @@ public class App
 
 
         Map<String, MyIntervalTree> intervalTrees = new HashMap<String, MyIntervalTree>();
+        long generatorStartTime = 0;
+        long parseStartTime;
+        long kernelPrepStartTime;
+        long kernelStartTime;
+
+        long generatorEstimatedTime = 0;
+        long parseEstimatedTime = 0;
+        long kernelPrepEstimatedTime = 0;
+        long kernelEstimatedTime = 0;
 
         // ToDo: Read all column names before-hand
         intervalTrees.put("A", new MyIntervalTree());
@@ -64,8 +73,11 @@ public class App
 
         Select select = null;
         try {
+            generatorStartTime = System.nanoTime();
             Statements stats = CCJSqlParserUtil.parseStatements(QueryGenerator.generateBatchOfQueries());
+            generatorEstimatedTime = System.nanoTime() - generatorStartTime;
 
+            parseStartTime = System.nanoTime();
             for(Statement statement : stats.getStatements()){
                 select = (Select) statement;
                 PlainSelect ps = (PlainSelect) select.getSelectBody();
@@ -75,20 +87,31 @@ public class App
                 exp.accept(visitor);
                 System.out.println();
             }
+            parseEstimatedTime = System.nanoTime() - parseStartTime;
         } catch (JSQLParserException e1) {
             e1.printStackTrace();
         }
 
+        kernelPrepStartTime = System.nanoTime();
         for (Map.Entry<String, MyIntervalTree> entry : intervalTrees.entrySet())
         {
             entry.getValue().iterate(e);
         }
+        kernelPrepEstimatedTime = System.nanoTime() - kernelPrepStartTime;
 
         //e.addValue(-50000000, 99);
-        double[][] Intervals =  e.predictIntervals(.5);
+
+        kernelStartTime = System.nanoTime();
+        double[][] Intervals =  e.predictIntervals(.75);
+        kernelEstimatedTime = System.nanoTime() - kernelStartTime;
 
         for (int k = 0; k < Intervals.length; k++) {
             System.out.println("Left: " + (Intervals[k][0]) + "\t Right: " + (Intervals[k][1]));
         }
+
+        System.out.println("generatorStartTime: " + generatorEstimatedTime/ 1000000000.0);
+        System.out.println("parseStartTime: " + parseEstimatedTime/ 1000000000.0);
+        System.out.println("kernelPrepStartTime: " + kernelPrepEstimatedTime/ 1000000000.0);
+        System.out.println("kernelStartTime: " + kernelEstimatedTime/ 1000000000.0);
     }
 }
