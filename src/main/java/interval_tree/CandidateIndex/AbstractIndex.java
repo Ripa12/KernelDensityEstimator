@@ -1,13 +1,13 @@
-package interval_tree;
+package interval_tree.CandidateIndex;
 
-public abstract class CandidateIndex {
+public abstract class AbstractIndex {
 
     private double value;
     private double weight;
 
     String columnNames;
 
-    public CandidateIndex(double v, double w, String c){
+    public AbstractIndex(double v, double w, String c){
         this.value = v;
         this.weight = w;
         this.columnNames = c;
@@ -26,4 +26,5 @@ public abstract class CandidateIndex {
     }
 
     public abstract String createIdxStatement();
+    public abstract String createIdxStatementWithId(int id);
 }

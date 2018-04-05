@@ -19,7 +19,7 @@
  *
  */
 
-package interval_tree;
+package interval_tree.PDF;
 
 import java.io.Serializable;
 import java.util.ArrayList;

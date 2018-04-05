@@ -33,7 +33,7 @@ package interval_tree.GUI; /****************************************************
 
 import java.awt.*;
 
-import static interval_tree.MyIntervalTree.rescale;
+import static interval_tree.DataStructure.IntervalTree.rescale;
 
 /**
  *  The {@code StdStats} class provides static methods for computing

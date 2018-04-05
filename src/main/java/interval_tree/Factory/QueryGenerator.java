@@ -1,4 +1,4 @@
-package interval_tree;
+package interval_tree.Factory;
 
 
 import java.util.Random;
@@ -9,20 +9,20 @@ import java.util.Random;
 public class QueryGenerator {
 
     final static String COLUMNS[] = {"A", "B", "C"};
-//    final static long RANGE[] = {0, 100000000L};
-    final static int NR_OF_QUERIES = 5000;
+    final static int NR_OF_QUERIES = 300;
 
     private static int nrOfQueries = 0;
 
-    static String generateBatchOfQueries(){
+    public static String generateBatchOfQueries(){
         nrOfQueries = 0;
 
-        String sqlPrefix = "SELECT * FROM Customers WHERE ";
+        String sqlPrefix = "SELECT * FROM TestTable WHERE ";
         StringBuilder stmts = new StringBuilder();
 
         Random rand = new Random();
 
-        final int maxDuplicates = 300;
+        final int maxDuplicates = 50;
+
         final int maxUpperBound = 300000;
 
         final int firstLowerBound = 20000;

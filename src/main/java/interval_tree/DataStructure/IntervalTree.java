@@ -1,12 +1,13 @@
-package interval_tree;
+package interval_tree.DataStructure;
 
 import interval_tree.GUI.Histogram;
 import interval_tree.GUI.StdDraw;
+import interval_tree.PDF.UnivariateKernelEstimator;
 
 import java.util.stream.IntStream;
 
 // ToDO: Implement Red-Black tree self-balancing
-public class MyIntervalTree {
+public class IntervalTree {
 
     public class TreeNode{
         TreeNode left, right;
@@ -122,7 +123,7 @@ public class MyIntervalTree {
     private int maxVal;
     private int frequency;
 
-    public MyIntervalTree(){
+    public IntervalTree(){
         frequency = 0;
         histogram = null;
         root = null;
