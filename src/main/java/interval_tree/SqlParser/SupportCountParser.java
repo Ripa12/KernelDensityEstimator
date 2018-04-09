@@ -9,24 +9,23 @@ import net.sf.jsqlparser.expression.operators.relational.*;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.select.SubSelect;
 
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Richard on 2018-03-04.
  */
-public class GenericExpressionVisitor implements ExpressionVisitor {
+public class SupportCountParser implements ExpressionVisitor {
 
-    private Map<String, IntervalTree> intervalTrees;
 
-    private int extractedValue; // ToDo: Only integers are considered as of now
+    private Map<String, Integer> supportCount;
 
     private String extractedColumn;
 
     private boolean isInterval;
 
-    public GenericExpressionVisitor(Map<String, IntervalTree> trees){
-        intervalTrees = trees;
-        extractedValue = 0;
+    public SupportCountParser(Map<String, Integer> supportCount){
+        this.supportCount = supportCount;
         extractedColumn = "";
         isInterval = false;
     }
@@ -47,10 +46,10 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
 
     }
     public void visit(DoubleValue doubleValue) {
-        extractedValue = (int)doubleValue.getValue();
+
     }
     public void visit(LongValue longValue) {
-        extractedValue = (int)longValue.getValue();
+
     }
     public void visit(HexValue hexValue) {
 
@@ -72,7 +71,6 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
     public void visit(StringValue stringValue) {
 
     }
-
     public void visit(Addition addition) {
 
     }
@@ -87,23 +85,20 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
     }
 
     public void visit(AndExpression andExpression) {
-        int start, end;
         String leftCol, rightCol;
 
         isInterval = true;
 
         andExpression.getLeftExpression().accept(this);
-        start = extractedValue;
         leftCol = extractedColumn;
 
         andExpression.getRightExpression().accept(this);
-        end = extractedValue;
         rightCol = extractedColumn;
 
         // ToDo: identical columns must be part of same AND expression (i.e. A > 2 AND A < 4, not A > 2 AND B > 1 AND A < 5)
         if (leftCol.equalsIgnoreCase(rightCol)){
             // ToDo: maybe check that start is smaller than end?
-            intervalTrees.get(rightCol).insert(new IntervalTree.Interval(start, end));
+            supportCount.put(rightCol, supportCount.get(rightCol) + 1);
         }
         else{
             // ToDo: no support for infinity yet...
@@ -127,7 +122,7 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
         equalsTo.getLeftExpression().accept(this);
         equalsTo.getRightExpression().accept(this);
 
-        intervalTrees.get(extractedColumn).insert(new IntervalTree.Point(extractedValue));
+        supportCount.put(extractedColumn, supportCount.get(extractedColumn));
     }
 
     public void visit(GreaterThan greaterThan) {
@@ -136,7 +131,6 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
         greaterThan.getRightExpression().accept(this);
 
         // ToDo: what if decimal?
-        extractedValue += 1;
 
     }
 
@@ -149,11 +143,9 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
     public void visit(InExpression inExpression) {
 
     }
-
     public void visit(IsNullExpression isNullExpression) {
 
     }
-
     public void visit(LikeExpression likeExpression) {
 
     }
@@ -162,8 +154,6 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
 
         minorThan.getLeftExpression().accept(this);
         minorThan.getRightExpression().accept(this);
-
-        extractedValue -= 1;
     }
 
     public void visit(MinorThanEquals minorThanEquals) {
@@ -178,7 +168,6 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
     }
 
     public void visit(Column column) {
-        //System.out.println("Attribute: " + column.getColumnName());
         extractedColumn = column.getColumnName();
     }
 

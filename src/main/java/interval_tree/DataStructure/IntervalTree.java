@@ -27,8 +27,8 @@ public class IntervalTree {
         }
     }
 
-    static abstract class NodeData{
-        public int weight;
+    public static abstract class NodeData{
+        int weight;
 
         NodeData(){
             weight = 1;
@@ -115,9 +115,10 @@ public class IntervalTree {
 
     }
 
-
+    // ToDo: Would it be possible for histogram and estimator to be static?
     private Histogram histogram;
     private UnivariateKernelEstimator estimator;
+
     private TreeNode root;
     private int minVal;
     private int maxVal;
@@ -126,6 +127,7 @@ public class IntervalTree {
     public IntervalTree(){
         frequency = 0;
         histogram = null;
+        estimator = null;
         root = null;
         minVal = Integer.MAX_VALUE;
         maxVal = Integer.MIN_VALUE;

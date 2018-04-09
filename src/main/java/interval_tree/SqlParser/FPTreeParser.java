@@ -1,6 +1,7 @@
 package interval_tree.SqlParser;
 
 import interval_tree.DataStructure.IntervalTree;
+import interval_tree.FrequentPatternMining.FPTree;
 import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.expression.operators.arithmetic.*;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
@@ -9,14 +10,16 @@ import net.sf.jsqlparser.expression.operators.relational.*;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.select.SubSelect;
 
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Richard on 2018-03-04.
  */
-public class GenericExpressionVisitor implements ExpressionVisitor {
+public class FPTreeParser implements ExpressionVisitor {
 
-    private Map<String, IntervalTree> intervalTrees;
+    private FPTree fpTree;
+
+    private Map<String, Integer> supportCount;
 
     private int extractedValue; // ToDo: Only integers are considered as of now
 
@@ -24,66 +27,23 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
 
     private boolean isInterval;
 
-    public GenericExpressionVisitor(Map<String, IntervalTree> trees){
-        intervalTrees = trees;
+    private TreeMap<String, IntervalTree.NodeData> list;
+
+    public FPTreeParser(Map<String, Integer> supportCount){
+        this.supportCount = supportCount;
         extractedValue = 0;
         extractedColumn = "";
         isInterval = false;
+
+        list = new TreeMap<>();
     }
 
-    public void visit(NullValue nullValue) {
-
-    }
-    public void visit(Function function) {
-
-    }
-    public void visit(SignedExpression signedExpression) {
-
-    }
-    public void visit(JdbcParameter jdbcParameter) {
-
-    }
-    public void visit(JdbcNamedParameter jdbcNamedParameter) {
-
-    }
-    public void visit(DoubleValue doubleValue) {
-        extractedValue = (int)doubleValue.getValue();
-    }
-    public void visit(LongValue longValue) {
-        extractedValue = (int)longValue.getValue();
-    }
-    public void visit(HexValue hexValue) {
-
-    }
-    public void visit(DateValue dateValue) {
-
-    }
-    public void visit(TimeValue timeValue) {
-
-    }
-    public void visit(TimestampValue timestampValue) {
-
-    }
-    public void visit(Parenthesis parenthesis) {
-
-    }
-
-    // ToDo: Strings are out of scope, ignore!
-    public void visit(StringValue stringValue) {
-
-    }
-
-    public void visit(Addition addition) {
-
-    }
-    public void visit(Division division) {
-
-    }
-    public void visit(Multiplication multiplication) {
-
-    }
-    public void visit(Subtraction subtraction) {
-
+    public void parse(Expression exp){
+        list.clear();
+        exp.accept(this);
+        //list.sort(Comparator.comparingInt(supportCount::get));
+        //list.removeIf(x -> supportCount.get(x.getKey()) < 3); ToDo: Filter infrequent items here!
+        fpTree.insertTree(list.keySet(), (IntervalTree.NodeData[]) list.values().toArray());
     }
 
     public void visit(AndExpression andExpression) {
@@ -103,7 +63,7 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
         // ToDo: identical columns must be part of same AND expression (i.e. A > 2 AND A < 4, not A > 2 AND B > 1 AND A < 5)
         if (leftCol.equalsIgnoreCase(rightCol)){
             // ToDo: maybe check that start is smaller than end?
-            intervalTrees.get(rightCol).insert(new IntervalTree.Interval(start, end));
+            list.put(rightCol, new IntervalTree.Interval(start, end));
         }
         else{
             // ToDo: no support for infinity yet...
@@ -127,7 +87,7 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
         equalsTo.getLeftExpression().accept(this);
         equalsTo.getRightExpression().accept(this);
 
-        intervalTrees.get(extractedColumn).insert(new IntervalTree.Point(extractedValue));
+        list.put(extractedColumn, new IntervalTree.Point(extractedValue));
     }
 
     public void visit(GreaterThan greaterThan) {
@@ -144,18 +104,6 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
 
         greaterThanEquals.getLeftExpression().accept(this);
         greaterThanEquals.getRightExpression().accept(this);
-    }
-
-    public void visit(InExpression inExpression) {
-
-    }
-
-    public void visit(IsNullExpression isNullExpression) {
-
-    }
-
-    public void visit(LikeExpression likeExpression) {
-
     }
 
     public void visit(MinorThan minorThan) {
@@ -273,6 +221,67 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
 
     }
     public void visit(NotExpression notExpression) {
+
+    }
+    public void visit(NullValue nullValue) {
+
+    }
+    public void visit(Function function) {
+
+    }
+    public void visit(SignedExpression signedExpression) {
+
+    }
+    public void visit(JdbcParameter jdbcParameter) {
+
+    }
+    public void visit(JdbcNamedParameter jdbcNamedParameter) {
+
+    }
+    public void visit(DoubleValue doubleValue) {
+        extractedValue = (int)doubleValue.getValue();
+    }
+    public void visit(LongValue longValue) {
+        extractedValue = (int)longValue.getValue();
+    }
+    public void visit(HexValue hexValue) {
+
+    }
+    public void visit(DateValue dateValue) {
+
+    }
+    public void visit(TimeValue timeValue) {
+
+    }
+    public void visit(TimestampValue timestampValue) {
+
+    }
+    public void visit(Parenthesis parenthesis) {
+
+    }
+    // ToDo: Strings are out of scope, ignore!
+    public void visit(StringValue stringValue) {
+
+    }
+    public void visit(Addition addition) {
+
+    }
+    public void visit(Division division) {
+
+    }
+    public void visit(Multiplication multiplication) {
+
+    }
+    public void visit(Subtraction subtraction) {
+
+    }
+    public void visit(InExpression inExpression) {
+
+    }
+    public void visit(IsNullExpression isNullExpression) {
+
+    }
+    public void visit(LikeExpression likeExpression) {
 
     }
 }
