@@ -6,8 +6,12 @@ import interval_tree.CandidateIndex.PartialIndex;
 import interval_tree.DBMS.PostgreSql;
 import interval_tree.DataStructure.IntervalTree;
 import interval_tree.Factory.QueryGenerator;
+import interval_tree.FrequentPatternMining.FPTree;
 import interval_tree.KnapsackProblem.DynamicProgramming;
+import interval_tree.SqlParser.FPTreeParser;
 import interval_tree.SqlParser.GenericExpressionVisitor;
+import interval_tree.SqlParser.IExpressionVisitor;
+import interval_tree.SqlParser.SupportCountParser;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.ExpressionVisitor;
@@ -87,10 +91,25 @@ public class Experiment {
                 kernelEstimatedTime/ 1000000000.0);
     }
 
+    public void testFPGrowth(){
+        Map<String, Integer> supportCount = new HashMap<>();
+        supportCount.put("A", 0);
+        supportCount.put("B", 0);
+        supportCount.put("C", 0);
+
+        parseQueries(new SupportCountParser(supportCount));
+
+        FPTree fpTree = new FPTree();
+
+        parseQueries(new FPTreeParser(supportCount, fpTree));
+
+        supportCount.size();
+    }
+
     public void run(boolean enablePartialIdxs){
         List<AbstractIndex> indexList = new ArrayList<>();
 
-        parseQueries();
+        parseQueries(new GenericExpressionVisitor(intervalTrees));
 
         if(enablePartialIdxs)
             suggestPartialIndexes(indexList);
@@ -101,8 +120,8 @@ public class Experiment {
     }
 
 
-    private void parseQueries(){
-        ExpressionVisitor visitor = new GenericExpressionVisitor(intervalTrees);
+    private void parseQueries(IExpressionVisitor visitor){
+//        ExpressionVisitor visitor = new GenericExpressionVisitor(intervalTrees); // ToDo: pass visitor as argument instead to allow for polymorphism
 
         //CCJSqlParserManager parserManager = new CCJSqlParserManager();
 
@@ -116,7 +135,10 @@ public class Experiment {
 
                 Expression exp = ps.getWhere();
 
+                visitor.before();
                 exp.accept(visitor);
+                visitor.after();
+
                 System.out.println();
             }
             parseEstimatedTime = System.nanoTime() - parseStartTime;

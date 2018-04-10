@@ -15,11 +15,11 @@ import java.util.*;
 /**
  * Created by Richard on 2018-03-04.
  */
-public class FPTreeParser implements ExpressionVisitor {
+public class FPTreeParser implements IExpressionVisitor {
 
     private FPTree fpTree;
 
-    private Map<String, Integer> supportCount;
+//    private Map<String, Integer> supportCount;
 
     private int extractedValue; // ToDo: Only integers are considered as of now
 
@@ -29,21 +29,25 @@ public class FPTreeParser implements ExpressionVisitor {
 
     private TreeMap<String, IntervalTree.NodeData> list;
 
-    public FPTreeParser(Map<String, Integer> supportCount){
-        this.supportCount = supportCount;
+    public FPTreeParser(Map<String, Integer> supportCount, FPTree fpTree){
+//        this.supportCount = supportCount;
+
+        this.fpTree = fpTree;
         extractedValue = 0;
         extractedColumn = "";
         isInterval = false;
 
-        list = new TreeMap<>();
+        list = new TreeMap<>(Comparator.comparingInt(supportCount::get));
     }
 
-    public void parse(Expression exp){
+    @Override
+    public void before() {
         list.clear();
-        exp.accept(this);
-        //list.sort(Comparator.comparingInt(supportCount::get));
-        //list.removeIf(x -> supportCount.get(x.getKey()) < 3); ToDo: Filter infrequent items here!
-        fpTree.insertTree(list.keySet(), (IntervalTree.NodeData[]) list.values().toArray());
+    }
+
+    @Override
+    public void after() {
+        fpTree.insertTree(list.keySet(), list.values().toArray(new IntervalTree.NodeData[0]));
     }
 
     public void visit(AndExpression andExpression) {

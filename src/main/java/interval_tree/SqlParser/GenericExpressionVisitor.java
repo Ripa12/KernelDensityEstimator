@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Created by Richard on 2018-03-04.
  */
-public class GenericExpressionVisitor implements ExpressionVisitor {
+public class GenericExpressionVisitor implements IExpressionVisitor {
 
     private Map<String, IntervalTree> intervalTrees;
 
@@ -29,6 +29,16 @@ public class GenericExpressionVisitor implements ExpressionVisitor {
         extractedValue = 0;
         extractedColumn = "";
         isInterval = false;
+    }
+
+    @Override
+    public void before() {
+
+    }
+
+    @Override
+    public void after() {
+
     }
 
     public void visit(NullValue nullValue) {

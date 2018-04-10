@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by Richard on 2018-03-04.
  */
-public class SupportCountParser implements ExpressionVisitor {
+public class SupportCountParser implements IExpressionVisitor {
 
 
     private Map<String, Integer> supportCount;
@@ -28,6 +28,16 @@ public class SupportCountParser implements ExpressionVisitor {
         this.supportCount = supportCount;
         extractedColumn = "";
         isInterval = false;
+    }
+
+    @Override
+    public void before() {
+
+    }
+
+    @Override
+    public void after() {
+
     }
 
     public void visit(NullValue nullValue) {
@@ -122,7 +132,7 @@ public class SupportCountParser implements ExpressionVisitor {
         equalsTo.getLeftExpression().accept(this);
         equalsTo.getRightExpression().accept(this);
 
-        supportCount.put(extractedColumn, supportCount.get(extractedColumn));
+        supportCount.put(extractedColumn, supportCount.get(extractedColumn) + 1);
     }
 
     public void visit(GreaterThan greaterThan) {

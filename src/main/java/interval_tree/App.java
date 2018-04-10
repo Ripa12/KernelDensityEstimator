@@ -19,18 +19,20 @@ public class App
 
         Experiment exp = new Experiment(q);
 
-        exp.run(false);
-        String fullIndexInfo = exp.toString();
+//        exp.run(false);
+//        String fullIndexInfo = exp.toString();
+//
+//        exp.run(true);
+//        String partialIndexInfo = exp.toString();
+//
+//        System.out.println("generatorStartTime: " + generatorEstimatedTime/ 1000000000.0);
+//
+//        System.out.println("-- Full Index --");
+//        System.out.println(fullIndexInfo);
+//
+//        System.out.println("-- Partial Index --");
+//        System.out.println(partialIndexInfo);
 
-        exp.run(true);
-        String partialIndexInfo = exp.toString();
-
-        System.out.println("generatorStartTime: " + generatorEstimatedTime/ 1000000000.0);
-
-        System.out.println("-- Full Index --");
-        System.out.println(fullIndexInfo);
-
-        System.out.println("-- Partial Index --");
-        System.out.println(partialIndexInfo);
+        exp.testFPGrowth();
     }
 }

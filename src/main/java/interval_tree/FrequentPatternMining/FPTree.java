@@ -19,7 +19,10 @@ public class FPTree {
 
         public FPTreeNode(FPTreeNode parent, int level) {
             this.intervalTree = new IntervalTree[level];
-            Arrays.fill(this.intervalTree, new IntervalTree());
+            for (int i = 0; i < level; i++) {
+                this.intervalTree[i] = new IntervalTree();
+            }
+//            Arrays.fill(this.intervalTree, new IntervalTree());
 
             this.children = new TreeMap<>();
             this.parent = parent;
