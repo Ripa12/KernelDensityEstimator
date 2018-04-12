@@ -2,14 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43c2164e-8c55-4ad6-acee-9b3228d9d1d5" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/IExpressionVisitor.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/CompoundPartialIndex.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/IIndex.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/App.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/App.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/AbstractIndex.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/AbstractIndex.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/PartialIndex.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/PartialIndex.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/DataStructure/IntervalTree.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/DataStructure/IntervalTree.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FPTree.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FPTree.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FPTree.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/PDF/UnivariateKernelEstimator.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/PDF/UnivariateKernelEstimator.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FPTreeParser.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FPTreeParser.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/GenericExpressionVisitor.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/GenericExpressionVisitor.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/SupportCountParser.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/SupportCountParser.java" />
       <change beforePath="$PROJECT_DIR$/target/classes/interval_tree/App.class" afterPath="$PROJECT_DIR$/target/classes/interval_tree/App.class" />
     </list>
@@ -27,10 +33,80 @@
       <file leaf-file-name="Experiment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+            <state relative-caret-position="419">
+              <caret line="114" column="8" lean-forward="true" selection-start-line="114" selection-start-column="8" selection-end-line="114" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CompoundPartialIndex.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/CompoundPartialIndex.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="683">
+              <caret line="112" column="17" lean-forward="true" selection-start-line="112" selection-start-column="17" selection-end-line="112" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#255#256#0" expanded="true" />
+                <element signature="e#308#309#0" expanded="true" />
+                <element signature="e#362#363#0" expanded="true" />
+                <element signature="e#402#403#0" expanded="true" />
+                <element signature="e#1300#1301#0" expanded="true" />
+                <element signature="e#1349#1350#0" expanded="true" />
+                <element signature="e#1401#1402#0" expanded="true" />
+                <element signature="e#1437#1438#0" expanded="true" />
+                <element signature="e#3304#3305#0" expanded="true" />
+                <element signature="e#3328#3329#0" expanded="true" />
+                <element signature="e#3375#3376#0" expanded="true" />
+                <element signature="e#3399#3400#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PartialIndex.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/PartialIndex.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractIndex.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/AbstractIndex.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PartialFPTree.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="488">
+              <caret line="102" column="9" lean-forward="false" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="9" />
+              <folding>
+                <element signature="e#2687#2688#0" expanded="true" />
+                <element signature="e#2724#2725#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UnivariateKernelEstimator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/PDF/UnivariateKernelEstimator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="573">
+              <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+              <folding>
+                <element signature="e#4739#4740#0" expanded="true" />
+                <element signature="e#4777#4778#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -39,174 +115,8 @@
       <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/App.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="35" column="27" lean-forward="true" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PostgreSql.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SupportCountParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/SupportCountParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#visit#0;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#1;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#2;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#3;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#4;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#5;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#6;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#7;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#8;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#9;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#10;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#11;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#12;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#13;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#14;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#15;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#16;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#23;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#24;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#25;class#SupportCountParser#0" expanded="false" />
-                <element signature="e#4369#4370#0" expanded="true" />
-                <element signature="e#4425#4426#0" expanded="true" />
-                <element signature="method#visit#30;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#31;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#32;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#33;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#34;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#35;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#36;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#37;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#38;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#39;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#40;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#41;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#42;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#43;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#44;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#45;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#46;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#47;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#48;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#49;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#50;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#51;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#52;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#53;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#54;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#55;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#56;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#57;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#58;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#59;class#SupportCountParser#0" expanded="false" />
-                <element signature="method#visit#60;class#SupportCountParser#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FPTreeParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FPTreeParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="534">
-              <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-              <folding>
-                <element signature="e#1301#1302#0" expanded="true" />
-                <element signature="e#1329#1330#0" expanded="true" />
-                <element signature="e#1471#1472#0" expanded="true" />
-                <element signature="method#visit#10;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#11;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#12;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#13;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#14;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#15;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#16;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#17;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#18;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#19;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#20;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#21;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#22;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#23;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#24;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#25;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#26;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#27;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#28;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#29;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#30;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#31;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#32;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#33;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#34;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#35;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#36;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#37;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#38;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#39;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#40;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#41;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#42;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#43;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#44;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#45;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#48;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#49;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#50;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#51;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#52;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#53;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#54;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#55;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#56;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#57;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#58;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#59;class#FPTreeParser#0" expanded="false" />
-                <element signature="method#visit#60;class#FPTreeParser#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FPTree.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FPTree.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#973#974#0" expanded="true" />
-                <element signature="e#1029#1030#0" expanded="true" />
-                <element signature="e#1088#1089#0" expanded="true" />
-                <element signature="e#1134#1135#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QueryGenerator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="669">
-              <caret line="64" column="53" lean-forward="false" selection-start-line="64" selection-start-column="53" selection-end-line="64" selection-end-column="53" />
+            <state relative-caret-position="315">
+              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -215,18 +125,28 @@
       <file leaf-file-name="IntervalTree.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/DataStructure/IntervalTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+            <state relative-caret-position="310">
+              <caret line="247" column="16" lean-forward="false" selection-start-line="247" selection-start-column="16" selection-end-line="247" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1323#1324#0" expanded="true" />
-                <element signature="e#1358#1359#0" expanded="true" />
-                <element signature="e#1389#1390#0" expanded="true" />
-                <element signature="e#1424#1425#0" expanded="true" />
-                <element signature="e#3415#3416#0" expanded="true" />
-                <element signature="e#3447#3448#0" expanded="true" />
-                <element signature="e#4300#4301#0" expanded="true" />
-                <element signature="e#4355#4356#0" expanded="true" />
+                <element signature="e#1440#1441#0" expanded="true" />
+                <element signature="e#1475#1476#0" expanded="true" />
+                <element signature="e#1506#1507#0" expanded="true" />
+                <element signature="e#1541#1542#0" expanded="true" />
+                <element signature="e#2014#2015#0" expanded="true" />
+                <element signature="e#2072#2073#0" expanded="true" />
+                <element signature="e#2142#2143#0" expanded="true" />
+                <element signature="e#2202#2203#0" expanded="true" />
+                <element signature="e#4377#4378#0" expanded="true" />
+                <element signature="e#4413#4414#0" expanded="true" />
+                <element signature="e#4453#4454#0" expanded="true" />
+                <element signature="e#4489#4490#0" expanded="true" />
+                <element signature="e#4661#4662#0" expanded="true" />
+                <element signature="e#4695#4696#0" expanded="true" />
+                <element signature="e#4727#4728#0" expanded="true" />
+                <element signature="e#4759#4760#0" expanded="true" />
+                <element signature="e#6047#6048#0" expanded="true" />
+                <element signature="e#6118#6119#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -255,6 +175,7 @@
       <find>setPenRadius</find>
       <find>intervalTrees</find>
       <find>MyIntervalTree</find>
+      <find>.out</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -296,22 +217,28 @@
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/PostgreSql.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/KnapsackProblem/DynamicProgramming.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/CandidateIndex.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/FullIndex.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/PartialIndex.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/PDF/UnivariateKernelEstimator.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/DataStructure/MyIntervalTree.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/GUI/StdStats.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/MyParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/IExpressionVisitor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/GenericExpressionVisitor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/SupportCountParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/PDF/UnivariateKernelEstimator.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/DataStructure/IntervalTree.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/App.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/IExpressionVisitor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/SupportCountParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/GenericExpressionVisitor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FPTreeParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FPTreeParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/AbstractCompoundIndex.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/FullIndex.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/AbstractSingleIndex.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/PartialIndex.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FPTree.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/IIndex.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/AbstractIndex.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/CompoundPartialIndex.java" />
       </list>
     </option>
   </component>
@@ -336,6 +263,7 @@
     <panes>
       <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -385,7 +313,34 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
+              <item name="DataStructure" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
+              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
+              <item name="DBMS" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
+              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
               <item name="Factory" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
+              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
+              <item name="FrequentPatternMining" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
@@ -418,7 +373,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -686,6 +640,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -702,7 +657,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26978418" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26978418" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -724,26 +679,43 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <condition expression="i &gt; 999" language="JAVA" />
-          <url>file://$PROJECT_DIR$/src/main/java/interval_tree/GUI/Histogram.java</url>
-          <line>26</line>
+          <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
+          <line>109</line>
           <properties />
-          <option name="timeStamp" value="38" />
+          <option name="timeStamp" value="83" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
-          <line>103</line>
+          <line>111</line>
           <properties />
-          <option name="timeStamp" value="76" />
+          <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
-          <line>105</line>
+          <line>218</line>
           <properties />
-          <option name="timeStamp" value="77" />
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
+          <line>195</line>
+          <properties />
+          <option name="timeStamp" value="93" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
+          <line>203</line>
+          <properties />
+          <option name="timeStamp" value="94" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
+          <line>202</line>
+          <properties />
+          <option name="timeStamp" value="95" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="82" />
+      <option name="time" value="97" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -752,9 +724,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/IntegerInterval.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/TreeNode.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Interval.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/IntervalTree.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/KernelEstimator.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/App.java">
@@ -796,26 +765,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/JenksFisher.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/GUI/StdDraw.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1074">
-          <caret line="1179" column="44" lean-forward="true" selection-start-line="1179" selection-start-column="44" selection-end-line="1179" selection-end-column="44" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#25262#25273#0" expanded="false" />
-            <element signature="e#25383#25392#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/GUI/Histogram.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="18" lean-forward="false" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/github/jsqlparser/jsqlparser/1.1/jsqlparser-1.1.jar!/net/sf/jsqlparser/parser/CCJSqlParserUtil.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -832,7 +781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -858,28 +806,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Interval.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/KnapsackProblem/DynamicProgramming.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/AbstractIndex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="22" lean-forward="false" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/PartialIndex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/GUI/Bernoulli.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/GUI/StdRandom.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -892,79 +818,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="362">
           <caret line="35" column="41" lean-forward="false" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/FullIndex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding>
-            <element signature="e#137#138#0" expanded="false" />
-            <element signature="e#167#168#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/PDF/UnivariateKernelEstimator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2504">
-          <caret line="298" column="0" lean-forward="false" selection-start-line="298" selection-start-column="0" selection-end-line="298" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/GenericExpressionVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="41" column="5" lean-forward="false" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
-          <folding>
-            <element signature="method#visit#0;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#1;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#2;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#3;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#4;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#7;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#8;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#9;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#10;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#11;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#13;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#14;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#15;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#16;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#30;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#31;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#32;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#33;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#34;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#35;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#36;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#37;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#38;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#39;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#40;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#41;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#42;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#43;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#44;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#45;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#46;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#47;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#48;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#49;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#50;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#51;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#52;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#53;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#54;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#55;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#56;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#57;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#58;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#59;class#GenericExpressionVisitor#0" expanded="false" />
-            <element signature="method#visit#60;class#GenericExpressionVisitor#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -972,7 +825,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="17" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -980,23 +832,59 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="7" column="9" lean-forward="false" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/GUI/Histogram.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="24" column="42" lean-forward="false" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/GUI/StdDraw.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16695">
+          <caret line="1179" column="44" lean-forward="false" selection-start-line="1179" selection-start-column="44" selection-end-line="1179" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/KnapsackProblem/DynamicProgramming.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="48" column="26" lean-forward="false" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/GenericExpressionVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1049">
+          <caret line="0" column="32" lean-forward="false" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="28" lean-forward="true" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/SupportCountParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="40" column="5" lean-forward="false" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+        <state relative-caret-position="208">
+          <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="method#visit#0;class#SupportCountParser#0" expanded="false" />
             <element signature="method#visit#1;class#SupportCountParser#0" expanded="false" />
             <element signature="method#visit#2;class#SupportCountParser#0" expanded="false" />
             <element signature="method#visit#3;class#SupportCountParser#0" expanded="false" />
             <element signature="method#visit#4;class#SupportCountParser#0" expanded="false" />
-            <element signature="method#visit#5;class#SupportCountParser#0" expanded="false" />
-            <element signature="method#visit#6;class#SupportCountParser#0" expanded="false" />
             <element signature="method#visit#7;class#SupportCountParser#0" expanded="false" />
             <element signature="method#visit#8;class#SupportCountParser#0" expanded="false" />
             <element signature="method#visit#9;class#SupportCountParser#0" expanded="false" />
@@ -1010,8 +898,6 @@
             <element signature="method#visit#23;class#SupportCountParser#0" expanded="false" />
             <element signature="method#visit#24;class#SupportCountParser#0" expanded="false" />
             <element signature="method#visit#25;class#SupportCountParser#0" expanded="false" />
-            <element signature="e#4369#4370#0" expanded="true" />
-            <element signature="e#4425#4426#0" expanded="true" />
             <element signature="method#visit#30;class#SupportCountParser#0" expanded="false" />
             <element signature="method#visit#31;class#SupportCountParser#0" expanded="false" />
             <element signature="method#visit#32;class#SupportCountParser#0" expanded="false" />
@@ -1049,127 +935,144 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="854">
+          <caret line="101" column="22" lean-forward="false" selection-start-line="101" selection-start-column="18" selection-end-line="101" selection-end-column="22" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/App.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="27" lean-forward="true" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
+        <state relative-caret-position="315">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/AbstractCompoundIndex.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="669">
-          <caret line="64" column="53" lean-forward="false" selection-start-line="64" selection-start-column="53" selection-end-line="64" selection-end-column="53" />
+        <state relative-caret-position="165">
+          <caret line="11" column="4" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/FullIndex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="6" column="5" lean-forward="false" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/DataStructure/IntervalTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="149" column="0" lean-forward="false" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+        <state relative-caret-position="310">
+          <caret line="247" column="16" lean-forward="false" selection-start-line="247" selection-start-column="16" selection-end-line="247" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1323#1324#0" expanded="true" />
-            <element signature="e#1358#1359#0" expanded="true" />
-            <element signature="e#1389#1390#0" expanded="true" />
-            <element signature="e#1424#1425#0" expanded="true" />
-            <element signature="e#3415#3416#0" expanded="true" />
-            <element signature="e#3447#3448#0" expanded="true" />
-            <element signature="e#4300#4301#0" expanded="true" />
-            <element signature="e#4355#4356#0" expanded="true" />
+            <element signature="e#1440#1441#0" expanded="true" />
+            <element signature="e#1475#1476#0" expanded="true" />
+            <element signature="e#1506#1507#0" expanded="true" />
+            <element signature="e#1541#1542#0" expanded="true" />
+            <element signature="e#2014#2015#0" expanded="true" />
+            <element signature="e#2072#2073#0" expanded="true" />
+            <element signature="e#2142#2143#0" expanded="true" />
+            <element signature="e#2202#2203#0" expanded="true" />
+            <element signature="e#4377#4378#0" expanded="true" />
+            <element signature="e#4413#4414#0" expanded="true" />
+            <element signature="e#4453#4454#0" expanded="true" />
+            <element signature="e#4489#4490#0" expanded="true" />
+            <element signature="e#4661#4662#0" expanded="true" />
+            <element signature="e#4695#4696#0" expanded="true" />
+            <element signature="e#4727#4728#0" expanded="true" />
+            <element signature="e#4759#4760#0" expanded="true" />
+            <element signature="e#6047#6048#0" expanded="true" />
+            <element signature="e#6118#6119#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/IIndex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FPTreeParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="534">
-          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        <state relative-caret-position="-2395">
+          <caret line="49" column="14" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/PDF/UnivariateKernelEstimator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="573">
+          <caret line="148" column="0" lean-forward="false" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
           <folding>
-            <element signature="e#1301#1302#0" expanded="true" />
-            <element signature="e#1329#1330#0" expanded="true" />
-            <element signature="e#1471#1472#0" expanded="true" />
-            <element signature="method#visit#10;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#11;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#12;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#13;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#14;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#15;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#16;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#17;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#18;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#19;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#20;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#21;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#22;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#23;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#24;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#25;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#26;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#27;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#28;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#29;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#30;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#31;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#32;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#33;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#34;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#35;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#36;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#37;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#38;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#39;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#40;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#41;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#42;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#43;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#44;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#45;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#48;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#49;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#50;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#51;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#52;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#53;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#54;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#55;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#56;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#57;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#58;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#59;class#FPTreeParser#0" expanded="false" />
-            <element signature="method#visit#60;class#FPTreeParser#0" expanded="false" />
+            <element signature="e#4739#4740#0" expanded="true" />
+            <element signature="e#4777#4778#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FPTree.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state relative-caret-position="488">
+          <caret line="102" column="9" lean-forward="false" selection-start-line="102" selection-start-column="9" selection-end-line="102" selection-end-column="9" />
+          <folding>
+            <element signature="e#2687#2688#0" expanded="true" />
+            <element signature="e#2724#2725#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/AbstractIndex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/PartialIndex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/CompoundPartialIndex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="683">
+          <caret line="112" column="17" lean-forward="true" selection-start-line="112" selection-start-column="17" selection-end-line="112" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#973#974#0" expanded="true" />
-            <element signature="e#1029#1030#0" expanded="true" />
-            <element signature="e#1088#1089#0" expanded="true" />
-            <element signature="e#1134#1135#0" expanded="true" />
+            <element signature="e#255#256#0" expanded="true" />
+            <element signature="e#308#309#0" expanded="true" />
+            <element signature="e#362#363#0" expanded="true" />
+            <element signature="e#402#403#0" expanded="true" />
+            <element signature="e#1300#1301#0" expanded="true" />
+            <element signature="e#1349#1350#0" expanded="true" />
+            <element signature="e#1401#1402#0" expanded="true" />
+            <element signature="e#1437#1438#0" expanded="true" />
+            <element signature="e#3304#3305#0" expanded="true" />
+            <element signature="e#3328#3329#0" expanded="true" />
+            <element signature="e#3375#3376#0" expanded="true" />
+            <element signature="e#3399#3400#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="105" column="0" lean-forward="false" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+        <state relative-caret-position="419">
+          <caret line="114" column="8" lean-forward="true" selection-start-line="114" selection-start-column="8" selection-end-line="114" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

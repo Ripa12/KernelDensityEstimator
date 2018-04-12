@@ -12,7 +12,7 @@ public class PartialIndex extends AbstractIndex {
 
     @Override
     public String createIdxStatement() {
-        String filter = "(" + columnNames + " > " + start + " AND " + columnNames + " < " + end + ");'";
+        String filter = "(" + columnNames + " > " + start + " AND " + columnNames + " < " + end + "(";
         return "'CREATE INDEX ON TestTable("+ columnNames +") where " + filter; // ToDo: what table-name to use?
     }
 
@@ -21,5 +21,9 @@ public class PartialIndex extends AbstractIndex {
         String filter = "(" + columnNames + " > " + start + " AND " + columnNames + " < " + end + ");";
         String res =  "CREATE INDEX idx_" + id + " ON TestTable("+ columnNames +") where " + filter; // ToDo: what table-name to use?
         return res;
+    }
+
+    public String getPredicate() {
+        return "(" + columnNames + " > " + start + " AND " + columnNames + " < " + end + ")";
     }
 }

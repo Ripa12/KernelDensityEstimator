@@ -18,13 +18,14 @@ import java.util.Map;
 public class SupportCountParser implements IExpressionVisitor {
 
 
-    private Map<String, Integer> supportCount;
+    private Map<String, Integer[]> supportCount;
 
     private String extractedColumn;
+    private int extractedValue;
 
     private boolean isInterval;
 
-    public SupportCountParser(Map<String, Integer> supportCount){
+    public SupportCountParser(Map<String, Integer[]> supportCount){
         this.supportCount = supportCount;
         extractedColumn = "";
         isInterval = false;
@@ -56,10 +57,10 @@ public class SupportCountParser implements IExpressionVisitor {
 
     }
     public void visit(DoubleValue doubleValue) {
-
+        extractedValue = (int)doubleValue.getValue();
     }
     public void visit(LongValue longValue) {
-
+        extractedValue = (int)longValue.getValue();
     }
     public void visit(HexValue hexValue) {
 
@@ -95,20 +96,26 @@ public class SupportCountParser implements IExpressionVisitor {
     }
 
     public void visit(AndExpression andExpression) {
+        int start, end;
         String leftCol, rightCol;
 
         isInterval = true;
 
         andExpression.getLeftExpression().accept(this);
         leftCol = extractedColumn;
+        start = extractedValue;
 
         andExpression.getRightExpression().accept(this);
         rightCol = extractedColumn;
+        end = extractedValue;
 
         // ToDo: identical columns must be part of same AND expression (i.e. A > 2 AND A < 4, not A > 2 AND B > 1 AND A < 5)
         if (leftCol.equalsIgnoreCase(rightCol)){
             // ToDo: maybe check that start is smaller than end?
-            supportCount.put(rightCol, supportCount.get(rightCol) + 1);
+//            supportCount.put(rightCol, supportCount.get(rightCol)[0] + 1);
+            supportCount.get(rightCol)[0]++;
+            supportCount.get(extractedColumn)[1] = Math.min(supportCount.get(extractedColumn)[1], start);
+            supportCount.get(extractedColumn)[2] = Math.max(supportCount.get(extractedColumn)[2], end);
         }
         else{
             // ToDo: no support for infinity yet...
@@ -132,7 +139,10 @@ public class SupportCountParser implements IExpressionVisitor {
         equalsTo.getLeftExpression().accept(this);
         equalsTo.getRightExpression().accept(this);
 
-        supportCount.put(extractedColumn, supportCount.get(extractedColumn) + 1);
+//        supportCount.put(extractedColumn, supportCount.get(extractedColumn) + 1);
+        supportCount.get(extractedColumn)[0]++;
+        supportCount.get(extractedColumn)[1] = Math.min(supportCount.get(extractedColumn)[1], extractedValue);
+        supportCount.get(extractedColumn)[2] = Math.max(supportCount.get(extractedColumn)[2], extractedValue);
     }
 
     public void visit(GreaterThan greaterThan) {

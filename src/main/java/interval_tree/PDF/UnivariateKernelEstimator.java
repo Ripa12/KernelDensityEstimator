@@ -29,6 +29,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
+import interval_tree.DataStructure.IntervalTree;
 import weka.core.RevisionUtils;
 import weka.core.Statistics;
 import weka.core.Utils;
@@ -143,7 +144,12 @@ public class UnivariateKernelEstimator implements UnivariateDensityEstimator,
      */
     @Override
     public double[][] predictIntervals(double conf) {
+        return new double[0][];
+    }
 
+//    @Override
+//    public double[][] predictIntervals(double conf) {
+    public double[][] predictIntervals(double conf, int oldMin, int oldMax) {
         // Update the bandwidth
         updateWidth();
 
@@ -197,12 +203,12 @@ public class UnivariateKernelEstimator implements UnivariateDensityEstimator,
                 if (haveStartedInterval == false) {
                     haveStartedInterval = true;
                     interval = new double[3];
-                    interval[0] = min + i * delta;
+                    interval[0] = IntervalTree.rescale(min + i * delta, oldMin, oldMax);
                     interval[2] = 0;
                 }
 
                 // Regardless, we should update the upper boundary
-                interval[1] = min + (i + 1) * delta;
+                interval[1] = IntervalTree.rescale(min + (i + 1) * delta, oldMin, oldMax);
                 interval[2] += probabilities[i];
             } else {
 

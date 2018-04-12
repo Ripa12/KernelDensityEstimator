@@ -8,14 +8,14 @@ import java.util.Random;
  */
 public class QueryGenerator {
 
-    private final static String COLUMNS[] = {"A", "B", "C"};
-    private final static int NR_OF_QUERIES = 300;
+    private final static String COLUMNS[] = {"A", "B", "C", "D"};
+    private final static int NR_OF_QUERIES = 400;
     private final static int MAX_DUPLICATES = 50;
-    private final static int MAX_UPPER_BOUND = 300000;
-    private final static int FIRST_LOWER_BOUND = 20000;
-    private final static int FIRST_UPPER_BOUND = 75000;
-    private final static int SECOND_LOWER_BOUND = 100000;
-    private final static int SECOND_UPPER_BOUND = 120000;
+    private final static int MAX_UPPER_BOUND = 450000;
+    private final static int FIRST_LOWER_BOUND = 0;
+    private final static int FIRST_UPPER_BOUND = 45000;
+    private final static int SECOND_LOWER_BOUND = 420000;
+    private final static int SECOND_UPPER_BOUND = 450000;
 
     private static Random rand;
 
@@ -67,6 +67,9 @@ public class QueryGenerator {
 
         }
 
+        // ToDo: Remember A is a clustered key!
+//        stmts.append(sqlPrefix).append("A = 750000000;\n"); //ToDo: Testing purposes
+
         System.out.println("NrOfQueries: " + nrOfQueries);
         System.out.println("NrOfPredicates: " + nrOfPredicates);
 
@@ -79,12 +82,14 @@ public class QueryGenerator {
             int end;
 
             int random = rand.nextInt(101);
-            if (random <= 87) { //This is 20% more
+            if (random <= 67) { //This is 20% more
                 start = rand.nextInt((FIRST_UPPER_BOUND - FIRST_LOWER_BOUND) + 1) + FIRST_LOWER_BOUND;
                 end = rand.nextInt((FIRST_UPPER_BOUND - start) + 1) + start;
-            } else if (random <= 92) {
-                start = rand.nextInt((SECOND_UPPER_BOUND - SECOND_LOWER_BOUND) + 1) + SECOND_LOWER_BOUND;
-                end = rand.nextInt((SECOND_UPPER_BOUND - start) + 1) + start;
+            } else if (random <= 89) {
+//                start = rand.nextInt((SECOND_UPPER_BOUND - SECOND_LOWER_BOUND) + 1) + SECOND_LOWER_BOUND;
+//                end = rand.nextInt((SECOND_UPPER_BOUND - start) + 1) + start;
+                start = SECOND_LOWER_BOUND;
+                end = SECOND_UPPER_BOUND;
             } else {
                 start = rand.nextInt(MAX_UPPER_BOUND);
                 end = rand.nextInt((MAX_UPPER_BOUND - start) + 1) + start;

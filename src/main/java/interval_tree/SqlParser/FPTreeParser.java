@@ -1,7 +1,7 @@
 package interval_tree.SqlParser;
 
 import interval_tree.DataStructure.IntervalTree;
-import interval_tree.FrequentPatternMining.FPTree;
+import interval_tree.FrequentPatternMining.PartialFPTree;
 import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.expression.operators.arithmetic.*;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
@@ -17,7 +17,7 @@ import java.util.*;
  */
 public class FPTreeParser implements IExpressionVisitor {
 
-    private FPTree fpTree;
+    private PartialFPTree fpTree;
 
 //    private Map<String, Integer> supportCount;
 
@@ -29,7 +29,7 @@ public class FPTreeParser implements IExpressionVisitor {
 
     private TreeMap<String, IntervalTree.NodeData> list;
 
-    public FPTreeParser(Map<String, Integer> supportCount, FPTree fpTree){
+    public FPTreeParser(Map<String, Integer[]> supportCount, PartialFPTree fpTree){
 //        this.supportCount = supportCount;
 
         this.fpTree = fpTree;
@@ -37,7 +37,7 @@ public class FPTreeParser implements IExpressionVisitor {
         extractedColumn = "";
         isInterval = false;
 
-        list = new TreeMap<>(Comparator.comparingInt(supportCount::get));
+        list = new TreeMap<>(Comparator.comparingInt(o -> supportCount.get(o)[0]));
     }
 
     @Override

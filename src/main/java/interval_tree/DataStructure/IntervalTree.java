@@ -43,6 +43,9 @@ public class IntervalTree {
         abstract boolean equalTo(NodeData other);
         abstract void insertToKernel(UnivariateKernelEstimator e);
         abstract void insertToHistogram(Histogram e, int oldMin, int oldMax);
+
+        abstract void scaleData(int oldMin, int oldMax);
+        abstract void rescaleData(int oldMin, int oldMax);
     }
 
     public static class Point extends NodeData {
@@ -74,6 +77,16 @@ public class IntervalTree {
             e.addDataPoint(scale(data, oldMin, oldMax));
         }
 
+        @Override
+        void scaleData(int oldMin, int oldMax) {
+            data = scale(data, oldMin, oldMax);
+        }
+
+        @Override
+        void rescaleData(int oldMin, int oldMax) {
+            data = rescale(data, oldMin, oldMax);
+        }
+
     }
 
     public static class Interval extends NodeData {
@@ -101,7 +114,8 @@ public class IntervalTree {
 
         @Override
         void insertToKernel(UnivariateKernelEstimator e) {
-            IntStream.range(start, end).filter(x->x%BinRange==0)
+            int localBinRange = 500;//Math.max((end - start) / 10, 1);
+            IntStream.range(start, end).filter(x->x%localBinRange==0)
                     .mapToDouble(x->x)
                     .forEach(x->e.addValue(x, weight/1));
 //                    .forEach(x->e.addValue(x, weight/100));
@@ -109,39 +123,95 @@ public class IntervalTree {
 
         @Override
         void insertToHistogram(Histogram e, int oldMin, int oldMax) {
-            IntStream.range(start, end).filter(x->x%BinRange==0)
+            int localBinRange = 500;//Math.max((end - start) / 10, 1);
+            IntStream.range(start, end).filter(x->x%localBinRange==0)
                     .forEach(x->e.addDataPoint(scale(x, oldMin, oldMax)));
+        }
+
+        @Override
+        void scaleData(int oldMin, int oldMax) {
+            start = scale(start, oldMin, oldMax);
+            end = scale(end, oldMin, oldMax);
+        }
+
+        @Override
+        void rescaleData(int oldMin, int oldMax) {
+            start = rescale(start, oldMin, oldMax);
+            end = rescale(end, oldMin, oldMax);
         }
 
     }
 
     // ToDo: Would it be possible for histogram and estimator to be static?
-    private Histogram histogram;
+//    private Histogram histogram;
     private UnivariateKernelEstimator estimator;
 
     private TreeNode root;
     private int minVal;
     private int maxVal;
     private int frequency;
+    private String column;
 
-    public IntervalTree(){
+    public IntervalTree(String column){
         frequency = 0;
-        histogram = null;
+//        histogram = null;
         estimator = null;
         root = null;
         minVal = Integer.MAX_VALUE;
         maxVal = Integer.MIN_VALUE;
+
+        this.column = column;
+    }
+
+    public void setMinVal(int minVal){
+        this.minVal = minVal;
+    }
+
+    public void setMaxVal(int maxVal){
+        this.maxVal = maxVal;
+    }
+
+//    public int getMinVal(){
+//        return this.minVal;
+//    }
+//
+//    public int getMaxVal(){
+//        return this.maxVal;
+//    }
+
+    public String getColumn(){
+        return this.column;
     }
 
     public int getFrequency(){
         return frequency;
     }
 
+    // ToDo: this will probably need to be optimized heavily!
+    public void mergeBeforeRemoval(IntervalTree other){
+        merge(other.root, this);
+        other = null;
+    }
+
+    private void merge(TreeNode root, IntervalTree other)
+    {
+        if (root == null)
+            return;
+
+        iterate(root.left);
+
+        other.insert(root.data);
+
+        iterate(root.right);
+    }
+
     public void insert(NodeData data){
         frequency++;
 
-        minVal = Math.min(minVal, data.getLow());
-        maxVal = Math.max(maxVal, data.getHigh());
+        data.scaleData(minVal, maxVal);
+
+//        minVal = Math.min(minVal, data.getLow());
+//        maxVal = Math.max(maxVal, data.getHigh());
 
         TreeNode node = insert(root, data);
         if(this.root == null)
@@ -172,18 +242,21 @@ public class IntervalTree {
     }
 
     public double[][] predictIntervals(double conf){
-        return estimator.predictIntervals(conf);
+        return estimator.predictIntervals(conf, minVal, maxVal);
     }
 
     public void iterate(){
-        histogram = new Histogram(MaxNew+1);
+//        histogram = new Histogram(MaxNew+1);
         estimator = new UnivariateKernelEstimator(); // ToDo: maybe check if null here to avoid creating a new instance every invocation
 
         iterate(this.root);
 
         // display using standard draw
-        StdDraw.setCanvasSize(1500, 700);
-        histogram.draw(minVal, maxVal);
+//        StdDraw.setCanvasSize(2500, 700);
+//        histogram.draw(minVal, maxVal);
+
+//        histogram = null;
+//        estimator = null;
     }
 
     private void iterate(TreeNode root)
@@ -193,29 +266,29 @@ public class IntervalTree {
 
         iterate(root.left);
 
-        System.out.println(root.toString());
+//        System.out.println(root.toString());
 
         root.data.insertToKernel(estimator);
-        root.data.insertToHistogram(histogram, minVal, maxVal);
+//        root.data.insertToHistogram(histogram, minVal, maxVal);
 
         iterate(root.right);
     }
 
-    private final static int MaxNew = 100;
+    private final static int MaxNew = 50000;
     private final static int MinNew = 0;
 
     public static int scale(double v, int oldMin, int oldMax){
         final double maxnew = MaxNew;
         final double minnew = MinNew;
-        final double maxold = oldMin;
-        final double minold = oldMax;
+        final double maxold = oldMax;
+        final double minold = oldMin;
 
         return (int)(((maxnew-minnew)/(maxold-minold))*(v-maxold)+maxnew);
     }
 
     public static int rescale(double v, int oldMin, int oldMax){
-        final double maxnew = oldMin;
-        final double minnew = oldMax;
+        final double maxnew = oldMax;
+        final double minnew = oldMin;
         final double maxold = MaxNew;
         final double minold = MinNew;
 

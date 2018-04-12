@@ -1,6 +1,6 @@
 package interval_tree.CandidateIndex;
 
-public abstract class AbstractIndex {
+public abstract class AbstractIndex implements IIndex{
 
     private double value;
     private double weight;
@@ -13,18 +13,23 @@ public abstract class AbstractIndex {
         this.columnNames = c;
     }
 
+    @Override
+    public String getColumnName(){
+        return this.columnNames;
+    }
+
+    @Override
     public double getValue(){
         return value;
     }
 
+    @Override
     public double getWeight(){
         return weight;
     }
 
+    @Override
     public void setWeight(double w){
         this.weight = w;
     }
-
-    public abstract String createIdxStatement();
-    public abstract String createIdxStatementWithId(int id);
 }

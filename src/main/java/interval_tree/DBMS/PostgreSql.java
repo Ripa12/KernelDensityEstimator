@@ -106,7 +106,7 @@ public class PostgreSql {
             String[] arr = queries.split(";");
             for(int c = 0; c < arr.length - 1; c++){
                 stmt.executeQuery(arr[c]);
-                System.out.println("Current query: " + c);
+                //System.out.println("Current query: " + c);
             }
 
             long queryEndTime = System.nanoTime() - queryStartTime;
