@@ -38,8 +38,8 @@ public class IntervalTree {
             weight += 1;
         }
 
-        abstract int getHigh();
-        abstract int getLow();
+        public abstract int getHigh();
+        public abstract int getLow();
         abstract boolean equalTo(NodeData other);
         abstract void insertToKernel(UnivariateKernelEstimator e);
         abstract void insertToHistogram(Histogram e, int oldMin, int oldMax);
@@ -114,16 +114,15 @@ public class IntervalTree {
 
         @Override
         void insertToKernel(UnivariateKernelEstimator e) {
-            int localBinRange = 500;//Math.max((end - start) / 10, 1);
+            int localBinRange = MaxNew/100;//Math.max((end - start) / 10, 1);
             IntStream.range(start, end).filter(x->x%localBinRange==0)
                     .mapToDouble(x->x)
                     .forEach(x->e.addValue(x, weight/1));
-//                    .forEach(x->e.addValue(x, weight/100));
         }
 
         @Override
         void insertToHistogram(Histogram e, int oldMin, int oldMax) {
-            int localBinRange = 500;//Math.max((end - start) / 10, 1);
+            int localBinRange = MaxNew/100;//Math.max((end - start) / 10, 1);
             IntStream.range(start, end).filter(x->x%localBinRange==0)
                     .forEach(x->e.addDataPoint(scale(x, oldMin, oldMax)));
         }
@@ -144,7 +143,7 @@ public class IntervalTree {
 
     // ToDo: Would it be possible for histogram and estimator to be static?
 //    private Histogram histogram;
-    private UnivariateKernelEstimator estimator;
+    private static UnivariateKernelEstimator estimator = null;
 
     private TreeNode root;
     private int minVal;
@@ -152,10 +151,17 @@ public class IntervalTree {
     private int frequency;
     private String column;
 
+
+    // ToDo: Could possibly change interval tree to an array of bins instead
     public IntervalTree(String column){
         frequency = 0;
 //        histogram = null;
-        estimator = null;
+
+        //estimator = null;
+        if(estimator == null){
+            estimator = new UnivariateKernelEstimator();
+        }
+
         root = null;
         minVal = Integer.MAX_VALUE;
         maxVal = Integer.MIN_VALUE;
@@ -164,20 +170,12 @@ public class IntervalTree {
     }
 
     public void setMinVal(int minVal){
-        this.minVal = minVal;
+        this.minVal = Math.min(minVal, this.minVal);
     }
 
     public void setMaxVal(int maxVal){
-        this.maxVal = maxVal;
+        this.maxVal = Math.max(maxVal, this.maxVal);
     }
-
-//    public int getMinVal(){
-//        return this.minVal;
-//    }
-//
-//    public int getMaxVal(){
-//        return this.maxVal;
-//    }
 
     public String getColumn(){
         return this.column;
@@ -187,31 +185,13 @@ public class IntervalTree {
         return frequency;
     }
 
-    // ToDo: this will probably need to be optimized heavily!
-    public void mergeBeforeRemoval(IntervalTree other){
-        merge(other.root, this);
-        other = null;
-    }
-
-    private void merge(TreeNode root, IntervalTree other)
-    {
-        if (root == null)
-            return;
-
-        iterate(root.left);
-
-        other.insert(root.data);
-
-        iterate(root.right);
-    }
-
     public void insert(NodeData data){
         frequency++;
 
         data.scaleData(minVal, maxVal);
 
-//        minVal = Math.min(minVal, data.getLow());
-//        maxVal = Math.max(maxVal, data.getHigh());
+        minVal = Math.min(minVal, data.getLow());
+        maxVal = Math.max(maxVal, data.getHigh());
 
         TreeNode node = insert(root, data);
         if(this.root == null)
@@ -245,9 +225,12 @@ public class IntervalTree {
         return estimator.predictIntervals(conf, minVal, maxVal);
     }
 
+    // ToDO: might be more efficient with an iterator and not recursion
     public void iterate(){
 //        histogram = new Histogram(MaxNew+1);
-        estimator = new UnivariateKernelEstimator(); // ToDo: maybe check if null here to avoid creating a new instance every invocation
+//        estimator = new UnivariateKernelEstimator(); // ToDo: maybe check if null here to avoid creating a new instance every invocation
+
+        estimator.reset();
 
         iterate(this.root);
 
@@ -274,7 +257,7 @@ public class IntervalTree {
         iterate(root.right);
     }
 
-    private final static int MaxNew = 50000;
+    private final static int MaxNew = 100;
     private final static int MinNew = 0;
 
     public static int scale(double v, int oldMin, int oldMax){

@@ -19,11 +19,14 @@ public class App
 
         Experiment exp = new Experiment(q);
 
-        exp.run(true);
-        String partialIndexInfo = exp.toString();
+        System.out.println("-- Partial Compound Index --");
+        exp.testFPGrowth();
 
-        exp.run(false);
-        String fullIndexInfo = exp.toString();
+        exp.run(true);
+        String partialIndexInfo = Logger.getInstance().toString();
+
+//        exp.run(false);
+        String fullIndexInfo = Logger.getInstance().toString();
 
 
         System.out.println("generatorStartTime: " + generatorEstimatedTime/ 1000000000.0);
@@ -34,6 +37,5 @@ public class App
         System.out.println("-- Partial Index --");
         System.out.println(partialIndexInfo);
 
-//        exp.testFPGrowth();
     }
 }

@@ -12,7 +12,7 @@ public class PartialIndex extends AbstractIndex {
 
     @Override
     public String createIdxStatement() {
-        String filter = "(" + columnNames + " > " + start + " AND " + columnNames + " < " + end + "(";
+        String filter = "(" + columnNames + " > " + start + " AND " + columnNames + " < " + end + ");'";
         return "'CREATE INDEX ON TestTable("+ columnNames +") where " + filter; // ToDo: what table-name to use?
     }
 

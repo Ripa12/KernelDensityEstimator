@@ -81,6 +81,17 @@ public class UnivariateKernelEstimator implements UnivariateDensityEstimator,
     protected int m_NumIntervals = 1000;
 
     /**
+     * Reset variables and clear list.
+     */
+    public void reset(){
+        m_Width = Double.MAX_VALUE;
+        m_SumOfWeights = 0;
+        m_WeightedSumSquared = 0;
+        m_WeightedSum = 0;
+        m_TM.clear();
+    }
+
+    /**
      * Returns a string describing the estimator.
      */
     public String globalInfo() {

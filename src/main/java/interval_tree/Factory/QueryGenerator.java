@@ -9,8 +9,8 @@ import java.util.Random;
 public class QueryGenerator {
 
     private final static String COLUMNS[] = {"A", "B", "C", "D"};
-    private final static int NR_OF_QUERIES = 400;
-    private final static int MAX_DUPLICATES = 50;
+    private final static int NR_OF_QUERIES = 2000;
+    private final static int MAX_DUPLICATES = 40;
     private final static int MAX_UPPER_BOUND = 450000;
     private final static int FIRST_LOWER_BOUND = 0;
     private final static int FIRST_UPPER_BOUND = 45000;

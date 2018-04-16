@@ -1,17 +1,11 @@
 package interval_tree;
 
-import interval_tree.CandidateIndex.AbstractIndex;
-import interval_tree.CandidateIndex.FullIndex;
-import interval_tree.CandidateIndex.IIndex;
-import interval_tree.CandidateIndex.PartialIndex;
+import interval_tree.CandidateIndex.*;
 import interval_tree.DBMS.PostgreSql;
 import interval_tree.DataStructure.IntervalTree;
 import interval_tree.FrequentPatternMining.PartialFPTree;
 import interval_tree.KnapsackProblem.DynamicProgramming;
-import interval_tree.SqlParser.FPTreeParser;
-import interval_tree.SqlParser.GenericExpressionVisitor;
-import interval_tree.SqlParser.IExpressionVisitor;
-import interval_tree.SqlParser.SupportCountParser;
+import interval_tree.SqlParser.*;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
@@ -19,6 +13,7 @@ import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.Statements;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
+import sun.rmi.runtime.Log;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -30,18 +25,7 @@ public class Experiment {
     // https://www.programcreek.com/java-api-examples/index.php?source_dir=Weka-for-Android-master/src/weka/classifiers/meta/RegressionByDiscretization.java#
 
 
-    /**
-     * Measure time
-     */
-    private long generatorStartTime;
-    private long parseStartTime;
-    private long kernelPrepStartTime;
-    private long kernelStartTime;
 
-    private long generatorEstimatedTime;
-    private long parseEstimatedTime;
-    private long kernelPrepEstimatedTime;
-    private long kernelEstimatedTime;
 
     /**
      * Batch of queries
@@ -59,15 +43,11 @@ public class Experiment {
      */
     public Experiment(String batch){
 
-        generatorStartTime = 0;
-        parseStartTime = 0;
-        kernelPrepStartTime = 0;
-        kernelStartTime = 0;
+        Logger.getInstance()
+                .addTimer("kernelLoadTime")
+                .addTimer("kernelRunTime")
+                .addTimer("queryGenerationTime").addTimer("parseTime");
 
-        generatorEstimatedTime = 0;
-        parseEstimatedTime = 0;
-        kernelPrepEstimatedTime = 0;
-        kernelEstimatedTime = 0;
 
         intervalTrees = new HashMap<>();
 
@@ -80,11 +60,15 @@ public class Experiment {
         queryBatch = batch;
     }
 
-    public String toString(){
-        return String.format("parseStartTime: %f \nkernelPrepStartTime: %f \nkernelStartTime: %f",
-                parseEstimatedTime/ 1000000000.0,
-                kernelPrepEstimatedTime/ 1000000000.0,
-                kernelEstimatedTime/ 1000000000.0);
+    public final void setIntervalMinMax(Map<String, Integer[]> supportCount){
+        intervalTrees.get("A").setMinVal(supportCount.get("A")[1]);
+        intervalTrees.get("A").setMaxVal(supportCount.get("A")[2]);
+        intervalTrees.get("B").setMinVal(supportCount.get("B")[1]);
+        intervalTrees.get("B").setMaxVal(supportCount.get("B")[2]);
+        intervalTrees.get("C").setMinVal(supportCount.get("C")[1]);
+        intervalTrees.get("C").setMaxVal(supportCount.get("C")[2]);
+        intervalTrees.get("D").setMinVal(supportCount.get("D")[1]);
+        intervalTrees.get("D").setMaxVal(supportCount.get("D")[2]);
     }
 
     public void testFPGrowth(){
@@ -94,31 +78,38 @@ public class Experiment {
         supportCount.put("C", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
         supportCount.put("D", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
 
+        Logger.getInstance().setTimer();
         parseQueries(new SupportCountParser(supportCount));
+        Logger.getInstance().stopTimer("parseTime");
 
-        intervalTrees.get("A").setMinVal(supportCount.get("A")[1]);
-        intervalTrees.get("A").setMaxVal(supportCount.get("A")[2]);
-        intervalTrees.get("B").setMinVal(supportCount.get("B")[1]);
-        intervalTrees.get("B").setMaxVal(supportCount.get("B")[2]);
-        intervalTrees.get("C").setMinVal(supportCount.get("C")[1]);
-        intervalTrees.get("C").setMaxVal(supportCount.get("C")[2]);
-        intervalTrees.get("D").setMinVal(supportCount.get("D")[1]);
-        intervalTrees.get("D").setMaxVal(supportCount.get("D")[2]);
+        setIntervalMinMax(supportCount);
 
-        PartialFPTree fpTree = new PartialFPTree(supportCount);
+        InitialFPTreeParser initialFPTreeParser = new InitialFPTreeParser(supportCount);
 
-        parseQueries(new FPTreeParser(supportCount, fpTree));
+        Logger.getInstance().setTimer();
+        parseQueries(initialFPTreeParser);
+        Logger.getInstance().stopTimer("parseTime");
 
-        fpTree.extractItemSets(.1);
+        FPTreeParser fpTreeParser = initialFPTreeParser.buildFPTreeParser();
 
-        List<IIndex> indexList = fpTree.getPartialIndices();
-        
-        suggestPartialIndexes(indexList);
+        Logger.getInstance().setTimer();
+        parseQueries(fpTreeParser);
+        Logger.getInstance().stopTimer("parseTime");
+
+        PartialFPTree fpTree = fpTreeParser.getFpTree();
+
+        fpTree.extractItemSets(.05);
+
+        List<? extends IIndex> indexList = fpTree.getIndices();
+
+        testIndexes(indexList, queryBatch);
+        //suggestPartialIndexes(indexList);
     }
 
     public void run(boolean enablePartialIdxs){
-        List<AbstractIndex> indexList = new ArrayList<>();
+        Logger.getInstance().reset();
 
+        List<IIndex> indexList = new ArrayList<>();
 
         Map<String, Integer[]> supportCount = new HashMap<>();
         supportCount.put("A", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
@@ -129,14 +120,7 @@ public class Experiment {
         System.out.println("--- Mine Frequency ---");
         parseQueries(new SupportCountParser(supportCount));
 
-        intervalTrees.get("A").setMinVal(supportCount.get("A")[1]);
-        intervalTrees.get("A").setMaxVal(supportCount.get("A")[2]);
-        intervalTrees.get("B").setMinVal(supportCount.get("B")[1]);
-        intervalTrees.get("B").setMaxVal(supportCount.get("B")[2]);
-        intervalTrees.get("C").setMinVal(supportCount.get("C")[1]);
-        intervalTrees.get("C").setMaxVal(supportCount.get("C")[2]);
-        intervalTrees.get("D").setMinVal(supportCount.get("D")[1]);
-        intervalTrees.get("D").setMaxVal(supportCount.get("D")[2]);
+        setIntervalMinMax(supportCount);
 
         System.out.println("--- Mine Predicates ---");
         parseQueries(new GenericExpressionVisitor(intervalTrees));
@@ -157,7 +141,7 @@ public class Experiment {
 
         Select select;
         try {
-            parseStartTime = System.nanoTime();
+            Logger.getInstance().setTimer();
             Statements stats = CCJSqlParserUtil.parseStatements(queryBatch); // ToDo: Insertion into interval trees might take longer time than the actual parsing of queries (try to fix if possible)...
             for(Statement statement : stats.getStatements()){
                 select = (Select) statement;
@@ -169,39 +153,40 @@ public class Experiment {
                 exp.accept(visitor);
                 visitor.after();
 
-                //System.out.println();
             }
-            parseEstimatedTime = System.nanoTime() - parseStartTime;
+            Logger.getInstance().stopTimer("parseTime");
         } catch (JSQLParserException e1) {
             e1.printStackTrace();
         }
     }
 
-    private void suggestFullIndexes(List<AbstractIndex> indexList){
+    private void suggestFullIndexes(List<IIndex> indexList){
         for (Map.Entry<String, IntervalTree> entry : intervalTrees.entrySet())
         {
-            kernelPrepStartTime = System.nanoTime();
-            kernelPrepEstimatedTime += System.nanoTime() - kernelPrepStartTime;
-
-            kernelStartTime = System.nanoTime();
-            kernelEstimatedTime += System.nanoTime() - kernelStartTime;
+//            kernelPrepStartTime = System.nanoTime();
+//            kernelPrepEstimatedTime += System.nanoTime() - kernelPrepStartTime;
+//
+//            kernelStartTime = System.nanoTime();
+//            kernelEstimatedTime += System.nanoTime() - kernelStartTime;
 
             System.out.println("Column: " + entry.getKey() + "\tFrequency: " + entry.getValue().getFrequency());
             indexList.add(new FullIndex((double)entry.getValue().getFrequency(), 0, entry.getKey()));
         }
     }
 
-    private void suggestPartialIndexes(List<AbstractIndex> indexList){
-        kernelPrepStartTime = System.nanoTime();
+    private void suggestPartialIndexes(List<IIndex> indexList){
+
         for (Map.Entry<String, IntervalTree> entry : intervalTrees.entrySet())
         {
-            kernelPrepStartTime = System.nanoTime();
-            entry.getValue().iterate(); // ToDo: combine iterate and predictInterval
-            kernelPrepEstimatedTime += System.nanoTime() - kernelPrepStartTime;
 
-            kernelStartTime = System.nanoTime();
+            Logger.getInstance().setTimer();
+            entry.getValue().iterate(); // ToDo: combine iterate and predictInterval
+            Logger.getInstance().stopTimer("kernelLoadTime");
+
+            Logger.getInstance().setTimer();
             double[][] interval = entry.getValue().predictIntervals(.9);
-            kernelEstimatedTime += System.nanoTime() - kernelStartTime;
+            Logger.getInstance().stopTimer("kernelRunTime");
+
             for (int p = 0; p < interval.length; p++) {
                 System.out.println("Left: " + (interval[p][0]) + "\t Right: " + (interval[p][1]) + "\t Probability: " + (interval[p][2]));
                 indexList.add(new PartialIndex(((double)entry.getValue().getFrequency() * (interval[p][2])), 0, entry.getKey(), (int)interval[p][0], (int)interval[p][1]));
@@ -210,7 +195,7 @@ public class Experiment {
     }
 
     // ToDo: Maybe pass a list of individual queries and not all queries in same string
-    private void testIndexes(List<AbstractIndex> indexList, String queryBatch){
+    private void testIndexes(List<? extends IIndex> indexList, String queryBatch){
         PostgreSql postSql = null;
         try {
             postSql = new PostgreSql();
@@ -219,7 +204,7 @@ public class Experiment {
             DynamicProgramming.solveKP(indexList, 13000000);
 
             postSql.buildCandidateIndexes(indexList);
-            postSql.testIndexes(queryBatch);
+//            postSql.testIndexes(queryBatch);
 
         } catch (Exception e) {
             e.printStackTrace();

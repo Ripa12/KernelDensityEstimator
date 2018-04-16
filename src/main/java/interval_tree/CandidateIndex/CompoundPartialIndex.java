@@ -46,17 +46,30 @@ public class CompoundPartialIndex implements IIndex {
 
             return indexList.get(0).getColumnName();
         }
+
+        public boolean isEmpty(){
+            return indexList.isEmpty();
+        }
     }
 
 
     private List<Predicate> predicateList;
+    private double totalValue;
+    private double totalWeight;
 
     public CompoundPartialIndex(){
         predicateList = new ArrayList<>();
+        totalWeight = 0.0f;
+        totalValue = 0.0f;
     }
 
     public void addCompoundPredicate(Predicate p){
         predicateList.add(p);
+        totalValue += p.getValue();
+    }
+
+    public boolean isEmpty(){
+        return predicateList.isEmpty();
     }
 
     @Override
@@ -89,7 +102,7 @@ public class CompoundPartialIndex implements IIndex {
             f.append(" AND ");
             f.append(predicateList.get(i).getOrExpression());
         }
-        f.append(");'");
+        f.append(");");
 
         StringBuilder c = new StringBuilder(predicateList.get(0).getColumnName());
         for (int i = 1; i < predicateList.size(); i++) {
@@ -109,17 +122,17 @@ public class CompoundPartialIndex implements IIndex {
     }
 
     @Override
-    public double getValue() {
-        return 0;
+    public double getValue(){
+        return this.totalValue;
     }
 
     @Override
-    public double getWeight() {
-        return 0;
+    public double getWeight(){
+        return this.totalWeight;
     }
 
     @Override
-    public void setWeight(double w) {
-
+    public void setWeight(double w){
+        this.totalWeight = w;
     }
 }

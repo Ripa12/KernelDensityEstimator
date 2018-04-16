@@ -1,6 +1,7 @@
 package interval_tree.DBMS;
 
 import interval_tree.CandidateIndex.AbstractIndex;
+import interval_tree.CandidateIndex.IIndex;
 
 import java.sql.*;
 import java.util.List;
@@ -56,10 +57,10 @@ public class PostgreSql {
         super.finalize();
     }
 
-        public void estimateWeights(List<AbstractIndex> items) throws SQLException {
+        public void estimateWeights(List<? extends IIndex> items) throws SQLException {
             System.out.println("-- Estimate Indexes --");
 
-            for(AbstractIndex idx : items) {
+            for(IIndex idx : items) {
                 String sql = "SELECT * from hypopg_create_index(" + idx.createIdxStatement() +");";
 
                 ResultSet rs = stmt.executeQuery(sql);
@@ -87,10 +88,10 @@ public class PostgreSql {
             reset();
         }
 
-        public void buildCandidateIndexes(List<AbstractIndex> items) throws SQLException {
+        public void buildCandidateIndexes(List<? extends IIndex> items) throws SQLException {
 
             System.out.println("-- Build Indexes --");
-            for(AbstractIndex idx : items) {
+            for(IIndex idx : items) {
                 indexIDs++;
                 stmt.execute(idx.createIdxStatementWithId(indexIDs));
                 System.out.println(idx.createIdxStatementWithId(indexIDs));

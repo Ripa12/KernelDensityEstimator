@@ -1,6 +1,7 @@
 package interval_tree.KnapsackProblem;
 
 import interval_tree.CandidateIndex.AbstractIndex;
+import interval_tree.CandidateIndex.IIndex;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class DynamicProgramming {
         return isPicked;
     }
 
-    public static void solveKP(List<AbstractIndex> idxs, int cap) {
+    public static void solveKP(List<? extends IIndex> idxs, int cap) {
 
         int n = idxs.size();
         int capcity = cap;
