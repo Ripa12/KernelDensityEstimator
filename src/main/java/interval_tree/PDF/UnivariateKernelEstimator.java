@@ -161,6 +161,9 @@ public class UnivariateKernelEstimator implements UnivariateDensityEstimator,
 //    @Override
 //    public double[][] predictIntervals(double conf) {
     public double[][] predictIntervals(double conf, int oldMin, int oldMax) {
+        if(m_TM.size() == 0)
+            return new double[0][];
+
         // Update the bandwidth
         updateWidth();
 

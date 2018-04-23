@@ -1,44 +1,49 @@
 package interval_tree.FrequentPatternMining;
 
-import interval_tree.CandidateIndex.AbstractIndex;
 import interval_tree.CandidateIndex.IIndex;
-import interval_tree.DataStructure.IntervalTree;
 
 import java.util.*;
 
 public abstract class AbstractFPTree {
 
-
     /**
-     * Utility class
+     * Member class
      */
-    protected class FPTreeNode{
+    public static class FPTreeNode {
 
-        FPTreeNode parent;
-        TreeMap<String, FPTreeNode> children;
-        protected IntervalTree[] intervalTrees;
+        protected FPTreeNode parent;
+        protected TreeMap<String, FPTreeNode> children;
+        protected int frequency;
 
-        FPTreeNode(FPTreeNode parent, int level, Set<String> transactions) {
-            this.intervalTrees = new IntervalTree[level];
-            Iterator<String> it = transactions.iterator();
-
-            int index = 0;
-            while (it.hasNext() && index < level){
-                this.intervalTrees[index] = new IntervalTree(it.next());
-                index++;
-            }
-
+        FPTreeNode(FPTreeNode parent) {
             this.children = new TreeMap<>();
             this.parent = parent;
+            this.frequency = 0;
         }
 
-        void updateMinMax(int index, IntervalTree.NodeData data){
-            intervalTrees[index].setMinVal(data.getLow());
-            intervalTrees[index].setMaxVal(data.getHigh());
+        FPTreeNode getOrCreateChild(String name){
+            FPTreeNode temp;
+            if (children.containsKey(name)) {
+                temp = children.get(name);
+            } else {
+                temp = new FPTreeNode(this);
+
+                children.put(name, temp);
+            }
+            frequency++;
+            return temp;
         }
 
-        void addData(int index, IntervalTree.NodeData data){
-            intervalTrees[index].insert(data);
+        FPTreeNode getChild(String name){
+            FPTreeNode temp = null;
+            if (children.containsKey(name)) {
+                temp = children.get(name);
+            }
+            return temp;
+        }
+
+        int getFrequency(){
+            return frequency;
         }
     }
 
@@ -56,7 +61,7 @@ public abstract class AbstractFPTree {
      * Constructor
      */
     public AbstractFPTree(Map<String, Integer[]> supportCount){
-        root = new FPTreeNode(null, 0, Collections.emptySet());
+        root = new FPTreeNode(null);
 
         header = new HashMap<>();
         supportCount.keySet().forEach(k -> header.put(k, new LinkedList<>()));
@@ -74,14 +79,29 @@ public abstract class AbstractFPTree {
         this.minsup = minsup;
         indices = new LinkedList<>();
 
-        for(LinkedList<FPTreeNode> list : header.values()){
-            for(FPTreeNode node : list){
-                extractItemSet(node);
-            }
-        }
+        LinkedList<String> cols = new LinkedList<>();
+
+        extractItemSets(root, cols);
+
+//        for(LinkedList<FPTreeNode> list : header.values()){
+//            for(FPTreeNode node : list){
+//                extractItemSet(node);
+//            }
+//        }
     }
 
-    abstract void extractItemSet(FPTreeNode node);
+    private void extractItemSets(FPTreeNode node, LinkedList<String> cols){
+
+        for (String col : node.children.keySet()) {
+            cols.add(col);
+            extractItemSets(node.children.get(col), cols);
+            cols.removeLast();
+        }
+
+        extractItemSet(node, cols);
+    }
+
+    abstract void extractItemSet(FPTreeNode node, List<String> columns);
 
     // ToDo: FPTreeNode = template
     FPTreeNode insertTree(Set<String> transactions) {
@@ -89,24 +109,11 @@ public abstract class AbstractFPTree {
         Iterator<String> it = transactions.iterator();
         FPTreeNode node = root;
 
-        int level = 1;
-
         while (it.hasNext()) {
             String entry = it.next();
-            FPTreeNode temp;
-            if (node.children.containsKey(entry)) {
-                temp = node.children.get(entry);
-                //temp.addData(entry);
-            } else {
-                temp = new FPTreeNode(node, level, transactions);
-                //temp.addData(entry.getValue());
 
-                node.children.put(entry, temp);
-                header.get(entry).add(temp);
-            }
+            header.get(entry).add(node = node.getOrCreateChild(entry));
 
-            node = temp;
-            level ++;
         }
         return node;
     }

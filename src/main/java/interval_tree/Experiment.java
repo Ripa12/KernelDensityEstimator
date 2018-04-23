@@ -3,9 +3,11 @@ package interval_tree;
 import interval_tree.CandidateIndex.*;
 import interval_tree.DBMS.PostgreSql;
 import interval_tree.DataStructure.IntervalTree;
+import interval_tree.Factory.QueryGenerator;
 import interval_tree.FrequentPatternMining.PartialFPTree;
 import interval_tree.KnapsackProblem.DynamicProgramming;
 import interval_tree.SqlParser.*;
+import interval_tree.SubspaceClustering.Clique;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
@@ -71,6 +73,12 @@ public class Experiment {
         intervalTrees.get("D").setMaxVal(supportCount.get("D")[2]);
     }
 
+//    public void testClique(){
+//        List<IIndex> candidates = new Clique().testCLIQUEResults();
+//
+//        testIndexes(candidates, QueryGenerator.csvToSql("test_data.csv"));
+//    }
+
     public void testFPGrowth(){
         Map<String, Integer[]> supportCount = new HashMap<>();
         supportCount.put("A", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
@@ -98,7 +106,7 @@ public class Experiment {
 
         PartialFPTree fpTree = fpTreeParser.getFpTree();
 
-        fpTree.extractItemSets(.05);
+        fpTree.extractItemSets(.1);
 
         List<? extends IIndex> indexList = fpTree.getIndices();
 
@@ -201,10 +209,10 @@ public class Experiment {
             postSql = new PostgreSql();
             postSql.estimateWeights(indexList);
 
-            DynamicProgramming.solveKP(indexList, 13000000);
+            DynamicProgramming.solveKP(indexList, 1122304);
 
             postSql.buildCandidateIndexes(indexList);
-//            postSql.testIndexes(queryBatch);
+            postSql.testIndexes(queryBatch);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -16,15 +16,18 @@ public class CompoundPartialIndex implements IIndex {
             indexList.add(p);
         }
 
+        //        double getValue(){
+//            assert indexList.size() > 0;
+//
+//            double f = 0.0;
+//            for (int i = 0; i < indexList.size(); i++) {
+//                f += indexList.get(i).getValue();
+//            }
+//
+//            return f;
+//        }
         double getValue(){
-            assert indexList.size() > 0;
-
-            double f = 0.0;
-            for (int i = 0; i < indexList.size(); i++) {
-                f += indexList.get(i).getValue();
-            }
-
-            return f;
+            return indexList.get(0).getValue();
         }
 
         String getOrExpression(){
@@ -65,7 +68,8 @@ public class CompoundPartialIndex implements IIndex {
 
     public void addCompoundPredicate(Predicate p){
         predicateList.add(p);
-        totalValue += p.getValue();
+//        totalValue += p.getValue();
+        totalValue = p.getValue();
     }
 
     public boolean isEmpty(){

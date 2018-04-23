@@ -2,6 +2,9 @@ package interval_tree.SqlParser;
 
 import interval_tree.DataStructure.IntervalTree;
 import interval_tree.FrequentPatternMining.PartialFPTree;
+import interval_tree.SubspaceClustering.MyData;
+import interval_tree.SubspaceClustering.MyInterval;
+import interval_tree.SubspaceClustering.MyPoint;
 import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.expression.operators.arithmetic.*;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
@@ -19,7 +22,7 @@ public class InitialFPTreeParser extends AbstractParser {
 
     private PartialFPTree.PartialFPTreeBuilder fpTreeBuilder;
 
-    private TreeMap<String, IntervalTree.NodeData> list;
+    private TreeMap<String, MyData> list;
 
     public InitialFPTreeParser(Map<String, Integer[]> supportCount){
         this.fpTreeBuilder = new PartialFPTree.PartialFPTreeBuilder(supportCount);
@@ -37,17 +40,17 @@ public class InitialFPTreeParser extends AbstractParser {
 
     @Override
     public void after() {
-        fpTreeBuilder.insertTree(list.keySet(), list.values().toArray(new IntervalTree.NodeData[0]));
+        fpTreeBuilder.insertTree(list.keySet(), list.values().toArray(new MyData[0]));
     }
 
     @Override
     void equalsTo(String col, int point) {
-        list.put(col, new IntervalTree.Point(point));
+        list.put(col, new MyPoint(point));
     }
 
     @Override
     void finiteInterval(String column, int start, int end) {
-        list.put(column, new IntervalTree.Interval(start, end));
+        list.put(column, new MyInterval(start, end));
     }
 
 }

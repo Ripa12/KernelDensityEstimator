@@ -2,6 +2,7 @@ package interval_tree;
 
 
 import interval_tree.Factory.QueryGenerator;
+import interval_tree.SubspaceClustering.Clique;
 
 
 /**
@@ -17,12 +18,13 @@ public class App
         String q = QueryGenerator.generateBatchOfQueries();
         long generatorEstimatedTime = System.nanoTime() - generatorStartTime;
 
+//        Experiment exp = new Experiment(QueryGenerator.csvToSql("test_data.csv"));
         Experiment exp = new Experiment(q);
 
         System.out.println("-- Partial Compound Index --");
-        exp.testFPGrowth();
+//        exp.testFPGrowth();
 
-        exp.run(true);
+//        exp.run(true);
         String partialIndexInfo = Logger.getInstance().toString();
 
 //        exp.run(false);
@@ -37,5 +39,7 @@ public class App
         System.out.println("-- Partial Index --");
         System.out.println(partialIndexInfo);
 
+
+        exp.testFPGrowth();
     }
 }
