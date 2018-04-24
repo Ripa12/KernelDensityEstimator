@@ -27,6 +27,7 @@ public class Experiment {
     // https://www.programcreek.com/java-api-examples/index.php?source_dir=Weka-for-Android-master/src/weka/classifiers/meta/RegressionByDiscretization.java#
 
 
+    private static double MINSUP = .05;
 
 
     /**
@@ -92,7 +93,7 @@ public class Experiment {
 
         setIntervalMinMax(supportCount);
 
-        InitialFPTreeParser initialFPTreeParser = new InitialFPTreeParser(supportCount);
+        InitialFPTreeParser initialFPTreeParser = new InitialFPTreeParser(supportCount, MINSUP);
 
         Logger.getInstance().setTimer();
         parseQueries(initialFPTreeParser);
@@ -106,7 +107,9 @@ public class Experiment {
 
         PartialFPTree fpTree = fpTreeParser.getFpTree();
 
-        fpTree.extractItemSets(.1);
+        Logger.getInstance().setTimer();
+        fpTree.extractItemSets(MINSUP);
+        Logger.getInstance().stopTimer("kernelRunTime");
 
         List<? extends IIndex> indexList = fpTree.getIndices();
 
@@ -126,12 +129,16 @@ public class Experiment {
         supportCount.put("D", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
 
         System.out.println("--- Mine Frequency ---");
+        Logger.getInstance().setTimer();
         parseQueries(new SupportCountParser(supportCount));
+        Logger.getInstance().stopTimer("parseTime");
 
         setIntervalMinMax(supportCount);
 
         System.out.println("--- Mine Predicates ---");
+        Logger.getInstance().setTimer();
         parseQueries(new GenericExpressionVisitor(intervalTrees));
+        Logger.getInstance().stopTimer("parseTime");
 
         if(enablePartialIdxs)
             suggestPartialIndexes(indexList);
@@ -209,7 +216,7 @@ public class Experiment {
             postSql = new PostgreSql();
             postSql.estimateWeights(indexList);
 
-            DynamicProgramming.solveKP(indexList, 1122304);
+            DynamicProgramming.solveKP(indexList, 1200000);
 
             postSql.buildCandidateIndexes(indexList);
             postSql.testIndexes(queryBatch);

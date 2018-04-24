@@ -35,7 +35,7 @@ public class PartialFPTreeNode extends AbstractFPTree.FPTreeNode {
 
             children.put(name, temp);
         }
-        frequency++;
+        temp.frequency++;
         return temp;
     }
 }

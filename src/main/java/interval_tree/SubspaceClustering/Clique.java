@@ -66,7 +66,8 @@ public class Clique {
                     System.out.println("\t\t\t Max: " + dimension[1]);
                 }
 
-                if(dimensions.length > 1){
+//                if(dimensions.length > 1){ // ToDo: Should probably only mine for itemsets at maximum dimension!
+                if(dimensions.length == columns.length){
                     CompoundPartialIndex compoundPartialIndex = new CompoundPartialIndex();
 
                     for(int k = 0; k < dimensions.length; k++){
@@ -79,9 +80,9 @@ public class Clique {
                     }
                     candidates.add(compoundPartialIndex);
                 }
-                else{
-                    candidates.add(new PartialIndex(((double) cliqueSubspace.getCoverage()), 0, columns[(int)(int)dimensions[0][2]], (int)dimensions[0][0], (int)dimensions[0][1]));
-                }
+//                else{ // ToDo: Should probably only mine for itemsets at maximum dimension!
+//                    candidates.add(new PartialIndex(((double) cliqueSubspace.getCoverage()), 0, columns[(int)(int)dimensions[0][2]], (int)dimensions[0][0], (int)dimensions[0][1]));
+//                }
 
             }
 

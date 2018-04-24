@@ -24,9 +24,19 @@ public class InitialFPTreeParser extends AbstractParser {
 
     private TreeMap<String, MyData> list;
 
-    public InitialFPTreeParser(Map<String, Integer[]> supportCount){
+    private Map<String, Integer[]> supportCount;
+    private double totalSupportCount;
+    private double minsup;
+
+    public InitialFPTreeParser(Map<String, Integer[]> supportCount, double minsup){
+        this.supportCount = supportCount;
+        this.minsup = minsup;
+
         this.fpTreeBuilder = new PartialFPTree.PartialFPTreeBuilder(supportCount);
-        list = new TreeMap<>(Comparator.comparingInt(o -> supportCount.get(o)[0]));
+        this.list = new TreeMap<>(Comparator.comparingInt(o -> this.supportCount.get(o)[0]));
+
+        this.totalSupportCount = 0; // ToDo: Maybe store totalSupportCount in a class wrapping supportCount?
+        supportCount.values().forEach(k -> this.totalSupportCount += k[0]);
     }
 
     public FPTreeParser buildFPTreeParser(){
@@ -45,12 +55,14 @@ public class InitialFPTreeParser extends AbstractParser {
 
     @Override
     void equalsTo(String col, int point) {
-        list.put(col, new MyPoint(point));
+        if(((double)supportCount.get(col)[0]) / totalSupportCount >= minsup)
+            list.put(col, new MyPoint(point));
     }
 
     @Override
     void finiteInterval(String column, int start, int end) {
-        list.put(column, new MyInterval(start, end));
+        if(((double)supportCount.get(column)[0]) / totalSupportCount >= minsup)
+            list.put(column, new MyInterval(start, end));
     }
 
 }

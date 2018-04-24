@@ -51,17 +51,35 @@ public class PartialFPTree extends AbstractFPTree{
 
         FPTreeNode node = root;
 
+        int dim = 1;
         while (it.hasNext()) {
             String entry = it.next();
 
             node = node.getChild(entry);
+            addData(node, dim, data);
+            dim++;
         }
 
+//        if(node != null && node instanceof PartialFPTreeNode){
+//
+//            int[] temp = new int[data.length];
+//
+//            for(int i = 0; i < data.length; i++) {
+//                // ToDo: Only add data to frequent items (prune FP-Tree)
+//                temp[i] = data[i].getLow(); // ToDo: Only consider points as of now
+//            }
+//
+//            ((PartialFPTreeNode) node).addData(new MyVector(temp));
+//        }
+    }
+
+    // ToDo: This will create unnecessary copies of data!, would be better to reuse data when extracting item-sets
+    private void addData(FPTreeNode node, int dim, MyData[] data){
         if(node != null && node instanceof PartialFPTreeNode){
 
-            int[] temp = new int[data.length];
+            int[] temp = new int[dim];
 
-            for(int i = 0; i < data.length; i++) {
+            for(int i = 0; i < dim; i++) {
                 // ToDo: Only add data to frequent items (prune FP-Tree)
                 temp[i] = data[i].getLow(); // ToDo: Only consider points as of now
             }
@@ -74,33 +92,11 @@ public class PartialFPTree extends AbstractFPTree{
         if(((double)node.getFrequency() / (double)totalSupportCount < minsup))
             return;
 
-        if(node instanceof PartialFPTreeNode)
-            indices.addAll(((PartialFPTreeNode)node).extractPartialIndexes(columns));
+        if(node instanceof PartialFPTreeNode) {
+            indices.addAll(((PartialFPTreeNode) node).extractPartialIndexes(columns));
+        }
 
-//        CompoundPartialIndex compPartialIndex = new CompoundPartialIndex();
-
-//        double[][] interval;
-//        for (IntervalTree tree : node.intervalTrees) {
-//            Logger.getInstance().setTimer();
-////            tree.iterate();
-//            Logger.getInstance().stopTimer("kernelLoadTime");
-//
-//            Logger.getInstance().setTimer();
-////            interval = tree.predictIntervals(0.9);
-//            Logger.getInstance().stopTimer("kernelRunTime");
-//
-//            CompoundPartialIndex.Predicate pred = new CompoundPartialIndex.Predicate();
-//            for (double[] doubles : interval) {
-//                if(((double)tree.getFrequency() * (doubles[2]) / totalSupportCount) >= minsup) {
-//                    pred.addPartialIndex(new PartialIndex(((double) node.intervalTrees[0].getFrequency() * (doubles[2])), 0, tree.getColumn(), (int) doubles[0], (int) doubles[1]));
-//                }
-//            }
-//
-//            if(!pred.isEmpty())
-//                compPartialIndex.addCompoundPredicate(pred);
-//        }
-
-//        if(!compPartialIndex.isEmpty())
-//            indices.add(compPartialIndex);
+        // Debugging
+        System.out.println(columns.toString());
     }
 }

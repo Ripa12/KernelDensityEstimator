@@ -17,13 +17,13 @@ import java.util.stream.Stream;
 public class QueryGenerator {
 
     private final static String COLUMNS[] = {"B", "C", "D"};
-    private final static int NR_OF_QUERIES = 2000;
-    private final static int MAX_DUPLICATES = 40;
-    private final static int MAX_UPPER_BOUND = 450000;
-    private final static int FIRST_LOWER_BOUND = 0;
-    private final static int FIRST_UPPER_BOUND = 45000;
-    private final static int SECOND_LOWER_BOUND = 420000;
-    private final static int SECOND_UPPER_BOUND = 450000;
+    private final static int NR_OF_QUERIES = 200;
+    private final static int MAX_DUPLICATES = 10;
+    private final static int MAX_UPPER_BOUND = 41;
+    private final static int FIRST_LOWER_BOUND = 10000;
+    private final static int FIRST_UPPER_BOUND = 25000;
+    private final static int SECOND_LOWER_BOUND = -100000;
+    private final static int SECOND_UPPER_BOUND = -25000;
 
     private static Random rand;
 

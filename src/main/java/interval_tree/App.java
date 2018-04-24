@@ -24,6 +24,8 @@ public class App
         System.out.println("-- Partial Compound Index --");
 //        exp.testFPGrowth();
 
+        exp.testFPGrowth();
+
 //        exp.run(true);
         String partialIndexInfo = Logger.getInstance().toString();
 
@@ -38,8 +40,5 @@ public class App
 
         System.out.println("-- Partial Index --");
         System.out.println(partialIndexInfo);
-
-
-        exp.testFPGrowth();
     }
 }

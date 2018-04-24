@@ -30,7 +30,7 @@ public abstract class AbstractFPTree {
 
                 children.put(name, temp);
             }
-            frequency++;
+            temp.frequency++;
             return temp;
         }
 
@@ -113,7 +113,6 @@ public abstract class AbstractFPTree {
             String entry = it.next();
 
             header.get(entry).add(node = node.getOrCreateChild(entry));
-
         }
         return node;
     }
