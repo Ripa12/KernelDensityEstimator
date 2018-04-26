@@ -5,6 +5,7 @@ import interval_tree.DBMS.PostgreSql;
 import interval_tree.DataStructure.IntervalTree;
 import interval_tree.Factory.QueryGenerator;
 import interval_tree.FrequentPatternMining.PartialFPTree;
+import interval_tree.FrequentPatternMining.SupportCount;
 import interval_tree.KnapsackProblem.DynamicProgramming;
 import interval_tree.SqlParser.*;
 import interval_tree.SubspaceClustering.Clique;
@@ -81,11 +82,7 @@ public class Experiment {
 //    }
 
     public void testFPGrowth(){
-        Map<String, Integer[]> supportCount = new HashMap<>();
-        supportCount.put("A", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
-        supportCount.put("B", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
-        supportCount.put("C", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
-        supportCount.put("D", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
+        SupportCount supportCount = new SupportCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
 
         Logger.getInstance().setTimer();
         parseQueries(new SupportCountParser(supportCount));
@@ -93,7 +90,7 @@ public class Experiment {
 
         setIntervalMinMax(supportCount);
 
-        InitialFPTreeParser initialFPTreeParser = new InitialFPTreeParser(supportCount, MINSUP);
+        InitialFPTreeParser initialFPTreeParser = new InitialFPTreeParser(supportCount);
 
         Logger.getInstance().setTimer();
         parseQueries(initialFPTreeParser);
@@ -114,7 +111,6 @@ public class Experiment {
         List<? extends IIndex> indexList = fpTree.getIndices();
 
         testIndexes(indexList, queryBatch);
-        //suggestPartialIndexes(indexList);
     }
 
     public void run(boolean enablePartialIdxs){
@@ -122,11 +118,7 @@ public class Experiment {
 
         List<IIndex> indexList = new ArrayList<>();
 
-        Map<String, Integer[]> supportCount = new HashMap<>();
-        supportCount.put("A", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
-        supportCount.put("B", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
-        supportCount.put("C", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
-        supportCount.put("D", new Integer[]{0, Integer.MAX_VALUE, Integer.MIN_VALUE});
+        SupportCount supportCount = new SupportCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
 
         System.out.println("--- Mine Frequency ---");
         Logger.getInstance().setTimer();
@@ -156,7 +148,7 @@ public class Experiment {
 
         Select select;
         try {
-            Logger.getInstance().setTimer();
+//            Logger.getInstance().setTimer();
             Statements stats = CCJSqlParserUtil.parseStatements(queryBatch); // ToDo: Insertion into interval trees might take longer time than the actual parsing of queries (try to fix if possible)...
             for(Statement statement : stats.getStatements()){
                 select = (Select) statement;
@@ -169,7 +161,7 @@ public class Experiment {
                 visitor.after();
 
             }
-            Logger.getInstance().stopTimer("parseTime");
+//            Logger.getInstance().stopTimer("parseTime");
         } catch (JSQLParserException e1) {
             e1.printStackTrace();
         }
@@ -216,10 +208,10 @@ public class Experiment {
             postSql = new PostgreSql();
             postSql.estimateWeights(indexList);
 
-            DynamicProgramming.solveKP(indexList, 1200000);
+            DynamicProgramming.solveKP(indexList, 4024000);
 
             postSql.buildCandidateIndexes(indexList);
-            postSql.testIndexes(queryBatch);
+//            postSql.testIndexes(queryBatch);
 
         } catch (Exception e) {
             e.printStackTrace();

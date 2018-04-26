@@ -1,6 +1,7 @@
 package interval_tree.SqlParser;
 
 import interval_tree.DataStructure.IntervalTree;
+import interval_tree.FrequentPatternMining.SupportCount;
 import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.expression.operators.arithmetic.*;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
@@ -16,9 +17,9 @@ import java.util.Map;
  * Created by Richard on 2018-03-04.
  */
 public class SupportCountParser extends AbstractParser {
-    private Map<String, Integer[]> supportCount;
+    private SupportCount supportCount;
 
-    public SupportCountParser(Map<String, Integer[]> supportCount){
+    public SupportCountParser(SupportCount supportCount){
         super();
         this.supportCount = supportCount;
     }
@@ -30,7 +31,7 @@ public class SupportCountParser extends AbstractParser {
 
     @Override
     public void after() {
-
+        supportCount.updateTotalSupport(); // ToDo: Find a more clever way
     }
 
     @Override

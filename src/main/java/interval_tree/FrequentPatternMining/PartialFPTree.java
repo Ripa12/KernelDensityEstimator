@@ -23,16 +23,17 @@ public class PartialFPTree extends AbstractFPTree{
 
         private PartialFPTree fpTree;
 
-        public PartialFPTreeBuilder(Map<String, Integer[]> supportCount){
+        public PartialFPTreeBuilder(SupportCount supportCount){
             fpTree = new PartialFPTree(supportCount);
         }
 
         public void insertTree(Set<String> transactions, MyData[] data){
-            FPTreeNode node = fpTree.insertTree(transactions);
+            PartialFPTreeNode node = ((PartialFPTreeNode)fpTree.insertTree(transactions));
 
-//            for(int i = 0; i < data.length; i++) {
-//                node.updateMinMax(i, data[i]);
-//            }
+            for(int i = data.length-1; i >= 0; i--) {
+                node.updateMinMax(data[i]);
+                node = (PartialFPTreeNode)node.parent;
+            }
         }
 
         public PartialFPTree getFPTree(){
@@ -41,7 +42,7 @@ public class PartialFPTree extends AbstractFPTree{
 
     }
 
-    private PartialFPTree(Map<String, Integer[]> supportCount){
+    private PartialFPTree(SupportCount supportCount){
         super(supportCount);
         root = new PartialFPTreeNode(null, 0);
     }
@@ -51,13 +52,19 @@ public class PartialFPTree extends AbstractFPTree{
 
         FPTreeNode node = root;
 
+        boolean terminate = false;
         int dim = 1;
-        while (it.hasNext()) {
+        while (it.hasNext() && !terminate) {
             String entry = it.next();
 
             node = node.getChild(entry);
-            addData(node, dim, data);
-            dim++;
+            if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
+                addData(node, dim, data);
+                dim++;
+            }
+            else {
+                terminate = true;
+            }
         }
 
 //        if(node != null && node instanceof PartialFPTreeNode){
@@ -89,14 +96,14 @@ public class PartialFPTree extends AbstractFPTree{
     }
 
     void extractItemSet(FPTreeNode node, List<String> columns){
-        if(((double)node.getFrequency() / (double)totalSupportCount < minsup))
-            return;
+        if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
 
-        if(node instanceof PartialFPTreeNode) {
-            indices.addAll(((PartialFPTreeNode) node).extractPartialIndexes(columns));
+            if (node instanceof PartialFPTreeNode) {
+                indices.addAll(((PartialFPTreeNode) node).extractPartialIndexes(columns));
+            }
+
+            // Debugging
+            System.out.println(columns.toString());
         }
-
-        // Debugging
-        System.out.println(columns.toString());
     }
 }

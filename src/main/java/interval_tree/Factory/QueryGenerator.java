@@ -16,10 +16,10 @@ import java.util.stream.Stream;
  */
 public class QueryGenerator {
 
-    private final static String COLUMNS[] = {"B", "C", "D"};
-    private final static int NR_OF_QUERIES = 200;
-    private final static int MAX_DUPLICATES = 10;
-    private final static int MAX_UPPER_BOUND = 41;
+    private final static String COLUMNS[] = {"B", "C", "D", "E", "F", "G", "H"};
+    private final static int NR_OF_QUERIES = 500; // ToDo: Null-pointer exception if very small
+    private final static int MAX_DUPLICATES = 2000;
+    private final static int MAX_UPPER_BOUND = 999999999;
     private final static int FIRST_LOWER_BOUND = 10000;
     private final static int FIRST_UPPER_BOUND = 25000;
     private final static int SECOND_LOWER_BOUND = -100000;
@@ -114,12 +114,13 @@ public class QueryGenerator {
             int start;
 
             int random = rand.nextInt(101);
-            if (random <= 87) { //This is 20% more
+            if (random <= 80) { //This is 20% more
                 start = rand.nextInt((FIRST_UPPER_BOUND - FIRST_LOWER_BOUND) + 1) + FIRST_LOWER_BOUND;
-            } else if (random <= 92) {
+            } else if (random <= 98) {
                 start = rand.nextInt((SECOND_UPPER_BOUND - SECOND_LOWER_BOUND) + 1) + SECOND_LOWER_BOUND;
             } else {
-                start = rand.nextInt(MAX_UPPER_BOUND);
+//                start = rand.nextInt(MAX_UPPER_BOUND);
+                start = MAX_UPPER_BOUND;
             }
             tempStmt.append(COLUMNS[selectedColumn])
                     .append(" = ")

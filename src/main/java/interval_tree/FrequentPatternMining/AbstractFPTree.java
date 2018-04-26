@@ -2,6 +2,7 @@ package interval_tree.FrequentPatternMining;
 
 import interval_tree.CandidateIndex.IIndex;
 
+import javax.annotation.processing.SupportedOptions;
 import java.util.*;
 
 public abstract class AbstractFPTree {
@@ -9,24 +10,26 @@ public abstract class AbstractFPTree {
     /**
      * Member class
      */
-    public static class FPTreeNode {
+    public static abstract class FPTreeNode {
 
         protected FPTreeNode parent;
         protected TreeMap<String, FPTreeNode> children;
         protected int frequency;
 
-        FPTreeNode(FPTreeNode parent) {
+        protected FPTreeNode(FPTreeNode parent) {
             this.children = new TreeMap<>();
             this.parent = parent;
             this.frequency = 0;
         }
 
-        FPTreeNode getOrCreateChild(String name){
+        protected abstract FPTreeNode clone();
+
+        final FPTreeNode getOrCreateChild(String name){
             FPTreeNode temp;
             if (children.containsKey(name)) {
                 temp = children.get(name);
             } else {
-                temp = new FPTreeNode(this);
+                temp = clone();
 
                 children.put(name, temp);
             }
@@ -34,7 +37,7 @@ public abstract class AbstractFPTree {
             return temp;
         }
 
-        FPTreeNode getChild(String name){
+        final FPTreeNode getChild(String name){
             FPTreeNode temp = null;
             if (children.containsKey(name)) {
                 temp = children.get(name);
@@ -42,7 +45,7 @@ public abstract class AbstractFPTree {
             return temp;
         }
 
-        int getFrequency(){
+        final int getFrequency(){
             return frequency;
         }
     }
@@ -52,32 +55,28 @@ public abstract class AbstractFPTree {
      */
     protected FPTreeNode root;
     protected HashMap<String, LinkedList<FPTreeNode>> header;
-    protected int totalSupportCount;
     protected double minsup;
+    protected double totalSupportCount;
     protected List<IIndex> indices;
 
 
     /**
      * Constructor
      */
-    public AbstractFPTree(Map<String, Integer[]> supportCount){
-        root = new FPTreeNode(null);
-
+    public AbstractFPTree(SupportCount supportCount){
+//        root = new FPTreeNode(null);
+        this.totalSupportCount = supportCount.getTotalSupportCount();
         header = new HashMap<>();
         supportCount.keySet().forEach(k -> header.put(k, new LinkedList<>()));
-
-        totalSupportCount = 0;
-        supportCount.values().forEach(k -> totalSupportCount += k[0]);
     }
 
-    public List<IIndex> getIndices(){
+    final public List<IIndex> getIndices(){
         return indices;
     }
 
     public void extractItemSets(double minsup){
-        assert minsup <= 1.0 && minsup >= 0.0;
-        this.minsup = minsup;
         indices = new LinkedList<>();
+        this.minsup = minsup;
 
         LinkedList<String> cols = new LinkedList<>();
 
