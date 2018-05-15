@@ -6,6 +6,7 @@ import interval_tree.FrequentPatternMining.SupportCount;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyInterval;
 import interval_tree.SubspaceClustering.MyPoint;
+import interval_tree.SubspaceClustering.MyVector;
 import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.expression.operators.arithmetic.*;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;

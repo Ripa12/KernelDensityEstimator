@@ -47,6 +47,10 @@ public class MyRelation<v extends NumberVector> extends AbstractRelation impleme
         list.add(vec);
     }
 
+    public int getDimensionality(){
+        return list.get(0).getDimensionality();
+    }
+
     @Override
     protected Logging getLogger() {
         return LOG;

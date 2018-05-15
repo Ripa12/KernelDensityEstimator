@@ -64,7 +64,6 @@ public abstract class AbstractFPTree {
      * Constructor
      */
     public AbstractFPTree(SupportCount supportCount){
-//        root = new FPTreeNode(null);
         this.totalSupportCount = supportCount.getTotalSupportCount();
         header = new HashMap<>();
         supportCount.keySet().forEach(k -> header.put(k, new LinkedList<>()));
@@ -81,12 +80,6 @@ public abstract class AbstractFPTree {
         LinkedList<String> cols = new LinkedList<>();
 
         extractItemSets(root, cols);
-
-//        for(LinkedList<FPTreeNode> list : header.values()){
-//            for(FPTreeNode node : list){
-//                extractItemSet(node);
-//            }
-//        }
     }
 
     private void extractItemSets(FPTreeNode node, LinkedList<String> cols){

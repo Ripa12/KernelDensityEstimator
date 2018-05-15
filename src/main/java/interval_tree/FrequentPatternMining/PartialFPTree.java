@@ -18,6 +18,9 @@ import java.util.*;
 
 public class PartialFPTree extends AbstractFPTree{
 
+    interface DataProcessor{
+        void delegate(FPTreeNode node, int dim, MyData[] data);
+    }
 
     public static class PartialFPTreeBuilder{
 
@@ -31,7 +34,9 @@ public class PartialFPTree extends AbstractFPTree{
             PartialFPTreeNode node = ((PartialFPTreeNode)fpTree.insertTree(transactions));
 
             for(int i = data.length-1; i >= 0; i--) {
-                node.updateMinMax(data[i]);
+
+                // ToDo: Maybe better to pass MyData without having to wrap it in MyVector
+                node.updateMinMax(new MyVector(Arrays.copyOfRange(data, 0, i)));
                 node = (PartialFPTreeNode)node.parent;
             }
         }
@@ -45,9 +50,23 @@ public class PartialFPTree extends AbstractFPTree{
     private PartialFPTree(SupportCount supportCount){
         super(supportCount);
         root = new PartialFPTreeNode(null, 0);
+
+        for(LinkedList<FPTreeNode> list : header.values()){
+            for(FPTreeNode node : list){
+                ((PartialFPTreeNode) node).initDimensions();
+            }
+        }
     }
 
     public void addData(Set<String> transactions, MyData[] data){
+        processTransaction(this::addData, transactions, data);
+    }
+
+    public void validateData(Set<String> transactions, MyData[] data){
+        processTransaction(this::validateData, transactions, data);
+    }
+
+    private void processTransaction(DataProcessor proc, Set<String> transactions, MyData[] data){
         Iterator<String> it = transactions.iterator();
 
         FPTreeNode node = root;
@@ -59,39 +78,26 @@ public class PartialFPTree extends AbstractFPTree{
 
             node = node.getChild(entry);
             if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
-                addData(node, dim, data);
+                proc.delegate(node, dim, data);
                 dim++;
             }
             else {
                 terminate = true;
             }
         }
-
-//        if(node != null && node instanceof PartialFPTreeNode){
-//
-//            int[] temp = new int[data.length];
-//
-//            for(int i = 0; i < data.length; i++) {
-//                // ToDo: Only add data to frequent items (prune FP-Tree)
-//                temp[i] = data[i].getLow(); // ToDo: Only consider points as of now
-//            }
-//
-//            ((PartialFPTreeNode) node).addData(new MyVector(temp));
-//        }
     }
 
-    // ToDo: This will create unnecessary copies of data!, would be better to reuse data when extracting item-sets
+    // ToDo: Maybe closed item-sets would be better memory-wise for CLIQUE
     private void addData(FPTreeNode node, int dim, MyData[] data){
         if(node != null && node instanceof PartialFPTreeNode){
+            ((PartialFPTreeNode) node).addData(new MyVector(Arrays.copyOfRange(data, 0, dim)));
+        }
+    }
 
-            int[] temp = new int[dim];
-
-            for(int i = 0; i < dim; i++) {
-                // ToDo: Only add data to frequent items (prune FP-Tree)
-                temp[i] = data[i].getLow(); // ToDo: Only consider points as of now
-            }
-
-            ((PartialFPTreeNode) node).addData(new MyVector(temp));
+    // ToDo: Maybe closed item-sets would be better memory-wise for CLIQUE
+    private void validateData(FPTreeNode node, int dim, MyData[] data){
+        if(node != null && node instanceof PartialFPTreeNode){
+            ((PartialFPTreeNode) node).validateClusters(new MyVector(Arrays.copyOfRange(data, 0, dim)));
         }
     }
 
@@ -101,9 +107,6 @@ public class PartialFPTree extends AbstractFPTree{
             if (node instanceof PartialFPTreeNode) {
                 indices.addAll(((PartialFPTreeNode) node).extractPartialIndexes(columns));
             }
-
-            // Debugging
-            System.out.println(columns.toString());
         }
     }
 }

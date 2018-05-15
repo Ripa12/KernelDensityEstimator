@@ -5,6 +5,7 @@ import java.util.List;
 
 public class CompoundPartialIndex implements IIndex {
 
+    // ToDo: Really no need for this class. Partial Indexes are enough in CompositeClass.
     public static class Predicate {
         private List<PartialIndex> indexList;
 
@@ -16,16 +17,6 @@ public class CompoundPartialIndex implements IIndex {
             indexList.add(p);
         }
 
-        //        double getValue(){
-//            assert indexList.size() > 0;
-//
-//            double f = 0.0;
-//            for (int i = 0; i < indexList.size(); i++) {
-//                f += indexList.get(i).getValue();
-//            }
-//
-//            return f;
-//        }
         double getValue(){
             return indexList.get(0).getValue();
         }
@@ -68,7 +59,6 @@ public class CompoundPartialIndex implements IIndex {
 
     public void addCompoundPredicate(Predicate p){
         predicateList.add(p);
-//        totalValue += p.getValue();
         totalValue = p.getValue();
     }
 
