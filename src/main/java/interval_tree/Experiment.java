@@ -3,12 +3,13 @@ package interval_tree;
 import interval_tree.CandidateIndex.*;
 import interval_tree.DBMS.PostgreSql;
 import interval_tree.DataStructure.IntervalTree;
-import interval_tree.Factory.QueryGenerator;
 import interval_tree.FrequentPatternMining.PartialFPTree;
 import interval_tree.FrequentPatternMining.SupportCount;
 import interval_tree.KnapsackProblem.DynamicProgramming;
 import interval_tree.SqlParser.*;
-import interval_tree.SubspaceClustering.Clique;
+import interval_tree.SqlParser.PartialParser.PopulateFPTreeParser;
+import interval_tree.SqlParser.PartialParser.InitializeFPTreeParser;
+import interval_tree.SqlParser.PartialParser.ValidateFPTreeParser;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
@@ -16,7 +17,6 @@ import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.Statements;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
-import sun.rmi.runtime.Log;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -90,19 +90,25 @@ public class Experiment {
 
         setIntervalMinMax(supportCount);
 
-        InitialFPTreeParser initialFPTreeParser = new InitialFPTreeParser(supportCount);
+        InitializeFPTreeParser initialFPTreeParser = new InitializeFPTreeParser(supportCount);
 
         Logger.getInstance().setTimer();
         parseQueries(initialFPTreeParser);
         Logger.getInstance().stopTimer("parseTime");
 
-        FPTreeParser fpTreeParser = initialFPTreeParser.buildFPTreeParser();
+        PopulateFPTreeParser fpTreeParser = initialFPTreeParser.buildFPTreeParser();
 
         Logger.getInstance().setTimer();
         parseQueries(fpTreeParser);
         Logger.getInstance().stopTimer("parseTime");
 
-        PartialFPTree fpTree = fpTreeParser.getFpTree();
+        ValidateFPTreeParser validator = fpTreeParser.buildValidateFPTreeParser();
+
+        Logger.getInstance().setTimer();
+        parseQueries(validator);
+        Logger.getInstance().stopTimer("parseTime");
+
+        PartialFPTree fpTree = validator.getFpTree();
 
         Logger.getInstance().setTimer();
         fpTree.extractItemSets(MINSUP);
@@ -110,7 +116,14 @@ public class Experiment {
 
         List<? extends IIndex> indexList = fpTree.getIndices();
 
-        testIndexes(indexList, queryBatch);
+        System.out.println("-- All generated Indexes --");
+        int indexIDs = 0;
+        for(IIndex idx : indexList) {
+            indexIDs++;
+            System.out.println(idx.createIdxStatementWithId(indexIDs));
+        }
+
+//        testIndexes(indexList, queryBatch);
     }
 
     public void run(boolean enablePartialIdxs){
@@ -211,7 +224,7 @@ public class Experiment {
             DynamicProgramming.solveKP(indexList, 4024000);
 
             postSql.buildCandidateIndexes(indexList);
-//            postSql.testIndexes(queryBatch);
+            postSql.testIndexes(queryBatch);
 
         } catch (Exception e) {
             e.printStackTrace();

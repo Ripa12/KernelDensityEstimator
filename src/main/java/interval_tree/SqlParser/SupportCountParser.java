@@ -35,7 +35,7 @@ public class SupportCountParser extends AbstractParser {
     }
 
     @Override
-    void finiteInterval(String column, int start, int end) {
+    protected void finiteInterval(String column, int start, int end) {
         supportCount.get(column)[0]++;
         supportCount.get(column)[1] = Math.min(supportCount.get(column)[1], start);
         supportCount.get(column)[2] = Math.max(supportCount.get(column)[2], end);
@@ -43,7 +43,7 @@ public class SupportCountParser extends AbstractParser {
 
 
     @Override
-    void equalsTo(String col, int point) {
+    protected void equalsTo(String col, int point) {
         supportCount.get(col)[0]++;
         supportCount.get(col)[1] = Math.min(supportCount.get(col)[1], point);
         supportCount.get(col)[2] = Math.max(supportCount.get(col)[2], point);

@@ -480,7 +480,7 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
                     i_ = i + 1;
                 }
             }
-            if (i_ < denseSubspace.getDenseUnits().size() - 1) {
+            if (i_ <= denseSubspace.getDenseUnits().size() - 1) {
                 CLIQUEInterval firstInterval = denseSubspace.getDenseUnits().get(i_).getIntervals().get(0);
                 CLIQUEInterval secondInterval = denseSubspace.getDenseUnits().get(denseSubspace.getDenseUnits().size() - 1).getIntervals().get(0);
 

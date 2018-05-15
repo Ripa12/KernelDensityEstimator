@@ -34,12 +34,12 @@ public class GenericExpressionVisitor extends AbstractParser {
     }
 
     @Override
-    void finiteInterval(String column, int start, int end) {
+    protected void finiteInterval(String column, int start, int end) {
         intervalTrees.get(column).insert(new IntervalTree.Interval(start, end));
     }
 
     @Override
-    void equalsTo(String col, int point) {
+    protected void equalsTo(String col, int point) {
         intervalTrees.get(col).insert(new IntervalTree.Point(point));
     }
 }

@@ -103,7 +103,7 @@ public abstract class AbstractParser implements IExpressionVisitor{
 
     }
 
-    abstract void finiteInterval(String column, int start, int end);
+    protected abstract void finiteInterval(String column, int start, int end);
 
     @Override
     public void visit(AndExpression andExpression) {
@@ -144,7 +144,7 @@ public abstract class AbstractParser implements IExpressionVisitor{
 
     }
 
-    abstract void equalsTo(String col, int point);
+    protected abstract void equalsTo(String col, int point);
 
     @Override
     public void visit(EqualsTo equalsTo) {

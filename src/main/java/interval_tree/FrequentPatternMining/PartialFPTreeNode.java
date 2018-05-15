@@ -42,7 +42,6 @@ public class PartialFPTreeNode extends AbstractFPTree.FPTreeNode {
     public List<IIndex> extractPartialIndexes(List<String> columns){
 //        return Clique.runClique(relation, columns.toArray(new String[0]), frequency);
         return clique.getClusters(columns);
-
     }
 
     @Override

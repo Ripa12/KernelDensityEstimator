@@ -17,9 +17,9 @@ import java.util.stream.Stream;
 public class QueryGenerator {
 
     private final static String COLUMNS[] = {"B", "C", "D", "E", "F", "G", "H"};
-    private final static int NR_OF_QUERIES = 500; // ToDo: Null-pointer exception if very small
-    private final static int MAX_DUPLICATES = 2000;
-    private final static int MAX_UPPER_BOUND = 999999999;
+    private final static int NR_OF_QUERIES = 50; // ToDo: Null-pointer exception if very small
+    private final static int MAX_DUPLICATES = 200;
+    private final static int MAX_UPPER_BOUND = 999999;
     private final static int FIRST_LOWER_BOUND = 10000;
     private final static int FIRST_UPPER_BOUND = 25000;
     private final static int SECOND_LOWER_BOUND = -100000;

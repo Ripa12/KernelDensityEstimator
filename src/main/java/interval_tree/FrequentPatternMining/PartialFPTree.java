@@ -36,12 +36,13 @@ public class PartialFPTree extends AbstractFPTree{
             for(int i = data.length-1; i >= 0; i--) {
 
                 // ToDo: Maybe better to pass MyData without having to wrap it in MyVector
-                node.updateMinMax(new MyVector(Arrays.copyOfRange(data, 0, i)));
+                node.updateMinMax(new MyVector(Arrays.copyOfRange(data, 0, i+1)));
                 node = (PartialFPTreeNode)node.parent;
             }
         }
 
         public PartialFPTree getFPTree(){
+            fpTree.initializeAllUnits();
             return fpTree;
         }
 
@@ -50,12 +51,6 @@ public class PartialFPTree extends AbstractFPTree{
     private PartialFPTree(SupportCount supportCount){
         super(supportCount);
         root = new PartialFPTreeNode(null, 0);
-
-        for(LinkedList<FPTreeNode> list : header.values()){
-            for(FPTreeNode node : list){
-                ((PartialFPTreeNode) node).initDimensions();
-            }
-        }
     }
 
     public void addData(Set<String> transactions, MyData[] data){
@@ -98,6 +93,22 @@ public class PartialFPTree extends AbstractFPTree{
     private void validateData(FPTreeNode node, int dim, MyData[] data){
         if(node != null && node instanceof PartialFPTreeNode){
             ((PartialFPTreeNode) node).validateClusters(new MyVector(Arrays.copyOfRange(data, 0, dim)));
+        }
+    }
+
+    private void initializeAllUnits(){
+        for(LinkedList<FPTreeNode> list : header.values()){
+            for(FPTreeNode node : list){
+                ((PartialFPTreeNode) node).initDimensions();
+            }
+        }
+    }
+
+    public void generateAllClusters(){
+        for(LinkedList<FPTreeNode> list : header.values()){
+            for(FPTreeNode node : list){
+                ((PartialFPTreeNode) node).findClusters();
+            }
         }
     }
 

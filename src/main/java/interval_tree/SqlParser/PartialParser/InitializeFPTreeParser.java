@@ -1,26 +1,18 @@
-package interval_tree.SqlParser;
+package interval_tree.SqlParser.PartialParser;
 
-import interval_tree.DataStructure.IntervalTree;
 import interval_tree.FrequentPatternMining.PartialFPTree;
 import interval_tree.FrequentPatternMining.SupportCount;
+import interval_tree.SqlParser.AbstractParser;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyInterval;
 import interval_tree.SubspaceClustering.MyPoint;
-import interval_tree.SubspaceClustering.MyVector;
-import net.sf.jsqlparser.expression.*;
-import net.sf.jsqlparser.expression.operators.arithmetic.*;
-import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
-import net.sf.jsqlparser.expression.operators.conditional.OrExpression;
-import net.sf.jsqlparser.expression.operators.relational.*;
-import net.sf.jsqlparser.schema.Column;
-import net.sf.jsqlparser.statement.select.SubSelect;
 
 import java.util.*;
 
 /**
  * Created by Richard on 2018-03-04.
  */
-public class InitialFPTreeParser extends AbstractParser {
+public class InitializeFPTreeParser extends AbstractParser {
 
     private PartialFPTree.PartialFPTreeBuilder fpTreeBuilder;
 
@@ -28,15 +20,15 @@ public class InitialFPTreeParser extends AbstractParser {
 
     private SupportCount supportCount;
 
-    public InitialFPTreeParser(SupportCount supportCount){
+    public InitializeFPTreeParser(SupportCount supportCount){
         this.supportCount = supportCount;
 
         this.fpTreeBuilder = new PartialFPTree.PartialFPTreeBuilder(supportCount);
         this.list = new TreeMap<>(Comparator.comparingInt(o -> this.supportCount.get(o)[0]));
     }
 
-    public FPTreeParser buildFPTreeParser(){
-        return new FPTreeParser(this.fpTreeBuilder.getFPTree(), list);
+    public PopulateFPTreeParser buildFPTreeParser(){
+        return new PopulateFPTreeParser(this.fpTreeBuilder.getFPTree(), list);
     }
 
     @Override
@@ -50,14 +42,14 @@ public class InitialFPTreeParser extends AbstractParser {
     }
 
     @Override
-    void equalsTo(String col, int point) {
+    protected void equalsTo(String col, int point) {
         if(supportCount.isSufficient(col)) {
             list.put(col, new MyPoint(point));
         }
     }
 
     @Override
-    void finiteInterval(String column, int start, int end) {
+    protected void finiteInterval(String column, int start, int end) {
         if(supportCount.isSufficient(column)) {
             list.put(column, new MyInterval(start, end));
         }
