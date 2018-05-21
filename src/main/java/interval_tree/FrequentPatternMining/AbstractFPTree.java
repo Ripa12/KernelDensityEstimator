@@ -10,51 +10,12 @@ public abstract class AbstractFPTree {
     /**
      * Member class
      */
-    public static abstract class FPTreeNode {
-
-        protected FPTreeNode parent;
-        protected TreeMap<String, FPTreeNode> children;
-        protected int frequency;
-
-        protected FPTreeNode(FPTreeNode parent) {
-            this.children = new TreeMap<>();
-            this.parent = parent;
-            this.frequency = 0;
-        }
-
-        protected abstract FPTreeNode clone();
-
-        final FPTreeNode getOrCreateChild(String name){
-            FPTreeNode temp;
-            if (children.containsKey(name)) {
-                temp = children.get(name);
-            } else {
-                temp = clone();
-
-                children.put(name, temp);
-            }
-            temp.frequency++;
-            return temp;
-        }
-
-        final FPTreeNode getChild(String name){
-            FPTreeNode temp = null;
-            if (children.containsKey(name)) {
-                temp = children.get(name);
-            }
-            return temp;
-        }
-
-        final int getFrequency(){
-            return frequency;
-        }
-    }
 
     /**
      * Member variables
      */
-    protected FPTreeNode root;
-    protected HashMap<String, LinkedList<FPTreeNode>> header;
+    private AbstractFPTreeNode root;
+    protected HashMap<String, LinkedList<AbstractFPTreeNode>> header;
     protected double minsup;
     protected double totalSupportCount;
     protected List<IIndex> indices;
@@ -63,10 +24,15 @@ public abstract class AbstractFPTree {
     /**
      * Constructor
      */
-    public AbstractFPTree(SupportCount supportCount){
+    public AbstractFPTree(SupportCount supportCount, AbstractFPTreeNode root){
         this.totalSupportCount = supportCount.getTotalSupportCount();
+        this.root = root;
         header = new HashMap<>();
         supportCount.keySet().forEach(k -> header.put(k, new LinkedList<>()));
+    }
+
+    protected AbstractFPTreeNode getRoot(){
+        return this.root;
     }
 
     final public List<IIndex> getIndices(){
@@ -82,7 +48,7 @@ public abstract class AbstractFPTree {
         extractItemSets(root, cols);
     }
 
-    private void extractItemSets(FPTreeNode node, LinkedList<String> cols){
+    private void extractItemSets(AbstractFPTreeNode node, LinkedList<String> cols){
 
         for (String col : node.children.keySet()) {
             cols.add(col);
@@ -93,13 +59,11 @@ public abstract class AbstractFPTree {
         extractItemSet(node, cols);
     }
 
-    abstract void extractItemSet(FPTreeNode node, List<String> columns);
+    abstract void extractItemSet(AbstractFPTreeNode node, List<String> columns);
 
     // ToDo: FPTreeNode = template
-    FPTreeNode insertTree(Set<String> transactions) {
-
-        Iterator<String> it = transactions.iterator();
-        FPTreeNode node = root;
+    AbstractFPTreeNode insertTree(Iterator<String> it) {
+        AbstractFPTreeNode node = root;
 
         while (it.hasNext()) {
             String entry = it.next();

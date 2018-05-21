@@ -8,10 +8,10 @@ import interval_tree.SubspaceClustering.MyVector;
 
 import java.util.List;
 
-public class PartialFPTreeNode extends AbstractFPTree.FPTreeNode {
+public class PartialFPTreeNode extends AbstractFPTreeNode {
 
-    Clique<MyVector> clique;
-    int dimensions;
+    private Clique<MyVector> clique;
+    private int dimensions;
     PartialFPTreeNode(PartialFPTreeNode parent, int dim) {
         super(parent);
         this.dimensions = dim;
@@ -19,33 +19,33 @@ public class PartialFPTreeNode extends AbstractFPTree.FPTreeNode {
         clique = new Clique<>(1000, .1, false, dim);
     }
 
-    public void updateMinMax(MyVector data){
+    void updateMinMax(MyVector data){
         clique.updateMinMax(data);
     }
 
-    public void initDimensions(){
+    void initDimensions(){
         clique.initOneDimensionalUnits();
     }
 
-    public void addData(MyVector vec){
+    void addData(MyVector vec){
         clique.insertData(vec);
     }
 
-    public void findClusters(){
+    void findClusters(){
         clique.findClusters();
     }
 
-    public void validateClusters(MyVector vec){
+    void validateClusters(MyVector vec){
         clique.validateClusters(vec);
     }
 
-    public List<IIndex> extractPartialIndexes(List<String> columns){
-//        return Clique.runClique(relation, columns.toArray(new String[0]), frequency);
+    @Override
+    public List<IIndex> extractIndexes(List<String> columns){
         return clique.getClusters(columns);
     }
 
     @Override
-    protected AbstractFPTree.FPTreeNode clone() {
+    protected PartialFPTreeNode clone() {
         return new PartialFPTreeNode(this, dimensions + 1);
     }
 }

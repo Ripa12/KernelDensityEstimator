@@ -2,7 +2,6 @@ package interval_tree;
 
 
 import interval_tree.Factory.QueryGenerator;
-import interval_tree.SubspaceClustering.Clique;
 
 
 /**
@@ -22,13 +21,12 @@ public class App
         Experiment exp = new Experiment(q);
 
         System.out.println("-- Partial Compound Index --");
-//        exp.testFPGrowth();
-
-        exp.testFPGrowth();
-
+        exp.testPartialFPGrowth();
 //        exp.run(true);
         String partialIndexInfo = Logger.getInstance().toString();
 
+        System.out.println("-- Full Index --");
+        exp.testFullFPGrowth();
 //        exp.run(false);
         String fullIndexInfo = Logger.getInstance().toString();
 

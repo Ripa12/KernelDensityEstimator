@@ -57,6 +57,7 @@ import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameters.Flag;
 import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameters.IntParameter;
 import de.lmu.ifi.dbs.elki.utilities.pairs.Pair;
 import interval_tree.CandidateIndex.CompoundPartialIndex;
+import interval_tree.CandidateIndex.FullIndex;
 import interval_tree.CandidateIndex.IIndex;
 import interval_tree.CandidateIndex.PartialIndex;
 import interval_tree.SubspaceClustering.MyVector;
@@ -242,6 +243,7 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
                 units.add(new CliqueUnit<>(new CLIQUEInterval(d, unit_bounds[x][d], unit_bounds[x + 1][d])));
             }
         }
+        return;
     }
 
     public void insertData(V featureVector){
@@ -278,7 +280,7 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
                 }
             }
         }
-        System.out.println("Find multi-dimensionality: " + (System.nanoTime() - startTime) / 1000000000.0);
+//        System.out.println("Find multi-dimensionality: " + (System.nanoTime() - startTime) / 1000000000.0);
 
 
         Integer dim = dimensionToDenseSubspaces.lastKey();
@@ -302,6 +304,7 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
             return null;
 
         List<IIndex> candidates = new LinkedList<>();
+        double accumulatedCoverage = 0;
 
         for (Pair<Subspace, ModifiableDBIDs> modelAndCluster : modelsAndClusters) {
 
@@ -310,7 +313,15 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
             // ToDo: Are too many candidate clusters created before being pruned?
             if ((coverage / ((double) total)) >= tau) {
                 candidates.add(((CliqueSubspace) modelAndCluster.getFirst()).makePartialIndex(columns));
+                accumulatedCoverage += coverage;
             }
+        }
+
+        // ToDo: Macro here
+        // ToDo: accumulatedCoverage is sometimes larger than total!!!
+        if((accumulatedCoverage / ((double) total)) < .8){
+            candidates.clear();
+            candidates.add(new FullIndex(total, 0, String.join(",", columns)));
         }
 
         return candidates;

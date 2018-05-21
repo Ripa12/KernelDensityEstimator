@@ -17,13 +17,13 @@ import java.util.stream.Stream;
 public class QueryGenerator {
 
     private final static String COLUMNS[] = {"B", "C", "D", "E", "F", "G", "H"};
-    private final static int NR_OF_QUERIES = 50; // ToDo: Null-pointer exception if very small
-    private final static int MAX_DUPLICATES = 200;
+    private final static int NR_OF_QUERIES = 500; // ToDo: Null-pointer exception if very small
+    private final static int MAX_DUPLICATES = 10;
     private final static int MAX_UPPER_BOUND = 999999;
     private final static int FIRST_LOWER_BOUND = 10000;
-    private final static int FIRST_UPPER_BOUND = 25000;
-    private final static int SECOND_LOWER_BOUND = -100000;
-    private final static int SECOND_UPPER_BOUND = -25000;
+    private final static int FIRST_UPPER_BOUND = 65000;
+    private final static int SECOND_LOWER_BOUND = 300000; // ToDo: Negative numbers are not generated correctly!
+    private final static int SECOND_UPPER_BOUND = 310000;
 
     private static Random rand;
 
@@ -86,15 +86,15 @@ public class QueryGenerator {
 
     public static void generatePredicate(StringBuilder tempStmt, int selectedColumn){
 //        if (rand.nextInt(3) > 0) {
-        if (false) {
+        if (true) {
             int start;
             int end;
 
             int random = rand.nextInt(101);
-            if (random <= 67) { //This is 20% more
+            if (random <= 70) { //This is 20% more
                 start = rand.nextInt((FIRST_UPPER_BOUND - FIRST_LOWER_BOUND) + 1) + FIRST_LOWER_BOUND;
                 end = rand.nextInt((FIRST_UPPER_BOUND - start) + 1) + start;
-            } else if (random <= 89) {
+            } else if (random <= 80) {
                 start = rand.nextInt((SECOND_UPPER_BOUND - SECOND_LOWER_BOUND) + 1) + SECOND_LOWER_BOUND;
                 end = rand.nextInt((SECOND_UPPER_BOUND - start) + 1) + start;
             } else {

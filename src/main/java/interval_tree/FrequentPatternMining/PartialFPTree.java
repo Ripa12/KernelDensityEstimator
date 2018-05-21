@@ -11,15 +11,10 @@ import interval_tree.SubspaceClustering.MyVector;
 
 import java.util.*;
 
-// http://www.programering.com/a/MDM2QTNwATg.html
-// https://wimleers.com/sites/wimleers.com/files/FP-Growth%20presentation%20handouts%20—%C2%A0Florian%20Verhein.pdf
-// http://www.cis.hut.fi/Opinnot/T-61.6020/2008/fptree.pdf
-
-
 public class PartialFPTree extends AbstractFPTree{
 
     interface DataProcessor{
-        void delegate(FPTreeNode node, int dim, MyData[] data);
+        void delegate(AbstractFPTreeNode node, int dim, MyData[] data);
     }
 
     public static class PartialFPTreeBuilder{
@@ -31,7 +26,7 @@ public class PartialFPTree extends AbstractFPTree{
         }
 
         public void insertTree(Set<String> transactions, MyData[] data){
-            PartialFPTreeNode node = ((PartialFPTreeNode)fpTree.insertTree(transactions));
+            PartialFPTreeNode node = ((PartialFPTreeNode)fpTree.insertTree(transactions.iterator()));
 
             for(int i = data.length-1; i >= 0; i--) {
 
@@ -49,8 +44,7 @@ public class PartialFPTree extends AbstractFPTree{
     }
 
     private PartialFPTree(SupportCount supportCount){
-        super(supportCount);
-        root = new PartialFPTreeNode(null, 0);
+        super(supportCount, new PartialFPTreeNode(null, 0));
     }
 
     public void addData(Set<String> transactions, MyData[] data){
@@ -64,7 +58,7 @@ public class PartialFPTree extends AbstractFPTree{
     private void processTransaction(DataProcessor proc, Set<String> transactions, MyData[] data){
         Iterator<String> it = transactions.iterator();
 
-        FPTreeNode node = root;
+        AbstractFPTreeNode node = getRoot();
 
         boolean terminate = false;
         int dim = 1;
@@ -83,40 +77,40 @@ public class PartialFPTree extends AbstractFPTree{
     }
 
     // ToDo: Maybe closed item-sets would be better memory-wise for CLIQUE
-    private void addData(FPTreeNode node, int dim, MyData[] data){
+    private void addData(AbstractFPTreeNode node, int dim, MyData[] data){
         if(node != null && node instanceof PartialFPTreeNode){
             ((PartialFPTreeNode) node).addData(new MyVector(Arrays.copyOfRange(data, 0, dim)));
         }
     }
 
     // ToDo: Maybe closed item-sets would be better memory-wise for CLIQUE
-    private void validateData(FPTreeNode node, int dim, MyData[] data){
+    private void validateData(AbstractFPTreeNode node, int dim, MyData[] data){
         if(node != null && node instanceof PartialFPTreeNode){
             ((PartialFPTreeNode) node).validateClusters(new MyVector(Arrays.copyOfRange(data, 0, dim)));
         }
     }
 
     private void initializeAllUnits(){
-        for(LinkedList<FPTreeNode> list : header.values()){
-            for(FPTreeNode node : list){
+        for(LinkedList<AbstractFPTreeNode> list : header.values()){
+            for(AbstractFPTreeNode node : list){
                 ((PartialFPTreeNode) node).initDimensions();
             }
         }
     }
 
     public void generateAllClusters(){
-        for(LinkedList<FPTreeNode> list : header.values()){
-            for(FPTreeNode node : list){
+        for(LinkedList<AbstractFPTreeNode> list : header.values()){
+            for(AbstractFPTreeNode node : list){
                 ((PartialFPTreeNode) node).findClusters();
             }
         }
     }
 
-    void extractItemSet(FPTreeNode node, List<String> columns){
+    void extractItemSet(AbstractFPTreeNode node, List<String> columns){
         if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
 
             if (node instanceof PartialFPTreeNode) {
-                indices.addAll(((PartialFPTreeNode) node).extractPartialIndexes(columns));
+                indices.addAll(((PartialFPTreeNode) node).extractIndexes(columns));
             }
         }
     }

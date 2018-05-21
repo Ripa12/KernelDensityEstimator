@@ -3,10 +3,12 @@ package interval_tree;
 import interval_tree.CandidateIndex.*;
 import interval_tree.DBMS.PostgreSql;
 import interval_tree.DataStructure.IntervalTree;
+import interval_tree.FrequentPatternMining.FullFPTree;
 import interval_tree.FrequentPatternMining.PartialFPTree;
 import interval_tree.FrequentPatternMining.SupportCount;
 import interval_tree.KnapsackProblem.DynamicProgramming;
 import interval_tree.SqlParser.*;
+import interval_tree.SqlParser.FullParser.FullParser;
 import interval_tree.SqlParser.PartialParser.PopulateFPTreeParser;
 import interval_tree.SqlParser.PartialParser.InitializeFPTreeParser;
 import interval_tree.SqlParser.PartialParser.ValidateFPTreeParser;
@@ -75,13 +77,40 @@ public class Experiment {
         intervalTrees.get("D").setMaxVal(supportCount.get("D")[2]);
     }
 
-//    public void testClique(){
-//        List<IIndex> candidates = new Clique().testCLIQUEResults();
-//
-//        testIndexes(candidates, QueryGenerator.csvToSql("test_data.csv"));
-//    }
+    public void testFullFPGrowth(){
+        SupportCount supportCount = new SupportCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
 
-    public void testFPGrowth(){
+        Logger.getInstance().setTimer();
+        parseQueries(new SupportCountParser(supportCount));
+        Logger.getInstance().stopTimer("parseTime");
+
+        setIntervalMinMax(supportCount);
+
+        FullParser fullParser = new FullParser(supportCount);
+
+        Logger.getInstance().setTimer();
+        parseQueries(fullParser);
+        Logger.getInstance().stopTimer("parseTime");
+
+        FullFPTree fpTree = fullParser.getFpTree();
+
+        Logger.getInstance().setTimer();
+        fpTree.extractItemSets(MINSUP);
+        Logger.getInstance().stopTimer("kernelRunTime");
+
+        List<? extends IIndex> indexList = fpTree.getIndices();
+
+        System.out.println("-- All generated Indexes --");
+        int indexIDs = 0;
+        for(IIndex idx : indexList) {
+            indexIDs++;
+            System.out.println(idx.createIdxStatementWithId(indexIDs));
+        }
+
+//        testIndexes(indexList, queryBatch);
+    }
+
+    public void testPartialFPGrowth(){
         SupportCount supportCount = new SupportCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
 
         Logger.getInstance().setTimer();
@@ -142,7 +171,7 @@ public class Experiment {
 
         System.out.println("--- Mine Predicates ---");
         Logger.getInstance().setTimer();
-        parseQueries(new GenericExpressionVisitor(intervalTrees));
+        parseQueries(new FullParser(supportCount));
         Logger.getInstance().stopTimer("parseTime");
 
         if(enablePartialIdxs)
@@ -155,7 +184,7 @@ public class Experiment {
 
 
     private void parseQueries(IExpressionVisitor visitor){
-//        ExpressionVisitor visitor = new GenericExpressionVisitor(intervalTrees); // ToDo: pass visitor as argument instead to allow for polymorphism
+//        ExpressionVisitor visitor = new FullParser(intervalTrees); // ToDo: pass visitor as argument instead to allow for polymorphism
 
         //CCJSqlParserManager parserManager = new CCJSqlParserManager();
 

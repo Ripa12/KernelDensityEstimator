@@ -2,16 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43c2164e-8c55-4ad6-acee-9b3228d9d1d5" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FPTreeParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/InitialFPTreeParser.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTreeNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTree.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTreeNode.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/IFPTreeParser.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/GenericExpressionVisitor.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FullParser/FullParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/interval_tree/App.class" afterPath="$PROJECT_DIR$/target/classes/interval_tree/App.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/App.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/App.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/AbstractParser.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/AbstractParser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/GenericExpressionVisitor.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/GenericExpressionVisitor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/SupportCountParser.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/SupportCountParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/PopulateFPTreeParser.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/PopulateFPTreeParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/Clique.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/Clique.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -29,32 +33,21 @@
       <file leaf-file-name="Experiment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GenericExpressionVisitor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/GenericExpressionVisitor.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
-              <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PopulateFPTreeParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/PopulateFPTreeParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="49" column="18" lean-forward="true" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
+            <state relative-caret-position="2541">
+              <caret line="142" column="0" lean-forward="false" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
               <folding>
-                <element signature="e#1351#1352#0" expanded="true" />
-                <element signature="e#1434#1435#0" expanded="true" />
+                <element signature="imports" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/App.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="756">
+              <caret line="36" column="40" lean-forward="false" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="40" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -62,33 +55,25 @@
       <file leaf-file-name="PartialFPTree.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyVector.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/MyVector.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="125">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="1155">
+              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
               <folding>
-                <element signature="e#409#410#0" expanded="true" />
-                <element signature="e#889#890#0" expanded="true" />
-                <element signature="e#923#924#0" expanded="true" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#752#753#0" expanded="false" />
+                <element signature="e#816#817#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PostgreSql.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java">
+      <file leaf-file-name="FullFPTree.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="371">
-              <caret line="97" column="13" lean-forward="true" selection-start-line="92" selection-start-column="12" selection-end-line="97" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="546">
+              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -96,12 +81,22 @@
       <file leaf-file-name="PartialFPTreeNode.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+            <state relative-caret-position="252">
+              <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
               <folding>
-                <element signature="e#647#648#0" expanded="true" />
-                <element signature="e#688#689#0" expanded="true" />
-                <element signature="e#849#850#0" expanded="true" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#649#650#0" expanded="false" />
+                <element signature="e#690#691#0" expanded="false" />
+                <element signature="e#718#719#0" expanded="false" />
+                <element signature="e#766#767#0" expanded="false" />
+                <element signature="e#799#800#0" expanded="false" />
+                <element signature="e#837#838#0" expanded="false" />
+                <element signature="e#863#864#0" expanded="false" />
+                <element signature="e#900#901#0" expanded="false" />
+                <element signature="e#942#943#0" expanded="false" />
+                <element signature="e#986#987#0" expanded="false" />
+                <element signature="e#1170#1171#0" expanded="false" />
+                <element signature="e#1236#1237#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -110,18 +105,78 @@
       <file leaf-file-name="Clique.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/Clique.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="482" column="0" lean-forward="false" selection-start-line="482" selection-start-column="0" selection-end-line="482" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="5964">
+              <caret line="321" column="0" lean-forward="false" selection-start-line="321" selection-start-column="0" selection-end-line="321" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#26793#26794#0" expanded="false" />
+                <element signature="e#26860#26861#0" expanded="false" />
+                <element signature="e#26911#26912#0" expanded="false" />
+                <element signature="e#26937#26938#0" expanded="false" />
+                <element signature="e#28093#28094#0" expanded="false" />
+                <element signature="e#28153#28154#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QueryGenerator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CliqueSubspace.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/CliqueSubspace.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3528">
+              <caret line="183" column="30" lean-forward="false" selection-start-line="183" selection-start-column="22" selection-end-line="183" selection-end-column="30" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#3822#3823#0" expanded="false" />
+                <element signature="e#3855#3856#0" expanded="false" />
+                <element signature="e#9672#9673#0" expanded="false" />
+                <element signature="e#9703#9704#0" expanded="false" />
+                <element signature="e#9799#9800#0" expanded="false" />
+                <element signature="e#9832#9833#0" expanded="false" />
+                <element signature="e#9887#9888#0" expanded="false" />
+                <element signature="e#9917#9918#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CliqueUnit.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/CliqueUnit.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1428">
+              <caret line="74" column="56" lean-forward="false" selection-start-line="74" selection-start-column="56" selection-end-line="74" selection-end-column="56" />
+              <folding>
+                <element signature="e#1794#1795#0" expanded="false" />
+                <element signature="e#1851#1852#0" expanded="false" />
+                <element signature="e#3324#3325#0" expanded="false" />
+                <element signature="e#3356#3357#0" expanded="false" />
+                <element signature="e#5819#5820#0" expanded="false" />
+                <element signature="e#5850#5851#0" expanded="false" />
+                <element signature="e#5951#5952#0" expanded="false" />
+                <element signature="e#5987#5988#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FullFPTreeNode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTreeNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="61" lean-forward="false" selection-start-line="21" selection-start-column="61" selection-end-line="21" selection-end-column="61" />
+              <folding>
+                <element signature="e#717#718#0" expanded="false" />
+                <element signature="e#764#765#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QueryGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
-              <caret line="122" column="39" lean-forward="false" selection-start-line="122" selection-start-column="24" selection-end-line="122" selection-end-column="39" />
+            <state relative-caret-position="63">
+              <caret line="96" column="35" lean-forward="false" selection-start-line="96" selection-start-column="35" selection-end-line="96" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -140,7 +195,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cont</find>
       <find>unique</find>
       <find>contain</find>
       <find>add</find>
@@ -169,6 +223,8 @@
       <find>total</find>
       <find>FPTreeNode</find>
       <find>dimensionality</find>
+      <find>Find</find>
+      <find>modelsAndClusters</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -182,10 +238,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/QueryGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FullIndex.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/PostgreSql.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/CandidateIndex.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/DataStructure/MyIntervalTree.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/GUI/StdStats.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/MyParser.java" />
@@ -204,11 +256,8 @@
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/PDF/UnivariateKernelEstimator.java" />
         <option value="$PROJECT_DIR$/data/testdata/unittests/test_data.csv" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FPTreeParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTreeNode.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FPTreeNode.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/App.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/SupportCount.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/CliqueUnit.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/MyRelation.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/MyData.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/MyPoint.java" />
@@ -217,22 +266,29 @@
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/CompoundPartialIndex.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/MyVector.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/CliqueSubspace.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/InitialFPTreeParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/AbstractParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/FPTreeParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/ValidateFPTreeParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/IFPTreeParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/InitializeFPTreeParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/PopulateFPTreeParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/SupportCountParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/GenericExpressionVisitor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/PopulateFPTreeParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTreeNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/IFPTreeParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FullParser/GenericExpressionVisitor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/InitializeFPTreeParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FullParser/FullParser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTreeNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTree.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/App.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/CliqueUnit.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/Clique.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java" />
       </list>
     </option>
   </component>
@@ -257,9 +313,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -416,7 +469,37 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="PartialParser" />
+              <option name="myItemId" value="FullParser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interval_tree" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KnapsackProblem" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -490,6 +573,36 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interval_tree" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CandidateIndex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="data" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -504,6 +617,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -786,52 +902,31 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18417463" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24147339" sideWeight="0.5025" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24010915" sideWeight="0.4975" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294964" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39972714" sideWeight="0.4975" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2575" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31650752" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36562073" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24147339" sideWeight="0.5025" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26906475" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18417463" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24028777" sideWeight="0.4975" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294964" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1140625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -852,33 +947,21 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
-          <line>223</line>
+          <line>252</line>
           <properties />
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
-          <line>125</line>
+          <line>154</line>
           <properties />
           <option name="timeStamp" value="107" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
-          <line>113</line>
-          <properties />
-          <option name="timeStamp" value="110" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
-          <line>225</line>
+          <line>254</line>
           <properties />
           <option name="timeStamp" value="127" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
-          <line>80</line>
-          <properties />
-          <option name="timeStamp" value="132" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java</url>
@@ -888,26 +971,43 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
-          <line>152</line>
+          <line>181</line>
           <properties />
           <option name="timeStamp" value="140" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/Clique.java</url>
-          <line>144</line>
+          <line>145</line>
           <properties />
           <option name="timeStamp" value="159" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/Clique.java</url>
-          <line>606</line>
+          <line>617</line>
           <properties />
           <option name="timeStamp" value="160" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/Clique.java</url>
+          <line>321</line>
+          <properties />
+          <option name="timeStamp" value="191" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/Clique.java</url>
+          <line>313</line>
+          <properties />
+          <option name="timeStamp" value="192" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="179" />
+      <option name="time" value="197" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="unit_bounds" />
+        <watch expression="((java.util.ArrayList)((Clique)this).units).get(3)" custom="java.util.ArrayList,interval_tree.SubspaceClustering.Clique" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -928,27 +1028,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/GUI/StdStats.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="35" column="41" lean-forward="false" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/github/jsqlparser/jsqlparser/1.1/jsqlparser-1.1.jar!/net/sf/jsqlparser/expression/Expression.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="7" column="9" lean-forward="false" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/GUI/Histogram.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="24" column="42" lean-forward="false" selection-start-line="24" selection-start-column="42" selection-end-line="24" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/GUI/StdDraw.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="16695">
@@ -964,22 +1043,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/IExpressionVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home/src.zip!/java/lang/StringBuilder.java" />
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home/src.zip!/java/util/List.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/FullIndex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="6" column="5" lean-forward="false" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -1016,21 +1081,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/DataStructure/IntervalTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="51" column="8" lean-forward="true" selection-start-line="51" selection-start-column="8" selection-end-line="55" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FPTreeNode.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Logger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="45" column="21" lean-forward="false" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/de/lmu/ifi/dbs/elki/elki/0.7.1/elki-0.7.1.jar!/de/lmu/ifi/dbs/elki/algorithm/clustering/subspace/CLIQUE.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1039,35 +1090,11 @@
       </provider>
     </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home/src.zip!/java/util/Arrays.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/CliqueUnit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="79" lean-forward="false" selection-start-line="2" selection-start-column="79" selection-end-line="2" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/MyRelation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/SupportCount.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home/src.zip!/java/util/LinkedList.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/IIndex.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1075,10 +1102,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="780">
           <caret line="61" column="18" lean-forward="false" selection-start-line="61" selection-start-column="8" selection-end-line="61" selection-end-column="18" />
-          <folding>
-            <element signature="e#345#346#0" expanded="false" />
-            <element signature="e#398#399#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1109,19 +1132,11 @@
         <state relative-caret-position="600">
           <caret line="43" column="5" lean-forward="false" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
           <folding>
-            <element signature="e#497#498#0" expanded="true" />
-            <element signature="e#530#531#0" expanded="true" />
-            <element signature="e#575#576#0" expanded="true" />
-            <element signature="e#608#609#0" expanded="true" />
+            <element signature="e#497#498#0" expanded="false" />
+            <element signature="e#530#531#0" expanded="false" />
+            <element signature="e#575#576#0" expanded="false" />
+            <element signature="e#608#609#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/CliqueSubspace.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="133" column="54" lean-forward="true" selection-start-line="133" selection-start-column="54" selection-end-line="133" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1133,14 +1148,6 @@
       </provider>
     </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home/src.zip!/java/util/TreeMap.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/KnapsackProblem/DynamicProgramming.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/AbstractParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6762">
@@ -1149,55 +1156,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/IFPTreeParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/InitializeFPTreeParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="29" column="31" lean-forward="false" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/ValidateFPTreeParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1136#1137#0" expanded="true" />
-            <element signature="e#1224#1225#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="26" column="20" lean-forward="false" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/SupportCountParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="316">
           <caret line="45" column="14" lean-forward="false" selection-start-line="45" selection-start-column="14" selection-end-line="45" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/GenericExpressionVisitor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1205,89 +1167,276 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="358">
           <caret line="191" column="0" lean-forward="false" selection-start-line="191" selection-start-column="0" selection-end-line="191" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/MyVector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="e#409#410#0" expanded="false" />
+            <element signature="e#889#890#0" expanded="false" />
+            <element signature="e#923#924#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/SupportCount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="20" column="33" lean-forward="false" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
+          <folding>
+            <element signature="e#523#524#0" expanded="false" />
+            <element signature="e#563#564#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/PopulateFPTreeParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/IFPTreeParser.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/IExpressionVisitor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="17" lean-forward="false" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/DataStructure/IntervalTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="98" column="15" lean-forward="false" selection-start-line="98" selection-start-column="15" selection-end-line="98" selection-end-column="15" />
+        <state relative-caret-position="234">
+          <caret line="175" column="16" lean-forward="false" selection-start-line="175" selection-start-column="16" selection-end-line="175" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/InitializeFPTreeParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="29" column="4" lean-forward="true" selection-start-line="29" selection-start-column="4" selection-end-line="31" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/ValidateFPTreeParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="27" column="5" lean-forward="true" selection-start-line="25" selection-start-column="4" selection-end-line="27" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/KnapsackProblem/DynamicProgramming.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="97" column="13" lean-forward="true" selection-start-line="92" selection-start-column="12" selection-end-line="97" selection-end-column="13" />
+        <state relative-caret-position="-333">
+          <caret line="97" column="13" lean-forward="false" selection-start-line="92" selection-start-column="12" selection-end-line="97" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/MyRelation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/PopulateFPTreeParser.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Logger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="49" column="18" lean-forward="true" selection-start-line="49" selection-start-column="18" selection-end-line="49" selection-end-column="18" />
+        <state relative-caret-position="294">
+          <caret line="45" column="21" lean-forward="false" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="21" />
           <folding>
-            <element signature="e#1351#1352#0" expanded="true" />
-            <element signature="e#1434#1435#0" expanded="true" />
+            <element signature="e#986#987#0" expanded="false" />
+            <element signature="e#1031#1032#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/MyVector.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/FullIndex.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="84">
+          <caret line="4" column="11" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
           <folding>
-            <element signature="e#409#410#0" expanded="true" />
-            <element signature="e#889#890#0" expanded="true" />
-            <element signature="e#923#924#0" expanded="true" />
+            <element signature="e#137#138#0" expanded="false" />
+            <element signature="e#167#168#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTreeNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+        <state relative-caret-position="-252">
+          <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
           <folding>
-            <element signature="e#647#648#0" expanded="true" />
-            <element signature="e#688#689#0" expanded="true" />
-            <element signature="e#849#850#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FullParser/FullParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="147">
+          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding>
+            <element signature="e#1527#1528#0" expanded="false" />
+            <element signature="e#1555#1556#0" expanded="false" />
+            <element signature="e#1596#1597#0" expanded="false" />
+            <element signature="e#1653#1654#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/Clique.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="482" column="0" lean-forward="false" selection-start-line="482" selection-start-column="0" selection-end-line="482" selection-end-column="0" />
+        <state relative-caret-position="231">
+          <caret line="23" column="7" lean-forward="true" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
+          <folding>
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#900#901#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="36" column="40" lean-forward="false" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="2541">
+          <caret line="142" column="0" lean-forward="false" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1155">
+          <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#752#753#0" expanded="false" />
+            <element signature="e#816#817#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTreeNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="61" lean-forward="false" selection-start-line="21" selection-start-column="61" selection-end-line="21" selection-end-column="61" />
+          <folding>
+            <element signature="e#717#718#0" expanded="false" />
+            <element signature="e#764#765#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="18" column="38" lean-forward="false" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#649#650#0" expanded="false" />
+            <element signature="e#690#691#0" expanded="false" />
+            <element signature="e#718#719#0" expanded="false" />
+            <element signature="e#766#767#0" expanded="false" />
+            <element signature="e#799#800#0" expanded="false" />
+            <element signature="e#837#838#0" expanded="false" />
+            <element signature="e#863#864#0" expanded="false" />
+            <element signature="e#900#901#0" expanded="false" />
+            <element signature="e#942#943#0" expanded="false" />
+            <element signature="e#986#987#0" expanded="false" />
+            <element signature="e#1170#1171#0" expanded="false" />
+            <element signature="e#1236#1237#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/CliqueSubspace.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3528">
+          <caret line="183" column="30" lean-forward="false" selection-start-line="183" selection-start-column="22" selection-end-line="183" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#3822#3823#0" expanded="false" />
+            <element signature="e#3855#3856#0" expanded="false" />
+            <element signature="e#9672#9673#0" expanded="false" />
+            <element signature="e#9703#9704#0" expanded="false" />
+            <element signature="e#9799#9800#0" expanded="false" />
+            <element signature="e#9832#9833#0" expanded="false" />
+            <element signature="e#9887#9888#0" expanded="false" />
+            <element signature="e#9917#9918#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/CliqueUnit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1428">
+          <caret line="74" column="56" lean-forward="false" selection-start-line="74" selection-start-column="56" selection-end-line="74" selection-end-column="56" />
+          <folding>
+            <element signature="e#1794#1795#0" expanded="false" />
+            <element signature="e#1851#1852#0" expanded="false" />
+            <element signature="e#3324#3325#0" expanded="false" />
+            <element signature="e#3356#3357#0" expanded="false" />
+            <element signature="e#5819#5820#0" expanded="false" />
+            <element signature="e#5850#5851#0" expanded="false" />
+            <element signature="e#5951#5952#0" expanded="false" />
+            <element signature="e#5987#5988#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/Clique.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5964">
+          <caret line="321" column="0" lean-forward="false" selection-start-line="321" selection-start-column="0" selection-end-line="321" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#26793#26794#0" expanded="false" />
+            <element signature="e#26860#26861#0" expanded="false" />
+            <element signature="e#26911#26912#0" expanded="false" />
+            <element signature="e#26937#26938#0" expanded="false" />
+            <element signature="e#28093#28094#0" expanded="false" />
+            <element signature="e#28153#28154#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="122" column="39" lean-forward="false" selection-start-line="122" selection-start-column="24" selection-end-line="122" selection-end-column="39" />
+        <state relative-caret-position="63">
+          <caret line="96" column="35" lean-forward="false" selection-start-line="96" selection-start-column="35" selection-end-line="96" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

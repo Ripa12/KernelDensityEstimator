@@ -22,10 +22,6 @@ public class PopulateFPTreeParser extends AbstractParser {
         this.list = list;
     }
 
-//    public PartialFPTree getFpTree(){
-//        return fpTree;
-//    }
-
     public ValidateFPTreeParser buildValidateFPTreeParser(){
         return new ValidateFPTreeParser(fpTree, list);
     }
