@@ -10,4 +10,5 @@ public interface  MyData {
 
     boolean isContained(CLIQUEInterval interval);
     boolean isContained(double min, double max);
+    boolean contains(double min, double max);
 }

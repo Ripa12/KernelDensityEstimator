@@ -40,4 +40,12 @@ public class MyPoint implements MyData {
         }
         return true;
     }
+
+    @Override
+    public boolean contains(double min, double max) {
+        if(min > value || value >= max) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -16,7 +16,7 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
         super(parent);
         this.dimensions = dim;
 
-        clique = new Clique<>(1000, .1, false, dim);
+        clique = new Clique<>(1000, .1, .7, false, dim);
     }
 
     void updateMinMax(MyVector data){

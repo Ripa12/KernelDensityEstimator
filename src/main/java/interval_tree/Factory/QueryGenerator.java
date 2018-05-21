@@ -94,7 +94,7 @@ public class QueryGenerator {
             if (random <= 70) { //This is 20% more
                 start = rand.nextInt((FIRST_UPPER_BOUND - FIRST_LOWER_BOUND) + 1) + FIRST_LOWER_BOUND;
                 end = rand.nextInt((FIRST_UPPER_BOUND - start) + 1) + start;
-            } else if (random <= 80) {
+            } else if (random <= 91) {
                 start = rand.nextInt((SECOND_UPPER_BOUND - SECOND_LOWER_BOUND) + 1) + SECOND_LOWER_BOUND;
                 end = rand.nextInt((SECOND_UPPER_BOUND - start) + 1) + start;
             } else {

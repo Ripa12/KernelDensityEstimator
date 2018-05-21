@@ -64,13 +64,13 @@ public class CliqueSubspace<V extends MyVector> extends Subspace {
     private double[] lowerBounds;
     private double[] maximumBounds;
 
-    boolean isContained(MyVector other){
+    boolean contains(MyVector other){
         if(other.getDimensionality() != dimensionality())
             return false;
 
         final long[] dims = getDimensions();
         for(int dim = BitsUtil.nextSetBit(dims, 0); dim >= 0; dim = BitsUtil.nextSetBit(dims, dim + 1)) {
-            if(!other.isContained(lowerBounds[dim], maximumBounds[dim], dim)){
+            if(!other.contains(lowerBounds[dim], maximumBounds[dim], dim)){
                 return false;
             }
         }
@@ -78,6 +78,21 @@ public class CliqueSubspace<V extends MyVector> extends Subspace {
         coverage++;
         return true;
     }
+
+//    boolean isContained(MyVector other){
+//        if(other.getDimensionality() != dimensionality())
+//            return false;
+//
+//        final long[] dims = getDimensions();
+//        for(int dim = BitsUtil.nextSetBit(dims, 0); dim >= 0; dim = BitsUtil.nextSetBit(dims, dim + 1)) {
+//            if(!other.isContained(lowerBounds[dim], maximumBounds[dim], dim)){
+//                return false;
+//            }
+//        }
+//
+//        coverage++;
+//        return true;
+//    }
 
     /**
      * Creates a new one-dimensional subspace of the original data space.

@@ -36,10 +36,15 @@ public class MyInterval implements MyData {
     }
 
     @Override
-    public boolean isContained(double min, double max) {
+    public boolean isContained(double min, double max) { // ToDo: Should change name from isContained to isOverlapping
         if(min > upperBound || lowerBound >= max) {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean contains(double min, double max) {
+        return (lowerBound >= min && max >= upperBound);
     }
 }

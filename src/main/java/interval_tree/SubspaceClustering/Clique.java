@@ -143,6 +143,11 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
      */
     private boolean prune;
 
+    /**
+     * Holds the value of {}.
+     */
+    private double idealCoverage;
+
 
     /**
      * My Variables.
@@ -164,10 +169,11 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
      * @param tau   Tau value
      * @param prune Prune flag
      */
-    public Clique(int xsi, double tau, boolean prune, int dimensionality) {
+    public Clique(int xsi, double tau, double idealCoverage, boolean prune, int dimensionality) {
         super();
         this.xsi = xsi;
         this.tau = tau;
+        this.idealCoverage = idealCoverage;
         this.prune = prune;
 
         this.total = 0;
@@ -294,8 +300,9 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
     }
 
     public void validateClusters(V featureVector){
+
         for (Pair<Subspace, ModifiableDBIDs> modelAndCluster : modelsAndClusters) {
-            ((CliqueSubspace) modelAndCluster.getFirst()).isContained(featureVector);
+            ((CliqueSubspace) modelAndCluster.getFirst()).contains(featureVector);
         }
     }
 
@@ -319,7 +326,7 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
 
         // ToDo: Macro here
         // ToDo: accumulatedCoverage is sometimes larger than total!!!
-        if((accumulatedCoverage / ((double) total)) < .8){
+        if((accumulatedCoverage / ((double) total)) < idealCoverage){
             candidates.clear();
             candidates.add(new FullIndex(total, 0, String.join(",", columns)));
         }

@@ -100,14 +100,14 @@ public class Experiment {
 
         List<? extends IIndex> indexList = fpTree.getIndices();
 
-        System.out.println("-- All generated Indexes --");
-        int indexIDs = 0;
-        for(IIndex idx : indexList) {
-            indexIDs++;
-            System.out.println(idx.createIdxStatementWithId(indexIDs));
-        }
+//        System.out.println("-- All generated Indexes --");
+//        int indexIDs = 0;
+//        for(IIndex idx : indexList) {
+//            indexIDs++;
+//            System.out.println(idx.createIdxStatementWithId(indexIDs));
+//        }
 
-//        testIndexes(indexList, queryBatch);
+        testIndexes(indexList, queryBatch);
     }
 
     public void testPartialFPGrowth(){
@@ -145,14 +145,14 @@ public class Experiment {
 
         List<? extends IIndex> indexList = fpTree.getIndices();
 
-        System.out.println("-- All generated Indexes --");
-        int indexIDs = 0;
-        for(IIndex idx : indexList) {
-            indexIDs++;
-            System.out.println(idx.createIdxStatementWithId(indexIDs));
-        }
+//        System.out.println("-- All generated Indexes --");
+//        int indexIDs = 0;
+//        for(IIndex idx : indexList) {
+//            indexIDs++;
+//            System.out.println(idx.createIdxStatementWithId(indexIDs));
+//        }
 
-//        testIndexes(indexList, queryBatch);
+        testIndexes(indexList, queryBatch);
     }
 
     public void run(boolean enablePartialIdxs){
@@ -250,7 +250,7 @@ public class Experiment {
             postSql = new PostgreSql();
             postSql.estimateWeights(indexList);
 
-            DynamicProgramming.solveKP(indexList, 4024000);
+            DynamicProgramming.solveKP(indexList, 52582912);
 
             postSql.buildCandidateIndexes(indexList);
             postSql.testIndexes(queryBatch);
