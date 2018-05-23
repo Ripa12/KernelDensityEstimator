@@ -1,8 +1,6 @@
 package interval_tree.FrequentPatternMining;
 
-import de.lmu.ifi.dbs.elki.utilities.datastructures.iterator.Iter;
-import interval_tree.SubspaceClustering.MyData;
-import interval_tree.SubspaceClustering.MyVector;
+import interval_tree.FrequentPatternMining.SupportCount.ColumnCount;
 
 import java.util.*;
 
@@ -15,8 +13,8 @@ public class FullFPTree extends AbstractFPTree{
 
         private FullFPTree fpTree;
 
-        public FullFPTreeBuilder(SupportCount supportCount){
-            fpTree = new FullFPTree(supportCount);
+        public FullFPTreeBuilder(ColumnCount columnCount){
+            fpTree = new FullFPTree(columnCount);
         }
 
         public void insertTree(Iterator<String> transactions){
@@ -29,8 +27,8 @@ public class FullFPTree extends AbstractFPTree{
 
     }
 
-    private FullFPTree(SupportCount supportCount){
-        super(supportCount, new FullFPTreeNode(null));
+    private FullFPTree(ColumnCount columnCount){
+        super(columnCount, new FullFPTreeNode(null));
     }
 
     void extractItemSet(AbstractFPTreeNode node, List<String> columns){

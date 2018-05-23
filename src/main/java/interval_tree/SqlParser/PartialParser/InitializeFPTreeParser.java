@@ -1,7 +1,7 @@
 package interval_tree.SqlParser.PartialParser;
 
 import interval_tree.FrequentPatternMining.PartialFPTree;
-import interval_tree.FrequentPatternMining.SupportCount;
+import interval_tree.FrequentPatternMining.SupportCount.ColumnCount;
 import interval_tree.SqlParser.AbstractParser;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyInterval;
@@ -18,13 +18,13 @@ public class InitializeFPTreeParser extends AbstractParser {
 
     private TreeMap<String, MyData> list;
 
-    private SupportCount supportCount;
+    private ColumnCount columnCount;
 
-    public InitializeFPTreeParser(SupportCount supportCount){
-        this.supportCount = supportCount;
+    public InitializeFPTreeParser(ColumnCount columnCount){
+        this.columnCount = columnCount;
 
-        this.fpTreeBuilder = new PartialFPTree.PartialFPTreeBuilder(supportCount);
-        this.list = new TreeMap<>(Comparator.comparingInt(o -> this.supportCount.get(o)[0]));
+        this.fpTreeBuilder = new PartialFPTree.PartialFPTreeBuilder(columnCount);
+        this.list = new TreeMap<>(Comparator.comparingInt(o -> this.columnCount.get(o)[0]));
     }
 
     public PopulateFPTreeParser buildFPTreeParser(){
@@ -43,14 +43,14 @@ public class InitializeFPTreeParser extends AbstractParser {
 
     @Override
     protected void equalsTo(String col, int point) {
-        if(supportCount.isSufficient(col)) {
+        if(columnCount.isSufficient(col)) {
             list.put(col, new MyPoint(point));
         }
     }
 
     @Override
     protected void finiteInterval(String column, int start, int end) {
-        if(supportCount.isSufficient(column)) {
+        if(columnCount.isSufficient(column)) {
             list.put(column, new MyInterval(start, end));
         }
     }

@@ -1,11 +1,6 @@
 package interval_tree.FrequentPatternMining;
 
-import interval_tree.CandidateIndex.CompoundPartialIndex;
-import interval_tree.CandidateIndex.IIndex;
-import interval_tree.CandidateIndex.PartialIndex;
-import interval_tree.DataStructure.IntervalTree;
-import interval_tree.Logger;
-import interval_tree.SubspaceClustering.Clique;
+import interval_tree.FrequentPatternMining.SupportCount.ColumnCount;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyVector;
 
@@ -21,8 +16,8 @@ public class PartialFPTree extends AbstractFPTree{
 
         private PartialFPTree fpTree;
 
-        public PartialFPTreeBuilder(SupportCount supportCount){
-            fpTree = new PartialFPTree(supportCount);
+        public PartialFPTreeBuilder(ColumnCount columnCount){
+            fpTree = new PartialFPTree(columnCount);
         }
 
         public void insertTree(Set<String> transactions, MyData[] data){
@@ -43,8 +38,8 @@ public class PartialFPTree extends AbstractFPTree{
 
     }
 
-    private PartialFPTree(SupportCount supportCount){
-        super(supportCount, new PartialFPTreeNode(null, 0));
+    private PartialFPTree(ColumnCount columnCount){
+        super(columnCount, new PartialFPTreeNode(null, 0));
     }
 
     public void addData(Set<String> transactions, MyData[] data){

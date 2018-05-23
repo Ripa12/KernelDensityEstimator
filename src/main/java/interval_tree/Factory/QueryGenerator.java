@@ -17,8 +17,8 @@ import java.util.stream.Stream;
 public class QueryGenerator {
 
     private final static String COLUMNS[] = {"B", "C", "D", "E", "F", "G", "H"};
-    private final static int NR_OF_QUERIES = 500; // ToDo: Null-pointer exception if very small
-    private final static int MAX_DUPLICATES = 10;
+    private final static int NR_OF_QUERIES = 50; // ToDo: Null-pointer exception if very small
+    private final static int MAX_DUPLICATES = 400;
     private final static int MAX_UPPER_BOUND = 999999;
     private final static int FIRST_LOWER_BOUND = 10000;
     private final static int FIRST_UPPER_BOUND = 65000;
@@ -35,10 +35,7 @@ public class QueryGenerator {
         String sqlPrefix = "SELECT * FROM TestTable WHERE ";
         StringBuilder stmts = new StringBuilder();
 
-        //Random rand = new Random();
         rand = new Random();
-
-
 
         StringBuilder tempStmt = new StringBuilder();
         for(int k = 0; k < NR_OF_QUERIES; k++) {
@@ -52,7 +49,7 @@ public class QueryGenerator {
             localNrOfPredicates = 1;
 
 
-            while(rand.nextInt(2) > 0 && selectedColumn < (COLUMNS.length - 1)) {
+            while(rand.nextInt(3) > 0 && selectedColumn < (COLUMNS.length - 1)) {
                 selectedColumn++;
                 selectedColumn = rand.nextInt((COLUMNS.length - selectedColumn)) + selectedColumn;
 
@@ -74,9 +71,6 @@ public class QueryGenerator {
             }
 
         }
-
-        // ToDo: Remember A is a clustered key!
-//        stmts.append(sqlPrefix).append("A = 750000000;\n"); //ToDo: Testing purposes
 
         System.out.println("NrOfQueries: " + nrOfQueries);
         System.out.println("NrOfPredicates: " + nrOfPredicates);
@@ -119,8 +113,7 @@ public class QueryGenerator {
             } else if (random <= 98) {
                 start = rand.nextInt((SECOND_UPPER_BOUND - SECOND_LOWER_BOUND) + 1) + SECOND_LOWER_BOUND;
             } else {
-//                start = rand.nextInt(MAX_UPPER_BOUND);
-                start = MAX_UPPER_BOUND;
+                start = rand.nextInt(MAX_UPPER_BOUND);
             }
             tempStmt.append(COLUMNS[selectedColumn])
                     .append(" = ")
@@ -178,10 +171,6 @@ public class QueryGenerator {
 
     public static String csvToSql(String source){
 
-        /*
-            source file
-         */
-//        String sourcePath = String.valueOf(Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResource(source)).getPath());
         String sourcePath = "data/testdata/unittests/" + source;
         if (SystemUtils.IS_OS_WINDOWS) {
             sourcePath = sourcePath.replaceFirst("/", "");

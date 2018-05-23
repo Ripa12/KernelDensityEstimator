@@ -5,7 +5,7 @@ import interval_tree.DBMS.PostgreSql;
 import interval_tree.DataStructure.IntervalTree;
 import interval_tree.FrequentPatternMining.FullFPTree;
 import interval_tree.FrequentPatternMining.PartialFPTree;
-import interval_tree.FrequentPatternMining.SupportCount;
+import interval_tree.FrequentPatternMining.SupportCount.ColumnCount;
 import interval_tree.KnapsackProblem.DynamicProgramming;
 import interval_tree.SqlParser.*;
 import interval_tree.SqlParser.FullParser.FullParser;
@@ -78,15 +78,15 @@ public class Experiment {
     }
 
     public void testFullFPGrowth(){
-        SupportCount supportCount = new SupportCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
+        ColumnCount columnCount = new ColumnCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
 
         Logger.getInstance().setTimer();
-        parseQueries(new SupportCountParser(supportCount));
+        parseQueries(new SupportCountParser(columnCount));
         Logger.getInstance().stopTimer("parseTime");
 
-        setIntervalMinMax(supportCount);
+        setIntervalMinMax(columnCount);
 
-        FullParser fullParser = new FullParser(supportCount);
+        FullParser fullParser = new FullParser(columnCount);
 
         Logger.getInstance().setTimer();
         parseQueries(fullParser);
@@ -100,26 +100,26 @@ public class Experiment {
 
         List<? extends IIndex> indexList = fpTree.getIndices();
 
-//        System.out.println("-- All generated Indexes --");
-//        int indexIDs = 0;
-//        for(IIndex idx : indexList) {
-//            indexIDs++;
-//            System.out.println(idx.createIdxStatementWithId(indexIDs));
-//        }
+        System.out.println("-- All generated Indexes --");
+        int indexIDs = 0;
+        for(IIndex idx : indexList) {
+            indexIDs++;
+            System.out.println(idx.createIdxStatementWithId(indexIDs));
+        }
 
-        testIndexes(indexList, queryBatch);
+//        testIndexes(indexList, queryBatch);
     }
 
     public void testPartialFPGrowth(){
-        SupportCount supportCount = new SupportCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
+        ColumnCount columnCount = new ColumnCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
 
         Logger.getInstance().setTimer();
-        parseQueries(new SupportCountParser(supportCount));
+        parseQueries(new SupportCountParser(columnCount));
         Logger.getInstance().stopTimer("parseTime");
 
-        setIntervalMinMax(supportCount);
+        setIntervalMinMax(columnCount);
 
-        InitializeFPTreeParser initialFPTreeParser = new InitializeFPTreeParser(supportCount);
+        InitializeFPTreeParser initialFPTreeParser = new InitializeFPTreeParser(columnCount);
 
         Logger.getInstance().setTimer();
         parseQueries(initialFPTreeParser);
@@ -145,14 +145,14 @@ public class Experiment {
 
         List<? extends IIndex> indexList = fpTree.getIndices();
 
-//        System.out.println("-- All generated Indexes --");
-//        int indexIDs = 0;
-//        for(IIndex idx : indexList) {
-//            indexIDs++;
-//            System.out.println(idx.createIdxStatementWithId(indexIDs));
-//        }
+        System.out.println("-- All generated Indexes --");
+        int indexIDs = 0;
+        for(IIndex idx : indexList) {
+            indexIDs++;
+            System.out.println(idx.createIdxStatementWithId(indexIDs));
+        }
 
-        testIndexes(indexList, queryBatch);
+//        testIndexes(indexList, queryBatch);
     }
 
     public void run(boolean enablePartialIdxs){
@@ -160,18 +160,18 @@ public class Experiment {
 
         List<IIndex> indexList = new ArrayList<>();
 
-        SupportCount supportCount = new SupportCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
+        ColumnCount columnCount = new ColumnCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
 
         System.out.println("--- Mine Frequency ---");
         Logger.getInstance().setTimer();
-        parseQueries(new SupportCountParser(supportCount));
+        parseQueries(new SupportCountParser(columnCount));
         Logger.getInstance().stopTimer("parseTime");
 
-        setIntervalMinMax(supportCount);
+        setIntervalMinMax(columnCount);
 
         System.out.println("--- Mine Predicates ---");
         Logger.getInstance().setTimer();
-        parseQueries(new FullParser(supportCount));
+        parseQueries(new FullParser(columnCount));
         Logger.getInstance().stopTimer("parseTime");
 
         if(enablePartialIdxs)

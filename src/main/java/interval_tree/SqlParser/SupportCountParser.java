@@ -1,27 +1,16 @@
 package interval_tree.SqlParser;
 
-import interval_tree.DataStructure.IntervalTree;
-import interval_tree.FrequentPatternMining.SupportCount;
-import net.sf.jsqlparser.expression.*;
-import net.sf.jsqlparser.expression.operators.arithmetic.*;
-import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
-import net.sf.jsqlparser.expression.operators.conditional.OrExpression;
-import net.sf.jsqlparser.expression.operators.relational.*;
-import net.sf.jsqlparser.schema.Column;
-import net.sf.jsqlparser.statement.select.SubSelect;
-
-import java.util.List;
-import java.util.Map;
+import interval_tree.FrequentPatternMining.SupportCount.ColumnCount;
 
 /**
  * Created by Richard on 2018-03-04.
  */
 public class SupportCountParser extends AbstractParser {
-    private SupportCount supportCount;
+    private ColumnCount columnCount;
 
-    public SupportCountParser(SupportCount supportCount){
+    public SupportCountParser(ColumnCount columnCount){
         super();
-        this.supportCount = supportCount;
+        this.columnCount = columnCount;
     }
 
     @Override
@@ -31,21 +20,21 @@ public class SupportCountParser extends AbstractParser {
 
     @Override
     public void after() {
-        supportCount.updateTotalSupport(); // ToDo: Find a more clever way
+        columnCount.updateTotalSupport(); // ToDo: Find a more clever way
     }
 
     @Override
     protected void finiteInterval(String column, int start, int end) {
-        supportCount.get(column)[0]++;
-        supportCount.get(column)[1] = Math.min(supportCount.get(column)[1], start);
-        supportCount.get(column)[2] = Math.max(supportCount.get(column)[2], end);
+        columnCount.get(column)[0]++;
+        columnCount.get(column)[1] = Math.min(columnCount.get(column)[1], start);
+        columnCount.get(column)[2] = Math.max(columnCount.get(column)[2], end);
     }
 
 
     @Override
     protected void equalsTo(String col, int point) {
-        supportCount.get(col)[0]++;
-        supportCount.get(col)[1] = Math.min(supportCount.get(col)[1], point);
-        supportCount.get(col)[2] = Math.max(supportCount.get(col)[2], point);
+        columnCount.get(col)[0]++;
+        columnCount.get(col)[1] = Math.min(columnCount.get(col)[1], point);
+        columnCount.get(col)[2] = Math.max(columnCount.get(col)[2], point);
     }
 }

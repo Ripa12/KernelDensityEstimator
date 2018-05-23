@@ -1,8 +1,8 @@
 package interval_tree.FrequentPatternMining;
 
 import interval_tree.CandidateIndex.IIndex;
+import interval_tree.FrequentPatternMining.SupportCount.ColumnCount;
 
-import javax.annotation.processing.SupportedOptions;
 import java.util.*;
 
 public abstract class AbstractFPTree {
@@ -24,11 +24,11 @@ public abstract class AbstractFPTree {
     /**
      * Constructor
      */
-    public AbstractFPTree(SupportCount supportCount, AbstractFPTreeNode root){
-        this.totalSupportCount = supportCount.getTotalSupportCount();
+    public AbstractFPTree(ColumnCount columnCount, AbstractFPTreeNode root){
+        this.totalSupportCount = columnCount.getTotalSupportCount();
         this.root = root;
         header = new HashMap<>();
-        supportCount.keySet().forEach(k -> header.put(k, new LinkedList<>()));
+        columnCount.keySet().forEach(k -> header.put(k, new LinkedList<>()));
     }
 
     protected AbstractFPTreeNode getRoot(){
