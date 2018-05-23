@@ -6,25 +6,27 @@ import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyInterval;
 import interval_tree.SubspaceClustering.MyPoint;
 
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by Richard on 2018-05-15.
  */
 public class ValidateFPTreeParser extends AbstractParser {
 
-    private PartialFPTree fpTree;
+    private Map<String, PartialFPTree> fpTree;
     private TreeMap<String, MyData> list;
 
-    ValidateFPTreeParser(PartialFPTree fpTree, TreeMap<String, MyData> list){
+    ValidateFPTreeParser(Map<String, PartialFPTree> fpTree, TreeMap<String, MyData> list){
         this.fpTree = fpTree;
         this.list = list;
 
-        this.fpTree.generateAllClusters();
+        for (PartialFPTree partialFPTree : this.fpTree.values()) {
+            partialFPTree.generateAllClusters();
+        }
     }
 
-    public PartialFPTree getFpTree(){
-        return fpTree;
+    public List<PartialFPTree> getFpTree(){
+        return new ArrayList<>(fpTree.values());
     }
 
     @Override
@@ -44,7 +46,7 @@ public class ValidateFPTreeParser extends AbstractParser {
 
     @Override
     public void after() {
-        fpTree.validateData(list.keySet(), list.values().toArray(new MyData[0]));
+        fpTree.get(getCurrentTable()).validateData(list.keySet(), list.values().toArray(new MyData[0]));
     }
 
 }

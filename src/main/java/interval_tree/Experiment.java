@@ -5,7 +5,7 @@ import interval_tree.DBMS.PostgreSql;
 import interval_tree.DataStructure.IntervalTree;
 import interval_tree.FrequentPatternMining.FullFPTree;
 import interval_tree.FrequentPatternMining.PartialFPTree;
-import interval_tree.FrequentPatternMining.SupportCount.ColumnCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableCount;
 import interval_tree.KnapsackProblem.DynamicProgramming;
 import interval_tree.SqlParser.*;
 import interval_tree.SqlParser.FullParser.FullParser;
@@ -19,6 +19,7 @@ import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.Statements;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
+import org.omg.IOP.TAG_ALTERNATE_IIOP_ADDRESS;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -30,18 +31,12 @@ public class Experiment {
     // https://www.programcreek.com/java-api-examples/index.php?source_dir=Weka-for-Android-master/src/weka/classifiers/meta/RegressionByDiscretization.java#
 
 
-    private static double MINSUP = .05;
-
+    public static double MINSUP = .05;
 
     /**
      * Batch of queries
      */
     private String queryBatch;
-
-    /**
-     * List of Interval trees for storing all intervals extracted from queries, one for each column
-     */
-    private Map<String, IntervalTree> intervalTrees;
 
 
     /**
@@ -55,50 +50,40 @@ public class Experiment {
                 .addTimer("queryGenerationTime").addTimer("parseTime");
 
 
-        intervalTrees = new HashMap<>();
-
-        // ToDo: Read all column names before-hand
-        intervalTrees.put("A", new IntervalTree("A"));
-        intervalTrees.put("B", new IntervalTree("B"));
-        intervalTrees.put("C", new IntervalTree("C"));
-        intervalTrees.put("D", new IntervalTree("D"));
-
         queryBatch = batch;
     }
 
-    public final void setIntervalMinMax(Map<String, Integer[]> supportCount){
-        intervalTrees.get("A").setMinVal(supportCount.get("A")[1]);
-        intervalTrees.get("A").setMaxVal(supportCount.get("A")[2]);
-        intervalTrees.get("B").setMinVal(supportCount.get("B")[1]);
-        intervalTrees.get("B").setMaxVal(supportCount.get("B")[2]);
-        intervalTrees.get("C").setMinVal(supportCount.get("C")[1]);
-        intervalTrees.get("C").setMaxVal(supportCount.get("C")[2]);
-        intervalTrees.get("D").setMinVal(supportCount.get("D")[1]);
-        intervalTrees.get("D").setMaxVal(supportCount.get("D")[2]);
+    private TableCount initiateTables(){
+        TableCount tableCount = new TableCount(MINSUP, new String[]{"TestTable"});
+        tableCount.addColumns("TestTable", new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
+        return tableCount;
     }
 
+
     public void testFullFPGrowth(){
-        ColumnCount columnCount = new ColumnCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
+        TableCount tableCount = initiateTables();
 
         Logger.getInstance().setTimer();
-        parseQueries(new SupportCountParser(columnCount));
+        parseQueries(new SupportCountParser(tableCount));
         Logger.getInstance().stopTimer("parseTime");
 
-        setIntervalMinMax(columnCount);
-
-        FullParser fullParser = new FullParser(columnCount);
+        FullParser fullParser = new FullParser(tableCount);
 
         Logger.getInstance().setTimer();
         parseQueries(fullParser);
         Logger.getInstance().stopTimer("parseTime");
 
-        FullFPTree fpTree = fullParser.getFpTree();
+        // ToDo: Should probably run more tests to see if multiple tables are handled properly.
+        List<FullFPTree> fpTree = fullParser.getFpTree();
+
+        List<IIndex> indexList = new LinkedList<>();
 
         Logger.getInstance().setTimer();
-        fpTree.extractItemSets(MINSUP);
+        for (FullFPTree fullFPTree : fpTree) {
+            fullFPTree.extractItemSets(MINSUP);
+            indexList.addAll(fullFPTree.getIndices());
+        }
         Logger.getInstance().stopTimer("kernelRunTime");
-
-        List<? extends IIndex> indexList = fpTree.getIndices();
 
         System.out.println("-- All generated Indexes --");
         int indexIDs = 0;
@@ -111,15 +96,13 @@ public class Experiment {
     }
 
     public void testPartialFPGrowth(){
-        ColumnCount columnCount = new ColumnCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
+        TableCount tableCount = initiateTables();
 
         Logger.getInstance().setTimer();
-        parseQueries(new SupportCountParser(columnCount));
+        parseQueries(new SupportCountParser(tableCount));
         Logger.getInstance().stopTimer("parseTime");
 
-        setIntervalMinMax(columnCount);
-
-        InitializeFPTreeParser initialFPTreeParser = new InitializeFPTreeParser(columnCount);
+        InitializeFPTreeParser initialFPTreeParser = new InitializeFPTreeParser(tableCount);
 
         Logger.getInstance().setTimer();
         parseQueries(initialFPTreeParser);
@@ -137,13 +120,16 @@ public class Experiment {
         parseQueries(validator);
         Logger.getInstance().stopTimer("parseTime");
 
-        PartialFPTree fpTree = validator.getFpTree();
+        List<PartialFPTree> fpTree = validator.getFpTree();
+        List<IIndex> indexList = new LinkedList<>();
 
         Logger.getInstance().setTimer();
-        fpTree.extractItemSets(MINSUP);
+        for (PartialFPTree partialFPTree : fpTree) {
+            partialFPTree.extractItemSets(MINSUP);
+            indexList.addAll(partialFPTree.getIndices());
+        }
         Logger.getInstance().stopTimer("kernelRunTime");
 
-        List<? extends IIndex> indexList = fpTree.getIndices();
 
         System.out.println("-- All generated Indexes --");
         int indexIDs = 0;
@@ -154,34 +140,6 @@ public class Experiment {
 
 //        testIndexes(indexList, queryBatch);
     }
-
-    public void run(boolean enablePartialIdxs){
-        Logger.getInstance().reset();
-
-        List<IIndex> indexList = new ArrayList<>();
-
-        ColumnCount columnCount = new ColumnCount(MINSUP, new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
-
-        System.out.println("--- Mine Frequency ---");
-        Logger.getInstance().setTimer();
-        parseQueries(new SupportCountParser(columnCount));
-        Logger.getInstance().stopTimer("parseTime");
-
-        setIntervalMinMax(columnCount);
-
-        System.out.println("--- Mine Predicates ---");
-        Logger.getInstance().setTimer();
-        parseQueries(new FullParser(columnCount));
-        Logger.getInstance().stopTimer("parseTime");
-
-        if(enablePartialIdxs)
-            suggestPartialIndexes(indexList);
-        else
-            suggestFullIndexes(indexList);
-
-        testIndexes(indexList, queryBatch);
-    }
-
 
     private void parseQueries(IExpressionVisitor visitor){
 //        ExpressionVisitor visitor = new FullParser(intervalTrees); // ToDo: pass visitor as argument instead to allow for polymorphism
@@ -198,6 +156,7 @@ public class Experiment {
 
                 Expression exp = ps.getWhere();
 
+                visitor.setCurrentTable(ps.getFromItem().toString());
                 visitor.before();
                 exp.accept(visitor);
                 visitor.after();
@@ -209,39 +168,6 @@ public class Experiment {
         }
     }
 
-    private void suggestFullIndexes(List<IIndex> indexList){
-        for (Map.Entry<String, IntervalTree> entry : intervalTrees.entrySet())
-        {
-//            kernelPrepStartTime = System.nanoTime();
-//            kernelPrepEstimatedTime += System.nanoTime() - kernelPrepStartTime;
-//
-//            kernelStartTime = System.nanoTime();
-//            kernelEstimatedTime += System.nanoTime() - kernelStartTime;
-
-            System.out.println("Column: " + entry.getKey() + "\tFrequency: " + entry.getValue().getFrequency());
-            indexList.add(new FullIndex((double)entry.getValue().getFrequency(), 0, entry.getKey()));
-        }
-    }
-
-    private void suggestPartialIndexes(List<IIndex> indexList){
-
-        for (Map.Entry<String, IntervalTree> entry : intervalTrees.entrySet())
-        {
-
-            Logger.getInstance().setTimer();
-            entry.getValue().iterate(); // ToDo: combine iterate and predictInterval
-            Logger.getInstance().stopTimer("kernelLoadTime");
-
-            Logger.getInstance().setTimer();
-            double[][] interval = entry.getValue().predictIntervals(.9);
-            Logger.getInstance().stopTimer("kernelRunTime");
-
-            for (int p = 0; p < interval.length; p++) {
-                System.out.println("Left: " + (interval[p][0]) + "\t Right: " + (interval[p][1]) + "\t Probability: " + (interval[p][2]));
-                indexList.add(new PartialIndex(((double)entry.getValue().getFrequency() * (interval[p][2])), 0, entry.getKey(), (int)interval[p][0], (int)interval[p][1]));
-            }
-        }
-    }
 
     // ToDo: Maybe pass a list of individual queries and not all queries in same string
     private void testIndexes(List<? extends IIndex> indexList, String queryBatch){

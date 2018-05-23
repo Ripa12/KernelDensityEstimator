@@ -142,15 +142,15 @@ public class CliqueSubspace<V extends MyVector> extends Subspace {
         }
     }
 
-    public CompoundPartialIndex makePartialIndex(List<String> columns){
+    public CompoundPartialIndex makePartialIndex(String table, List<String> columns){
         // ToDo: Coverage should be in Composite class or Full index instead
-        CompoundPartialIndex compoundPartialIndex = new CompoundPartialIndex();
+        CompoundPartialIndex compoundPartialIndex = new CompoundPartialIndex(table);
 
         for (int i = 0; i < lowerBounds.length; i++) {
 
             CompoundPartialIndex.Predicate tempPredicate = new CompoundPartialIndex.Predicate();
 
-            tempPredicate.addPartialIndex(new PartialIndex(coverage, 0, columns.get(i), (int)lowerBounds[i], (int)maximumBounds[i]));
+            tempPredicate.addPartialIndex(new PartialIndex(coverage, 0, table, columns.get(i), (int)lowerBounds[i], (int)maximumBounds[i]));
             compoundPartialIndex.addCompoundPredicate(tempPredicate);
         }
 

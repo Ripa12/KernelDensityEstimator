@@ -2,11 +2,11 @@ package interval_tree.FrequentPatternMining;
 
 import interval_tree.CandidateIndex.IIndex;
 import interval_tree.SubspaceClustering.Clique;
-import interval_tree.SubspaceClustering.MyData;
-import interval_tree.SubspaceClustering.MyRelation;
 import interval_tree.SubspaceClustering.MyVector;
 
 import java.util.List;
+
+import static interval_tree.Experiment.MINSUP;
 
 public class PartialFPTreeNode extends AbstractFPTreeNode {
 
@@ -16,7 +16,7 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
         super(parent);
         this.dimensions = dim;
 
-        clique = new Clique<>(1000, .05, .7, false, dim);
+        clique = new Clique<>(1000, MINSUP, .7, false, dim);
     }
 
     void updateMinMax(MyVector data){
@@ -40,8 +40,8 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
-    public List<IIndex> extractIndexes(List<String> columns){
-        return clique.getClusters(columns);
+    public List<IIndex> extractIndexes(String tableName, List<String> columns){
+        return clique.getClusters(tableName, columns);
     }
 
     @Override

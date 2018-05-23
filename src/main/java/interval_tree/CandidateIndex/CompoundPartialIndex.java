@@ -50,11 +50,13 @@ public class CompoundPartialIndex implements IIndex {
     private List<Predicate> predicateList;
     private double totalValue;
     private double totalWeight;
+    private String tableName;
 
-    public CompoundPartialIndex(){
+    public CompoundPartialIndex(String t){
         predicateList = new ArrayList<>();
         totalWeight = 0.0f;
         totalValue = 0.0f;
+        tableName = t;
     }
 
     public void addCompoundPredicate(Predicate p){
@@ -83,7 +85,7 @@ public class CompoundPartialIndex implements IIndex {
             c.append(", ").append(predicateList.get(i).getColumnName());
         }
 
-        return "'CREATE INDEX ON TestTable("+ c.toString() +") where " + f.toString(); // ToDo: what table-name to use?;
+        return "'CREATE INDEX ON "+tableName+"("+ c.toString() +") where " + f.toString(); // ToDo: what table-name to use?;
     }
 
     @Override
@@ -103,7 +105,7 @@ public class CompoundPartialIndex implements IIndex {
             c.append(", ").append(predicateList.get(i).getColumnName());
         }
 
-        return  "CREATE INDEX idx_" + id + " ON TestTable("+ c.toString() +") where " + f.toString(); // ToDo: what table-name to use?
+        return  "CREATE INDEX idx_" + id + " ON "+tableName+"("+ c.toString() +") where " + f.toString(); // ToDo: what table-name to use?
     }
 
     @Override

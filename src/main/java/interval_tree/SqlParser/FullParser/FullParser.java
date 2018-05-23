@@ -1,7 +1,7 @@
 package interval_tree.SqlParser.FullParser;
 
 import interval_tree.FrequentPatternMining.FullFPTree;
-import interval_tree.FrequentPatternMining.SupportCount.ColumnCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableCount;
 import interval_tree.SqlParser.AbstractParser;
 
 import java.util.*;
@@ -15,16 +15,16 @@ public class FullParser extends AbstractParser {
 
     private PriorityQueue<String> list;
 
-    private ColumnCount columnCount;
+    private TableCount tableCount;
 
-    public FullParser(ColumnCount columnCount){
-        this.columnCount = columnCount;
+    public FullParser(TableCount tableCount){
+        this.tableCount = tableCount;
 
-        this.fpTreeBuilder = new FullFPTree.FullFPTreeBuilder(columnCount);
-        this.list = new PriorityQueue<>(Comparator.comparingInt(o -> this.columnCount.get(o)[0]));
+        this.fpTreeBuilder = new FullFPTree.FullFPTreeBuilder(tableCount);
+        this.list = new PriorityQueue<>(Comparator.comparingInt(o -> this.tableCount.getSupport(getCurrentTable(), o)));
     }
 
-    public FullFPTree getFpTree(){
+    public List<FullFPTree> getFpTree(){
         return fpTreeBuilder.getFPTree();
     }
 
@@ -35,19 +35,19 @@ public class FullParser extends AbstractParser {
 
     @Override
     public void after() {
-        fpTreeBuilder.insertTree(list.iterator());
+        fpTreeBuilder.insertTree(getCurrentTable(), list.iterator());
     }
 
     @Override
     protected void finiteInterval(String column, int start, int end) {
-        if(columnCount.isSufficient(column)) {
+        if(tableCount.isSufficient(getCurrentTable(), column)) {
             list.add(column);
         }
     }
 
     @Override
     protected void equalsTo(String col, int point) {
-        if(columnCount.isSufficient(col)) {
+        if(tableCount.isSufficient(getCurrentTable(), col)) {
             list.add(col);
         }
     }

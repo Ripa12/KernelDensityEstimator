@@ -1,7 +1,7 @@
 package interval_tree.SqlParser.PartialParser;
 
 import interval_tree.FrequentPatternMining.PartialFPTree;
-import interval_tree.FrequentPatternMining.SupportCount.ColumnCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableCount;
 import interval_tree.SqlParser.AbstractParser;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyInterval;
@@ -18,13 +18,13 @@ public class InitializeFPTreeParser extends AbstractParser {
 
     private TreeMap<String, MyData> list;
 
-    private ColumnCount columnCount;
+    private TableCount tableCount;
 
-    public InitializeFPTreeParser(ColumnCount columnCount){
-        this.columnCount = columnCount;
+    public InitializeFPTreeParser(TableCount tableCount){
+        this.tableCount = tableCount;
 
-        this.fpTreeBuilder = new PartialFPTree.PartialFPTreeBuilder(columnCount);
-        this.list = new TreeMap<>(Comparator.comparingInt(o -> this.columnCount.get(o)[0]));
+        this.fpTreeBuilder = new PartialFPTree.PartialFPTreeBuilder(tableCount);
+        this.list = new TreeMap<>(Comparator.comparingInt(o -> this.tableCount.getSupport(getCurrentTable(), o)));
     }
 
     public PopulateFPTreeParser buildFPTreeParser(){
@@ -38,19 +38,19 @@ public class InitializeFPTreeParser extends AbstractParser {
 
     @Override
     public void after() {
-        fpTreeBuilder.insertTree(list.keySet(), list.values().toArray(new MyData[0]));
+        fpTreeBuilder.insertTree(getCurrentTable(), list.keySet(), list.values().toArray(new MyData[0]));
     }
 
     @Override
     protected void equalsTo(String col, int point) {
-        if(columnCount.isSufficient(col)) {
+        if(tableCount.isSufficient(getCurrentTable(), col)) {
             list.put(col, new MyPoint(point));
         }
     }
 
     @Override
     protected void finiteInterval(String column, int start, int end) {
-        if(columnCount.isSufficient(column)) {
+        if(tableCount.isSufficient(getCurrentTable(), column)) {
             list.put(column, new MyInterval(start, end));
         }
     }

@@ -5,11 +5,13 @@ public abstract class AbstractIndex implements IIndex{
     private double value;
     private double weight;
 
+    String tableName;
     String columnNames;
 
-    public AbstractIndex(double v, double w, String c){
+    public AbstractIndex(double v, double w, String t, String c){
         this.value = v;
         this.weight = w;
+        this.tableName = t;
         this.columnNames = c;
     }
 

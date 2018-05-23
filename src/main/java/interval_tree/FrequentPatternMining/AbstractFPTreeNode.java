@@ -21,7 +21,7 @@ public abstract class AbstractFPTreeNode{
     }
 
     protected abstract AbstractFPTreeNode clone();
-    public abstract List<IIndex> extractIndexes(List<String> columns);
+    public abstract List<IIndex> extractIndexes(String tableName, List<String> columns);
 
     final AbstractFPTreeNode getOrCreateChild(String name){
         AbstractFPTreeNode temp;

@@ -4,8 +4,8 @@ public class PartialIndex extends AbstractIndex {
 
     private int start, end; // ToDo: maybe put Interval or Point from MyIntervalTree here
 
-    public PartialIndex(double v, double w, String c, int s, int e){
-        super(v, w, c);
+    public PartialIndex(double v, double w, String t, String c, int s, int e){
+        super(v, w, t, c);
         start = s;
         end = e;
     }
@@ -13,13 +13,13 @@ public class PartialIndex extends AbstractIndex {
     @Override
     public String createIdxStatement() {
         String filter = "(" + columnNames + " > " + start + " AND " + columnNames + " < " + end + ");'";
-        return "'CREATE INDEX ON TestTable("+ columnNames +") where " + filter; // ToDo: what table-name to use?
+        return "'CREATE INDEX ON "+ tableName +"("+ columnNames +") where " + filter; // ToDo: what table-name to use?
     }
 
     @Override
     public String createIdxStatementWithId(int id) {
         String filter = "(" + columnNames + " > " + start + " AND " + columnNames + " < " + end + ");";
-        String res =  "CREATE INDEX idx_" + id + " ON TestTable("+ columnNames +") where " + filter; // ToDo: what table-name to use?
+        String res =  "CREATE INDEX idx_" + id + " ON "+ tableName +"("+ columnNames +") where " + filter; // ToDo: what table-name to use?
         return res;
     }
 

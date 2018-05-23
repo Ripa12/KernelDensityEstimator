@@ -14,11 +14,22 @@ public abstract class AbstractParser implements IExpressionVisitor{
     private int extractedValue; // ToDo: Only integers are considered as of now
     private String extractedColumn;
     private boolean isInterval;
+    private String currentTable;
 
     public AbstractParser(){
-        extractedValue = 0;
-        extractedColumn = "";
-        isInterval = false;
+        this.extractedValue = 0;
+        this.currentTable = "";
+        this.extractedColumn = "";
+        this.isInterval = false;
+    }
+
+    @Override
+    final public void setCurrentTable(String table){
+        this.currentTable = table;
+    }
+
+    final protected String getCurrentTable(){
+        return this.currentTable;
     }
 
     @Override

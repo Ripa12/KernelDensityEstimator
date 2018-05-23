@@ -1,6 +1,6 @@
 package interval_tree.FrequentPatternMining;
 
-import interval_tree.FrequentPatternMining.SupportCount.ColumnCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableCount;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyVector;
 
@@ -14,14 +14,18 @@ public class PartialFPTree extends AbstractFPTree{
 
     public static class PartialFPTreeBuilder{
 
-        private PartialFPTree fpTree;
+        private Map<String, PartialFPTree> fpTree;
 
-        public PartialFPTreeBuilder(ColumnCount columnCount){
-            fpTree = new PartialFPTree(columnCount);
+        public PartialFPTreeBuilder(TableCount tableCount){
+            this.fpTree = new HashMap<>();
+
+            for (String tableName : tableCount.getTableNames()) {
+                fpTree.put(tableName, new PartialFPTree(tableCount, tableName));
+            }
         }
 
-        public void insertTree(Set<String> transactions, MyData[] data){
-            PartialFPTreeNode node = ((PartialFPTreeNode)fpTree.insertTree(transactions.iterator()));
+        public void insertTree(String tableName, Set<String> transactions, MyData[] data){
+            PartialFPTreeNode node = ((PartialFPTreeNode)fpTree.get(tableName).insertTree(transactions.iterator()));
 
             for(int i = data.length-1; i >= 0; i--) {
 
@@ -31,15 +35,17 @@ public class PartialFPTree extends AbstractFPTree{
             }
         }
 
-        public PartialFPTree getFPTree(){
-            fpTree.initializeAllUnits();
+        public Map<String, PartialFPTree> getFPTree(){
+            for (PartialFPTree partialFPTree : fpTree.values()) {
+                partialFPTree.initializeAllUnits();
+            }
             return fpTree;
         }
 
     }
 
-    private PartialFPTree(ColumnCount columnCount){
-        super(columnCount, new PartialFPTreeNode(null, 0));
+    private PartialFPTree(TableCount tableCount, String tableName){
+        super(tableCount, tableName, new PartialFPTreeNode(null, 0));
     }
 
     public void addData(Set<String> transactions, MyData[] data){
@@ -105,7 +111,7 @@ public class PartialFPTree extends AbstractFPTree{
         if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
 
             if (node instanceof PartialFPTreeNode) {
-                indices.addAll(((PartialFPTreeNode) node).extractIndexes(columns));
+                indices.addAll(node.extractIndexes(tableName, columns));
             }
         }
     }
