@@ -17,8 +17,8 @@ import java.util.stream.Stream;
 public class QueryGenerator {
 
     private final static String COLUMNS[] = {"B", "C", "D", "E", "F", "G", "H"};
-    private final static int NR_OF_QUERIES = 50; // ToDo: Null-pointer exception if very small
-    private final static int MAX_DUPLICATES = 400;
+    private final static int NR_OF_QUERIES = 200; // ToDo: Null-pointer exception if very small
+    private final static int MAX_DUPLICATES = 800;
     private final static int MAX_UPPER_BOUND = 999999;
     private final static int FIRST_LOWER_BOUND = 10000;
     private final static int FIRST_UPPER_BOUND = 65000;
@@ -49,7 +49,7 @@ public class QueryGenerator {
             localNrOfPredicates = 1;
 
 
-            while(rand.nextInt(3) > 0 && selectedColumn < (COLUMNS.length - 1)) {
+            while(rand.nextInt(10) > 0 && selectedColumn < (COLUMNS.length - 1)) {
                 selectedColumn++;
                 selectedColumn = rand.nextInt((COLUMNS.length - selectedColumn)) + selectedColumn;
 
@@ -62,7 +62,7 @@ public class QueryGenerator {
             tempStmt.append(";\n");
 
             int total = 1;
-            if (rand.nextInt(4) > 0)
+            if (rand.nextInt(5) > 0)
                 total = rand.nextInt(MAX_DUPLICATES)+1;
             for (int t = 0; t < total; t++) {
                 stmts.append(tempStmt.toString());
@@ -79,8 +79,8 @@ public class QueryGenerator {
     }
 
     public static void generatePredicate(StringBuilder tempStmt, int selectedColumn){
-//        if (rand.nextInt(3) > 0) {
-        if (true) {
+        if (rand.nextInt(3) > 0) {
+//        if (true) {
             int start;
             int end;
 
@@ -108,9 +108,9 @@ public class QueryGenerator {
             int start;
 
             int random = rand.nextInt(101);
-            if (random <= 80) { //This is 20% more
+            if (random <= 70) { //This is 20% more
                 start = rand.nextInt((FIRST_UPPER_BOUND - FIRST_LOWER_BOUND) + 1) + FIRST_LOWER_BOUND;
-            } else if (random <= 98) {
+            } else if (random <= 90) {
                 start = rand.nextInt((SECOND_UPPER_BOUND - SECOND_LOWER_BOUND) + 1) + SECOND_LOWER_BOUND;
             } else {
                 start = rand.nextInt(MAX_UPPER_BOUND);

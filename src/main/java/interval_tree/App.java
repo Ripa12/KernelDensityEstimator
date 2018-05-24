@@ -2,6 +2,7 @@ package interval_tree;
 
 
 import interval_tree.Factory.QueryGenerator;
+import sun.rmi.runtime.Log;
 
 
 /**
@@ -20,15 +21,16 @@ public class App
 //        Experiment exp = new Experiment(QueryGenerator.csvToSql("test_data.csv"));
         Experiment exp = new Experiment(q);
 
-        System.out.println("-- Partial Compound Index --");
-        exp.testPartialFPGrowth();
-//        exp.run(true);
-        String partialIndexInfo = Logger.getInstance().toString();
-
         System.out.println("-- Full Index --");
         exp.testFullFPGrowth();
 //        exp.run(false);
         String fullIndexInfo = Logger.getInstance().toString();
+        Logger.getInstance().reset();
+
+        System.out.println("-- Partial Compound Index --");
+        exp.testPartialFPGrowth();
+//        exp.run(true);
+        String partialIndexInfo = Logger.getInstance().toString();
 
 
         System.out.println("generatorStartTime: " + generatorEstimatedTime/ 1000000000.0);

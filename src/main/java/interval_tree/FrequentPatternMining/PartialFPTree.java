@@ -67,7 +67,7 @@ public class PartialFPTree extends AbstractFPTree{
             String entry = it.next();
 
             node = node.getChild(entry);
-            if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
+            if(node != null && ((double)node.getFrequency() / totalSupportCount >= minsup)) { // ToDo: Null-pointer exception on rare occasions
                 proc.delegate(node, dim, data);
                 dim++;
             }
