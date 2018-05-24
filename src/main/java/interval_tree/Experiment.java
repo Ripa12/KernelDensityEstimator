@@ -67,18 +67,16 @@ public class Experiment {
         parseQueries(new SupportCountParser(tableCount));
         Logger.getInstance().stopTimer("parseTime");
 
-        FullParser fullParser = new FullParser(tableCount);
 
         Logger.getInstance().setTimer();
+        FullParser fullParser = new FullParser(tableCount);
         parseQueries(fullParser);
         Logger.getInstance().stopTimer("parseTime");
 
-        // ToDo: Should probably run more tests to see if multiple tables are handled properly.
-        List<FullFPTree> fpTree = fullParser.getFpTree();
-
-        List<IIndex> indexList = new LinkedList<>();
 
         Logger.getInstance().setTimer();
+        List<FullFPTree> fpTree = fullParser.getFpTree(); // ToDo: Should probably run more tests to see if multiple tables are handled properly.
+        List<IIndex> indexList = new LinkedList<>();
         for (FullFPTree fullFPTree : fpTree) {
             fullFPTree.extractItemSets(MINSUP);
             indexList.addAll(fullFPTree.getIndices());
@@ -102,28 +100,28 @@ public class Experiment {
         parseQueries(new SupportCountParser(tableCount));
         Logger.getInstance().stopTimer("parseTime");
 
-        InitializeFPTreeParser initialFPTreeParser = new InitializeFPTreeParser(tableCount);
 
         Logger.getInstance().setTimer();
+        InitializeFPTreeParser initialFPTreeParser = new InitializeFPTreeParser(tableCount);
         parseQueries(initialFPTreeParser);
         Logger.getInstance().stopTimer("parseTime");
 
-        PopulateFPTreeParser fpTreeParser = initialFPTreeParser.buildFPTreeParser();
 
         Logger.getInstance().setTimer();
+        PopulateFPTreeParser fpTreeParser = initialFPTreeParser.buildFPTreeParser();
         parseQueries(fpTreeParser);
         Logger.getInstance().stopTimer("parseTime");
 
-        ValidateFPTreeParser validator = fpTreeParser.buildValidateFPTreeParser();
 
         Logger.getInstance().setTimer();
+        ValidateFPTreeParser validator = fpTreeParser.buildValidateFPTreeParser();
         parseQueries(validator);
         Logger.getInstance().stopTimer("parseTime");
 
+        Logger.getInstance().setTimer();
         List<PartialFPTree> fpTree = validator.getFpTree();
         List<IIndex> indexList = new LinkedList<>();
 
-        Logger.getInstance().setTimer();
         for (PartialFPTree partialFPTree : fpTree) {
             partialFPTree.extractItemSets(MINSUP);
             indexList.addAll(partialFPTree.getIndices());
