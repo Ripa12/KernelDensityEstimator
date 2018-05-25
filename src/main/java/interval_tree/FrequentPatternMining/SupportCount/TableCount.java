@@ -69,10 +69,14 @@ public class TableCount {
         return (((double)tables.get(table).get(col)[0]) / totalSupportCount) >= minsup;
     }
 
-    public static HashMap<String, LinkedList<AbstractFPTreeNode>> buildHeader(TableCount tableCount, String tableName){
+    public HashMap<String, LinkedList<AbstractFPTreeNode>> buildHeader(String tableName){
         HashMap<String, LinkedList<AbstractFPTreeNode>> header = new HashMap<>();
 
-        tableCount.tables.get(tableName).keySet().forEach(k -> header.put(k, new LinkedList<>()));
+        tables.get(tableName).keySet().forEach(k ->
+        {
+            if(isSufficient(tableName, k))
+                header.put(k, new LinkedList<>());
+        });
 
         return header;
     }

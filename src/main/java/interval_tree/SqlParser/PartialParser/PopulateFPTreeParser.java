@@ -2,6 +2,7 @@ package interval_tree.SqlParser.PartialParser;
 
 import interval_tree.DataStructure.IntervalTree;
 import interval_tree.FrequentPatternMining.PartialFPTree;
+import interval_tree.Logger;
 import interval_tree.SqlParser.AbstractParser;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyInterval;

@@ -23,7 +23,7 @@ public abstract class AbstractFPTreeNode{
     protected abstract AbstractFPTreeNode clone();
     public abstract List<IIndex> extractIndexes(String tableName, List<String> columns);
 
-    final AbstractFPTreeNode getOrCreateChild(String name){
+    final AbstractFPTreeNode getOrCreateChild(String name){ // ToDo: Is this a good name? Maybe increment frequency in an package private function instead; easier to understand that way.
         AbstractFPTreeNode temp;
         if (children.containsKey(name)) {
             temp = children.get(name);
@@ -43,6 +43,10 @@ public abstract class AbstractFPTreeNode{
         }
 
         return temp;
+    }
+
+    final boolean hasChild(String name){
+        return children.containsKey(name);
     }
 
     final int getFrequency(){

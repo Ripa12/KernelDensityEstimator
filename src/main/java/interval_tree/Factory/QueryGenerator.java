@@ -11,14 +11,15 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Stream;
 
+import static interval_tree.Experiment.COLUMNS;
+
 /**
  * Created by Richard on 2018-03-27.
  */
 public class QueryGenerator {
 
-    private final static String COLUMNS[] = {"B", "C", "D", "E", "F", "G", "H"};
     private final static int NR_OF_QUERIES = 200; // ToDo: Null-pointer exception if very small
-    private final static int MAX_DUPLICATES = 2000;
+    private final static int MAX_DUPLICATES = 800;
     private final static int MAX_UPPER_BOUND = 999999;
     private final static int FIRST_LOWER_BOUND = 10000;
     private final static int FIRST_UPPER_BOUND = 65000;
@@ -27,55 +28,76 @@ public class QueryGenerator {
 
     private static Random rand;
 
-    public static String generateBatchOfQueries(){
+    public static void generateBatchOfQueries(String filename){
         int nrOfQueries = 0;
         int nrOfPredicates = 0;
         int localNrOfPredicates;
 
-        String sqlPrefix = "SELECT * FROM TestTable WHERE ";
-        StringBuilder stmts = new StringBuilder();
-
-        rand = new Random();
-
-        StringBuilder tempStmt = new StringBuilder();
-        for(int k = 0; k < NR_OF_QUERIES; k++) {
-
-            tempStmt.setLength(0);
-            tempStmt.append(sqlPrefix);
-
-            int selectedColumn = 0;
-            selectedColumn = rand.nextInt((COLUMNS.length - selectedColumn)) + selectedColumn;
-            generatePredicate(tempStmt, selectedColumn);
-            localNrOfPredicates = 1;
-
-
-            while(rand.nextInt(5) > 0 && selectedColumn < (COLUMNS.length - 1)) {
-                selectedColumn++;
-                selectedColumn = rand.nextInt((COLUMNS.length - selectedColumn)) + selectedColumn;
-
-                tempStmt.append(" AND ");
-
-                generatePredicate(tempStmt, selectedColumn);
-                localNrOfPredicates++;
-            }
-
-            tempStmt.append(";\n");
-
-            int total = 1;
-            if (rand.nextInt(5) > 0)
-                total = rand.nextInt(MAX_DUPLICATES)+1;
-            for (int t = 0; t < total; t++) {
-                stmts.append(tempStmt.toString());
-                nrOfQueries++;
-                nrOfPredicates += localNrOfPredicates;
-            }
-
+        String targetPath = "data/testdata/unittests/" + filename;
+        if (SystemUtils.IS_OS_WINDOWS) {
+            targetPath = targetPath.replaceFirst("/", "");
         }
+
+        String sqlPrefix = "SELECT * FROM TestTable WHERE ";
+//        StringBuilder stmts = new StringBuilder();
+
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter(new OutputStreamWriter(
+                    new BufferedOutputStream(new FileOutputStream(targetPath)), "UTF-8"));
+
+            rand = new Random();
+
+            StringBuilder tempStmt = new StringBuilder();
+            for (int k = 0; k < NR_OF_QUERIES; k++) {
+
+                tempStmt.setLength(0);
+                tempStmt.append(sqlPrefix);
+
+                int selectedColumn = 0;
+                selectedColumn = rand.nextInt((COLUMNS.length - selectedColumn)) + selectedColumn;
+                generatePredicate(tempStmt, selectedColumn);
+                localNrOfPredicates = 1;
+
+
+                while (rand.nextInt(5) > 0 && selectedColumn < (COLUMNS.length - 1)) {
+                    selectedColumn++;
+                    selectedColumn = rand.nextInt((COLUMNS.length - selectedColumn)) + selectedColumn;
+
+                    tempStmt.append(" AND ");
+
+                    generatePredicate(tempStmt, selectedColumn);
+                    localNrOfPredicates++;
+                }
+
+                tempStmt.append(";\n");
+
+                int total = 1;
+                if (rand.nextInt(5) > 0)
+                    total = rand.nextInt(MAX_DUPLICATES) + 1;
+                for (int t = 0; t < total; t++) {
+                    out.print(tempStmt.toString());
+//                    stmts.append(tempStmt.toString());
+                    nrOfQueries++;
+                    nrOfPredicates += localNrOfPredicates;
+                }
+
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+        if(out != null) {
+            out.flush();
+            out.close();
+        }
+    }
 
         System.out.println("NrOfQueries: " + nrOfQueries);
         System.out.println("NrOfPredicates: " + nrOfPredicates);
 
-        return stmts.toString();
+//        return stmts.toString();
     }
 
     public static void generatePredicate(StringBuilder tempStmt, int selectedColumn){

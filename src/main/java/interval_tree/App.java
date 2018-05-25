@@ -15,11 +15,11 @@ public class App
     public static void main( String[] args )
     {
         long generatorStartTime = System.nanoTime();
-        String q = QueryGenerator.generateBatchOfQueries();
+        QueryGenerator.generateBatchOfQueries("query_batch.txt");
         long generatorEstimatedTime = System.nanoTime() - generatorStartTime;
 
 //        Experiment exp = new Experiment(QueryGenerator.csvToSql("test_data.csv"));
-        Experiment exp = new Experiment(q);
+        Experiment exp = new Experiment("query_batch.txt");
 
         System.out.println("-- Full Index --");
         exp.testFullFPGrowth();

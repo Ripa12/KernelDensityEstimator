@@ -1,6 +1,7 @@
 package interval_tree.FrequentPatternMining;
 
 import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.Logger;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyVector;
 
@@ -67,7 +68,7 @@ public class PartialFPTree extends AbstractFPTree{
             String entry = it.next();
 
             node = node.getChild(entry);
-            if(node != null && ((double)node.getFrequency() / totalSupportCount >= minsup)) { // ToDo: Null-pointer exception on rare occasions
+            if(node != null && ((double)node.getFrequency() / totalSupportCount >= minsup)) {
                 proc.delegate(node, dim, data);
                 dim++;
             }
@@ -77,14 +78,13 @@ public class PartialFPTree extends AbstractFPTree{
         }
     }
 
-    // ToDo: Maybe closed item-sets would be better memory-wise for CLIQUE
+    // ToDo: Maybe closed item-sets would be better memory-wise for CLIQUE (maybe not)
     private void addData(AbstractFPTreeNode node, int dim, MyData[] data){
         if(node != null && node instanceof PartialFPTreeNode){
             ((PartialFPTreeNode) node).addData(new MyVector(Arrays.copyOfRange(data, 0, dim)));
         }
     }
 
-    // ToDo: Maybe closed item-sets would be better memory-wise for CLIQUE
     private void validateData(AbstractFPTreeNode node, int dim, MyData[] data){
         if(node != null && node instanceof PartialFPTreeNode){
             ((PartialFPTreeNode) node).validateClusters(new MyVector(Arrays.copyOfRange(data, 0, dim)));

@@ -21,10 +21,6 @@ public class MyVector implements NumberVector {
         return data[dim].contains(min, max);
     }
 
-//    public boolean isContained(double min, double max, int dim) {
-//        return data[dim].isContained(min, max);
-//    }
-
     public boolean isContained(ArrayList<CLIQUEInterval> intervals) {
         for (CLIQUEInterval interval : intervals) {
             if(!data[interval.getDimension()].isContained(interval)){

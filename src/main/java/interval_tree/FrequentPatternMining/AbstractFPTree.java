@@ -29,7 +29,7 @@ public abstract class AbstractFPTree {
         this.totalSupportCount = tableCount.getTotalSupportCount();
         this.tableName = tableName;
         this.root = root;
-        header = TableCount.buildHeader(tableCount, tableName);
+        header = tableCount.buildHeader(tableName);
     }
 
     protected AbstractFPTreeNode getRoot(){
@@ -69,7 +69,12 @@ public abstract class AbstractFPTree {
         while (it.hasNext()) {
             String entry = it.next();
 
-            header.get(entry).add(node = node.getOrCreateChild(entry));
+            if(node.hasChild(entry)){
+                node = node.getOrCreateChild(entry);
+            }
+            else {
+                header.get(entry).add(node = node.getOrCreateChild(entry));
+            }
         }
         return node;
     }

@@ -1,6 +1,7 @@
 package interval_tree.FrequentPatternMining;
 
 import interval_tree.CandidateIndex.IIndex;
+import interval_tree.Logger;
 import interval_tree.SubspaceClustering.Clique;
 import interval_tree.SubspaceClustering.MyVector;
 

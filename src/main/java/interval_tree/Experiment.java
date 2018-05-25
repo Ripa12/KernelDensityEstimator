@@ -19,8 +19,13 @@ import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.Statements;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
+import org.apache.commons.lang3.SystemUtils;
 import org.omg.IOP.TAG_ALTERNATE_IIOP_ADDRESS;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -30,32 +35,38 @@ public class Experiment {
     // https://github.com/bnjmn/weka/blob/master/weka/src/main/java/weka/estimators/KernelEstimator.java
     // https://www.programcreek.com/java-api-examples/index.php?source_dir=Weka-for-Android-master/src/weka/classifiers/meta/RegressionByDiscretization.java#
 
-
-    public static double MINSUP = .05;
+    public final static String COLUMNS[] = {"B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q"};
+    public static double MINSUP = .01;
 
     /**
      * Batch of queries
      */
-    private String queryBatch;
+    private String sourcePath;
 
 
     /**
      * Constructor
      */
-    public Experiment(String batch){
+    public Experiment(String filename){
 
         Logger.getInstance()
-                .addTimer("kernelLoadTime")
-                .addTimer("kernelRunTime")
-                .addTimer("queryGenerationTime").addTimer("parseTime");
+                .addTimer("SupportCountParser")
+                .addTimer("ExtractItem-sets")
+                .addTimer("queryGenerationTime")
+                .addTimer("FullParser")
+                .addTimer("InitializePartialFPTreeParser")
+                .addTimer("ValidatePartialFPTreeParser")
+                .addTimer("PopulatePartialFPTreeParser");
 
-
-        queryBatch = batch;
+        this.sourcePath = "data/testdata/unittests/" + filename;
+        if (SystemUtils.IS_OS_WINDOWS) {
+            this.sourcePath = this.sourcePath.replaceFirst("/", "");
+        }
     }
 
     private TableCount initiateTables(){
         TableCount tableCount = new TableCount(MINSUP, new String[]{"TestTable"});
-        tableCount.addColumns("TestTable", new String[]{"A", "B", "C", "D", "E", "F", "G", "H"});
+        tableCount.addColumns("TestTable",  COLUMNS);
         return tableCount;
     }
 
@@ -65,13 +76,13 @@ public class Experiment {
 
         Logger.getInstance().setTimer();
         parseQueries(new SupportCountParser(tableCount));
-        Logger.getInstance().stopTimer("parseTime");
+        Logger.getInstance().stopTimer("SupportCountParser");
 
 
         Logger.getInstance().setTimer();
         FullParser fullParser = new FullParser(tableCount);
         parseQueries(fullParser);
-        Logger.getInstance().stopTimer("parseTime");
+        Logger.getInstance().stopTimer("FullParser");
 
 
         Logger.getInstance().setTimer();
@@ -81,7 +92,7 @@ public class Experiment {
             fullFPTree.extractItemSets(MINSUP);
             indexList.addAll(fullFPTree.getIndices());
         }
-        Logger.getInstance().stopTimer("kernelRunTime");
+        Logger.getInstance().stopTimer("ExtractItem-sets");
 
         System.out.println("-- All generated Indexes --");
         int indexIDs = 0;
@@ -94,29 +105,41 @@ public class Experiment {
     }
 
     public void testPartialFPGrowth(){
+
+//        NrOfQueries: 74053
+//        NrOfPredicates: 155128
+
+//        queryGenerationTime : 0.0
+//        SupportCountParser : 3.916922575
+//        InitializePartialFPTreeParser : 4.049131139
+//        FullParser : 0.0
+//        ValidatePartialFPTreeParser : 13.437436951
+//        ExtractItem-sets : 0.00142507
+//        PopulatePartialFPTreeParser : 15.552267714
+
         TableCount tableCount = initiateTables();
 
         Logger.getInstance().setTimer();
         parseQueries(new SupportCountParser(tableCount));
-        Logger.getInstance().stopTimer("parseTime");
+        Logger.getInstance().stopTimer("SupportCountParser");
 
 
         Logger.getInstance().setTimer();
         InitializeFPTreeParser initialFPTreeParser = new InitializeFPTreeParser(tableCount);
         parseQueries(initialFPTreeParser);
-        Logger.getInstance().stopTimer("parseTime");
+        Logger.getInstance().stopTimer("InitializePartialFPTreeParser");
 
 
         Logger.getInstance().setTimer();
         PopulateFPTreeParser fpTreeParser = initialFPTreeParser.buildFPTreeParser();
         parseQueries(fpTreeParser);
-        Logger.getInstance().stopTimer("parseTime");
+        Logger.getInstance().stopTimer("PopulatePartialFPTreeParser");
 
 
         Logger.getInstance().setTimer();
         ValidateFPTreeParser validator = fpTreeParser.buildValidateFPTreeParser();
         parseQueries(validator);
-        Logger.getInstance().stopTimer("parseTime");
+        Logger.getInstance().stopTimer("ValidatePartialFPTreeParser");
 
         Logger.getInstance().setTimer();
         List<PartialFPTree> fpTree = validator.getFpTree();
@@ -126,7 +149,7 @@ public class Experiment {
             partialFPTree.extractItemSets(MINSUP);
             indexList.addAll(partialFPTree.getIndices());
         }
-        Logger.getInstance().stopTimer("kernelRunTime");
+        Logger.getInstance().stopTimer("ExtractItem-sets");
 
 
         System.out.println("-- All generated Indexes --");
@@ -140,16 +163,14 @@ public class Experiment {
     }
 
     private void parseQueries(IExpressionVisitor visitor){
-//        ExpressionVisitor visitor = new FullParser(intervalTrees); // ToDo: pass visitor as argument instead to allow for polymorphism
-
-        //CCJSqlParserManager parserManager = new CCJSqlParserManager();
 
         Select select;
-        try {
-//            Logger.getInstance().setTimer();
-            Statements stats = CCJSqlParserUtil.parseStatements(queryBatch); // ToDo: Insertion into interval trees might take longer time than the actual parsing of queries (try to fix if possible)...
-            for(Statement statement : stats.getStatements()){
-                select = (Select) statement;
+        try(BufferedReader br = new BufferedReader(new FileReader(sourcePath))){
+
+            for(String line; (line = br.readLine()) != null; ) {
+                Statement stat = CCJSqlParserUtil.parse(line); // ToDo: Insertion into interval trees might take longer time than the actual parsing of queries (try to fix if possible)...
+
+                select = (Select) stat;
                 PlainSelect ps = (PlainSelect) select.getSelectBody();
 
                 Expression exp = ps.getWhere();
@@ -158,10 +179,9 @@ public class Experiment {
                 visitor.before();
                 exp.accept(visitor);
                 visitor.after();
-
             }
-//            Logger.getInstance().stopTimer("parseTime");
-        } catch (JSQLParserException e1) {
+
+        } catch (JSQLParserException | IOException e1) {
             e1.printStackTrace();
         }
     }
