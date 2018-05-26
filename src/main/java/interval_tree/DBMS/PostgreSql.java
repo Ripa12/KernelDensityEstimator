@@ -3,6 +3,10 @@ package interval_tree.DBMS;
 import interval_tree.CandidateIndex.AbstractIndex;
 import interval_tree.CandidateIndex.IIndex;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
@@ -60,6 +64,8 @@ public class PostgreSql {
         public void estimateWeights(List<? extends IIndex> items) throws SQLException {
             System.out.println("-- Estimate Indexes --");
 
+//            outputResult(stmt.executeQuery("SELECT * FROM \"UCI_CBM\""));
+
             for(IIndex idx : items) {
                 String sql = "SELECT * from hypopg_create_index(" + idx.createIdxStatement() +");";
 
@@ -74,15 +80,18 @@ public class PostgreSql {
                 int weight = Integer.valueOf(arr[0]);
 
                 if(arr[1].equals("MB")){
-                    weight *= 1024 * 1024;
-                }
-                else if(arr[1].equals("kB")){
+//                    weight *= 1024 * 1024;
                     weight *= 1024;
                 }
-
+                else if(arr[1].equals("kB")){
+//                    weight *= 1024;
+                }
+                else if(arr[1].equals("bytes")){
+                    weight /= 1024;
+                }
                 idx.setWeight(weight);
 
-                System.out.println("Weight: " + weight + "\t unit: Bytes");
+                System.out.println("Weight: " + weight + "\t unit: kB");
             }
 
             reset();
@@ -99,16 +108,30 @@ public class PostgreSql {
 
         }
 
-        public void testIndexes(String queries) throws SQLException {
+        public void testIndexes(String sourcePath) throws SQLException {
             System.out.println("-- Test Indexes --");
 
             long queryStartTime = System.nanoTime();
 
-            String[] arr = queries.split(";");
-            for(int c = 0; c < arr.length - 1; c++){
-                stmt.executeQuery(arr[c]);
-                //System.out.println("Current query: " + c);
+//            String[] arr = queries.split(";");
+
+            try(BufferedReader br = new BufferedReader(new FileReader(sourcePath))) {
+
+                int c = 0;
+                for (String line; (line = br.readLine()) != null; ) {
+                    c++;
+                    System.out.println("Current query: " + c);
+                    outputResult(stmt.executeQuery("explain analyze " + line));
+//                    stmt.executeQuery(line);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
+//            for(int c = 0; c < arr.length - 1; c++){
+//                stmt.executeQuery(arr[c]);
+//                //System.out.println("Current query: " + c);
+//            }
 
             long queryEndTime = System.nanoTime() - queryStartTime;
 

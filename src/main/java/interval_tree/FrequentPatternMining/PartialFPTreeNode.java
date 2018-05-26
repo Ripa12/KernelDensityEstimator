@@ -7,6 +7,7 @@ import interval_tree.SubspaceClustering.MyVector;
 
 import java.util.List;
 
+import static interval_tree.Experiment.IDEAL_COVERAGE;
 import static interval_tree.Experiment.MINSUP;
 
 public class PartialFPTreeNode extends AbstractFPTreeNode {
@@ -17,7 +18,7 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
         super(parent);
         this.dimensions = dim;
 
-        clique = new Clique<>(1000, MINSUP, .7, false, dim);
+        clique = new Clique<>(1000, MINSUP, IDEAL_COVERAGE, false, dim);
     }
 
     void updateMinMax(MyVector data){

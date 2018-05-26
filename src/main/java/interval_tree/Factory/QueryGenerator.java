@@ -1,33 +1,80 @@
 package interval_tree.Factory;
 
 
-import interval_tree.DataStructure.IntervalTree;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Objects;
 import java.util.Random;
-import java.util.stream.Stream;
+import java.util.concurrent.ThreadLocalRandom;
 
-import static interval_tree.Experiment.COLUMNS;
 
 /**
  * Created by Richard on 2018-03-27.
  */
 public class QueryGenerator {
 
-    private final static int NR_OF_QUERIES = 200; // ToDo: Null-pointer exception if very small
-    private final static int MAX_DUPLICATES = 800;
-    private final static int MAX_UPPER_BOUND = 999999;
-    private final static int FIRST_LOWER_BOUND = 10000;
-    private final static int FIRST_UPPER_BOUND = 65000;
-    private final static int SECOND_LOWER_BOUND = 300000; // ToDo: Negative numbers are not generated correctly!
-    private final static int SECOND_UPPER_BOUND = 310000;
+//    public final static String TABLE_NAME = "UCI_CBM";
+public final static String TABLE_NAME = "TestTable";
+
+//    public final static String COLUMN_LABELS[] = {"GTT", "GTn", "GGn", "Ts", "Tp", "T48", "T2", "P2", "TIC", "mf"};
+public final static String COLUMN_LABELS[] = {"A", "B", "C", "D", "E", "F", "G", "H"};
+//    public final static double COLUMN_MIN_MAX[][] = {
+//            {253.547, 72784.872}, // GTT
+//            {1307.675, 3560.741}, // GTn
+//            {6589.002, 9797.103}, // GGn
+//            {5.304, 645.249}, // Ts
+//            {5.304, 645.249}, // Tp
+//            {442.364, 1115.797}, // T48
+//            {540.442, 789.094}, // T2
+////            {5.828, 23.14}, // P2
+////            {0.0, 92.556}, // TIC
+////            {0.068, 1.832}, // mf
+//    };
+//    public final static double COLUMN_DENSE_INTERVALS[][][] = {
+//            {{300, 1000, 60}, {50000, 70000, 90}}, // GTT
+//            {{1500, 1700, 60}, {2500, 2550, 90}},// GTn
+//            {{7000, 7200, 60}, {8000, 8200, 90}},// GGn
+//            {{10, 30, 60}, {450, 500, 90}},// Ts
+//            {{10, 30, 60}, {450, 500, 90}},// Tp
+//            {{500, 550, 60}, {700, 720, 90}},// T48
+//            {{600, 620, 60}, {660, 690, 90}},// T2
+////            {{6, 14, 60}, {18, 20, 90}},// P2
+////            {{0, 20, 60}, {80, 84, 90}},// TIC
+////            {{0.080, 0.130, 60}, {1.0, 1.3, 90}}// mf
+//    };
+
+    public final static double COLUMN_MIN_MAX[][] = {
+            {-100000, 100000}, // GTT
+            {-100000, 100000}, // GTn
+            {-100000, 100000}, // GGn
+            {-100000, 100000}, // Ts
+            {-100000, 100000}, // Tp
+            {-100000, 100000}, // T48
+            {-100000, 100000}, // T2
+            {-100000, 100000}, // P2
+//            {0.0, 92.556}, // TIC
+//            {0.068, 1.832}, // mf
+    };
+    public final static double COLUMN_DENSE_INTERVALS[][][] = {
+            {{300, 1000, 60}, {50000, 70000, 90}}, // GTT
+            {{1500, 1700, 60}, {2500, 2550, 90}},// GTn
+            {{7000, 7200, 60}, {8000, 8200, 90}},// GGn
+            {{10, 30, 60}, {450, 500, 90}},// Ts
+            {{10, 30, 60}, {450, 500, 90}},// Tp
+            {{500, 550, 60}, {700, 720, 90}},// T48
+            {{600, 620, 60}, {660, 690, 90}},// T2
+            {{6, 14, 60}, {18, 20, 90}},// P2
+//            {{0, 20, 60}, {80, 84, 90}},// TIC
+//            {{0.080, 0.130, 60}, {1.0, 1.3, 90}}// mf
+    };
+
+
+    private final static int NR_OF_QUERIES = 30; // ToDo: Null-pointer exception if very small
+    private final static int MAX_DUPLICATES = 50;
 
     private static Random rand;
 
+    public static final int COMPOSITE_PROBABILITY = 5;
     public static void generateBatchOfQueries(String filename){
         int nrOfQueries = 0;
         int nrOfPredicates = 0;
@@ -38,8 +85,7 @@ public class QueryGenerator {
             targetPath = targetPath.replaceFirst("/", "");
         }
 
-        String sqlPrefix = "SELECT * FROM TestTable WHERE ";
-//        StringBuilder stmts = new StringBuilder();
+        String sqlPrefix = "SELECT * FROM "+TABLE_NAME+" WHERE ";
 
         PrintWriter out = null;
         try {
@@ -55,14 +101,14 @@ public class QueryGenerator {
                 tempStmt.append(sqlPrefix);
 
                 int selectedColumn = 0;
-                selectedColumn = rand.nextInt((COLUMNS.length - selectedColumn)) + selectedColumn;
+                selectedColumn = rand.nextInt((COLUMN_LABELS.length - selectedColumn)) + selectedColumn;
                 generatePredicate(tempStmt, selectedColumn);
                 localNrOfPredicates = 1;
 
 
-                while (rand.nextInt(5) > 0 && selectedColumn < (COLUMNS.length - 1)) {
+                while (rand.nextInt(COMPOSITE_PROBABILITY) > 0 && selectedColumn < (COLUMN_LABELS.length - 1)) {
                     selectedColumn++;
-                    selectedColumn = rand.nextInt((COLUMNS.length - selectedColumn)) + selectedColumn;
+                    selectedColumn = rand.nextInt((COLUMN_LABELS.length - selectedColumn)) + selectedColumn;
 
                     tempStmt.append(" AND ");
 
@@ -72,20 +118,15 @@ public class QueryGenerator {
 
                 tempStmt.append(";\n");
 
-                int total = 1;
-                if (rand.nextInt(5) > 0)
-                    total = rand.nextInt(MAX_DUPLICATES) + 1;
+                int total = rand.nextInt(MAX_DUPLICATES) + 1;
                 for (int t = 0; t < total; t++) {
                     out.print(tempStmt.toString());
-//                    stmts.append(tempStmt.toString());
                     nrOfQueries++;
                     nrOfPredicates += localNrOfPredicates;
                 }
 
             }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (UnsupportedEncodingException | FileNotFoundException e) {
             e.printStackTrace();
         } finally {
         if(out != null) {
@@ -96,130 +137,64 @@ public class QueryGenerator {
 
         System.out.println("NrOfQueries: " + nrOfQueries);
         System.out.println("NrOfPredicates: " + nrOfPredicates);
-
-//        return stmts.toString();
     }
 
+    private static final int INTERVAL_PROBABILITY = 3;
     public static void generatePredicate(StringBuilder tempStmt, int selectedColumn){
-        if (rand.nextInt(3) > 0) {
-            int start;
-            int end;
 
-            int random = rand.nextInt(101);
-            if (random <= 50) { //This is 20% more
-                start = rand.nextInt((FIRST_UPPER_BOUND - FIRST_LOWER_BOUND) + 1) + FIRST_LOWER_BOUND;
-                end = rand.nextInt((FIRST_UPPER_BOUND - start) + 1) + start;
-            } else if (random <= 90) {
-                start = rand.nextInt((SECOND_UPPER_BOUND - SECOND_LOWER_BOUND) + 1) + SECOND_LOWER_BOUND;
-                end = rand.nextInt((SECOND_UPPER_BOUND - start) + 1) + start;
-            } else {
-                start = rand.nextInt(MAX_UPPER_BOUND);
-                end = rand.nextInt((MAX_UPPER_BOUND - start) + 1) + start;
+        if (rand.nextInt(INTERVAL_PROBABILITY) > 0) {
+            int start = 0;
+            int end = 0;
+
+            int random = ThreadLocalRandom.current().nextInt(100);
+            boolean success = false;
+
+            for (double[] denseInterval : COLUMN_DENSE_INTERVALS[selectedColumn]) {
+                if (!success && random <= denseInterval[2]){
+                    success = true;
+//                    start = ThreadLocalRandom.current().nextDouble(denseInterval[1] + 1.0 - denseInterval[0]) + denseInterval[0];
+//                    end = ThreadLocalRandom.current().nextDouble(denseInterval[1] + 1.0 - start) + start;
+                    start = ThreadLocalRandom.current().nextInt((int)(denseInterval[1] + 1.0 - denseInterval[0])) + (int)denseInterval[0];
+                    end = ThreadLocalRandom.current().nextInt((int)(denseInterval[1] + 1.0 - start)) + start;
+                }
             }
 
-            tempStmt.append(COLUMNS[selectedColumn])
+            if(!success){
+//                start = ThreadLocalRandom.current().nextDouble((COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - COLUMN_MIN_MAX[selectedColumn][0])) + COLUMN_MIN_MAX[selectedColumn][0];
+//                end = ThreadLocalRandom.current().nextDouble((COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - start)) + start;
+                start = ThreadLocalRandom.current().nextInt((int)(COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - COLUMN_MIN_MAX[selectedColumn][0])) + (int)COLUMN_MIN_MAX[selectedColumn][0];
+                end = ThreadLocalRandom.current().nextInt((int)(COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - start)) + start;
+            }
+
+            tempStmt.append(COLUMN_LABELS[selectedColumn])
                     .append(" < ")
                     .append(start)
                     .append(" AND ")
                     .append(end)
                     .append(" < ")
-                    .append(COLUMNS[selectedColumn]);
+                    .append(COLUMN_LABELS[selectedColumn]);
 
         } else {
-            int start;
+            int start = 0;
 
-            int random = rand.nextInt(101);
-            if (random <= 50) { //This is 20% more
-                start = rand.nextInt((FIRST_UPPER_BOUND - FIRST_LOWER_BOUND) + 1) + FIRST_LOWER_BOUND;
-            } else if (random <= 90) {
-                start = rand.nextInt((SECOND_UPPER_BOUND - SECOND_LOWER_BOUND) + 1) + SECOND_LOWER_BOUND;
-            } else {
-                start = rand.nextInt(MAX_UPPER_BOUND);
+            int random = ThreadLocalRandom.current().nextInt(100);
+            boolean success = false;
+
+            for (double[] denseInterval : COLUMN_DENSE_INTERVALS[selectedColumn]) {
+                if (!success && random <= denseInterval[2]){
+                    success = true;
+//                    start = ThreadLocalRandom.current().nextDouble((denseInterval[1] + 1.0 - denseInterval[0])) + denseInterval[0];
+                    start = ThreadLocalRandom.current().nextInt((int)(denseInterval[1] + 1.0 - denseInterval[0])) + (int)denseInterval[0];
+                }
             }
-            tempStmt.append(COLUMNS[selectedColumn])
+            if(!success) {
+//                start = ThreadLocalRandom.current().nextDouble((COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - COLUMN_MIN_MAX[selectedColumn][0])) + COLUMN_MIN_MAX[selectedColumn][0];
+                start = ThreadLocalRandom.current().nextInt((int)(COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - COLUMN_MIN_MAX[selectedColumn][0])) + (int)COLUMN_MIN_MAX[selectedColumn][0];
+            }
+
+            tempStmt.append(COLUMN_LABELS[selectedColumn])
                     .append(" = ")
                     .append(start);
         }
     }
-
-    static void generateCSV(String filename){
-        String path = String.valueOf(ClassLoader.getSystemClassLoader().getResource(filename).getPath());
-        if (SystemUtils.IS_OS_WINDOWS) {
-            path = path.replaceFirst("/", "");
-        }
-
-        PrintWriter out = null;
-        try {
-            out = new PrintWriter(new OutputStreamWriter(
-                    new BufferedOutputStream(new FileOutputStream(path)), "UTF-8"));
-
-            Random rand = new Random();
-
-            for(int i = 0; i < NR_OF_QUERIES; i++) {
-
-                    int random;
-                    int[] row = new int[3];
-
-                    for (int k = 0; k < 3; k++) {
-                        random = rand.nextInt(101);
-                        if (random <= 70) { //This is 20% more
-                            row[k] = rand.nextInt((FIRST_UPPER_BOUND - FIRST_LOWER_BOUND) + 1) + FIRST_LOWER_BOUND;
-                        } else if (random <= 90) {
-                            row[k] = rand.nextInt((SECOND_UPPER_BOUND - SECOND_LOWER_BOUND) + 1) + SECOND_LOWER_BOUND;
-                        } else {
-                            row[k] = rand.nextInt(MAX_UPPER_BOUND);
-                        }
-                    }
-                    int total = 1;
-                    if (rand.nextInt(10) > 0)
-                        total = rand.nextInt(MAX_DUPLICATES)+1;
-                    for (int t = 0; t < total; t++) {
-                        out.print(String.format("%d %d %d%n", row[0], row[1], row[2]));
-                    }
-            }
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            if(out != null) {
-                out.flush();
-                out.close();
-            }
-        }
-    }
-
-    public static String csvToSql(String source){
-
-        String sourcePath = "data/testdata/unittests/" + source;
-        if (SystemUtils.IS_OS_WINDOWS) {
-            sourcePath = sourcePath.replaceFirst("/", "");
-        }
-
-        StringBuilder statements = new StringBuilder();
-        StringBuilder statement = new StringBuilder();
-        try(BufferedReader br = new BufferedReader(new FileReader(sourcePath))) {
-
-
-            for(String line; (line = br.readLine()) != null; ) {
-
-                String[] columns = line.split(" ");
-
-                statement.setLength(0);
-                statement.append("SELECT * FROM TestTable WHERE ");
-
-                statement.append(" B = ").append(columns[0]).append(" AND ");
-                statement.append("C = ").append(columns[1]).append(" AND ");
-                statement.append("D = ").append(columns[2]).append(";");
-                statements.append(statement.toString()).append("\n");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-        }
-        return statements.toString();
-    }
-
 }

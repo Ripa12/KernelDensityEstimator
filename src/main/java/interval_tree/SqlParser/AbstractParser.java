@@ -171,7 +171,7 @@ public abstract class AbstractParser implements IExpressionVisitor{
         greaterThan.getRightExpression().accept(this);
 
         // ToDo: what if decimal?
-        extractedValue += 1;
+        extractedValue -= 1;
     }
 
     @Override
@@ -200,7 +200,7 @@ public abstract class AbstractParser implements IExpressionVisitor{
         minorThan.getLeftExpression().accept(this);
         minorThan.getRightExpression().accept(this);
 
-        extractedValue -= 1;
+        extractedValue += 1;
     }
 
     @Override

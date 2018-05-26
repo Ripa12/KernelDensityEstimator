@@ -2,7 +2,6 @@ package interval_tree;
 
 import interval_tree.CandidateIndex.*;
 import interval_tree.DBMS.PostgreSql;
-import interval_tree.DataStructure.IntervalTree;
 import interval_tree.FrequentPatternMining.FullFPTree;
 import interval_tree.FrequentPatternMining.PartialFPTree;
 import interval_tree.FrequentPatternMining.SupportCount.TableCount;
@@ -16,18 +15,18 @@ import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
-import net.sf.jsqlparser.statement.Statements;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import org.apache.commons.lang3.SystemUtils;
-import org.omg.IOP.TAG_ALTERNATE_IIOP_ADDRESS;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
+
+import static interval_tree.Factory.QueryGenerator.COLUMN_LABELS;
+import static interval_tree.Factory.QueryGenerator.TABLE_NAME;
 
 public class Experiment {
     //https://github.com/lodborg/interval-tree/tree/master/src/main/java/com/lodborg/intervaltree
@@ -35,8 +34,9 @@ public class Experiment {
     // https://github.com/bnjmn/weka/blob/master/weka/src/main/java/weka/estimators/KernelEstimator.java
     // https://www.programcreek.com/java-api-examples/index.php?source_dir=Weka-for-Android-master/src/weka/classifiers/meta/RegressionByDiscretization.java#
 
-    public final static String COLUMNS[] = {"B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q"};
-    public static double MINSUP = .01;
+
+    public static double MINSUP = .02;
+    public static double IDEAL_COVERAGE = 0.99;
 
     /**
      * Batch of queries
@@ -65,8 +65,8 @@ public class Experiment {
     }
 
     private TableCount initiateTables(){
-        TableCount tableCount = new TableCount(MINSUP, new String[]{"TestTable"});
-        tableCount.addColumns("TestTable",  COLUMNS);
+        TableCount tableCount = new TableCount(MINSUP, new String[]{TABLE_NAME});
+        tableCount.addColumns(TABLE_NAME, COLUMN_LABELS);
         return tableCount;
     }
 
@@ -101,21 +101,10 @@ public class Experiment {
             System.out.println(idx.createIdxStatementWithId(indexIDs));
         }
 
-//        testIndexes(indexList, queryBatch);
+        testIndexes(indexList);
     }
 
     public void testPartialFPGrowth(){
-
-//        NrOfQueries: 74053
-//        NrOfPredicates: 155128
-
-//        queryGenerationTime : 0.0
-//        SupportCountParser : 3.916922575
-//        InitializePartialFPTreeParser : 4.049131139
-//        FullParser : 0.0
-//        ValidatePartialFPTreeParser : 13.437436951
-//        ExtractItem-sets : 0.00142507
-//        PopulatePartialFPTreeParser : 15.552267714
 
         TableCount tableCount = initiateTables();
 
@@ -159,7 +148,7 @@ public class Experiment {
             System.out.println(idx.createIdxStatementWithId(indexIDs));
         }
 
-//        testIndexes(indexList, queryBatch);
+        testIndexes(indexList);
     }
 
     private void parseQueries(IExpressionVisitor visitor){
@@ -188,16 +177,16 @@ public class Experiment {
 
 
     // ToDo: Maybe pass a list of individual queries and not all queries in same string
-    private void testIndexes(List<? extends IIndex> indexList, String queryBatch){
+    private void testIndexes(List<? extends IIndex> indexList){
         PostgreSql postSql = null;
         try {
             postSql = new PostgreSql();
             postSql.estimateWeights(indexList);
 
-            DynamicProgramming.solveKP(indexList, 52582912);
+            DynamicProgramming.solveKP(indexList, 900000);
 
             postSql.buildCandidateIndexes(indexList);
-            postSql.testIndexes(queryBatch);
+            postSql.testIndexes(sourcePath);
 
         } catch (Exception e) {
             e.printStackTrace();
