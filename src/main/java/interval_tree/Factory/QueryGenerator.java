@@ -82,7 +82,7 @@ public final static String COLUMN_LABELS[] = {"A", "B", "C", "D", "E", "F", "G",
 
         String targetPath = "data/testdata/unittests/" + filename;
         if (SystemUtils.IS_OS_WINDOWS) {
-            targetPath = targetPath.replaceFirst("/", "");
+            targetPath = targetPath.replaceFirst("/", "//");
         }
 
         String sqlPrefix = "SELECT * FROM "+TABLE_NAME+" WHERE ";

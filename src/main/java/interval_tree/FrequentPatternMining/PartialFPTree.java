@@ -46,7 +46,7 @@ public class PartialFPTree extends AbstractFPTree{
     }
 
     private PartialFPTree(TableCount tableCount, String tableName){
-        super(tableCount, tableName, new PartialFPTreeNode(null, 0));
+        super(tableCount, tableName, new PartialFPTreeNode(null,"", 0));
     }
 
     public void addData(Set<String> transactions, MyData[] data){
@@ -114,5 +114,10 @@ public class PartialFPTree extends AbstractFPTree{
                 indices.addAll(node.extractIndexes(tableName, columns));
             }
         }
+    }
+
+    @Override
+    public AbstractFPTreeNode createRoot() {
+        return null;
     }
 }

@@ -14,11 +14,17 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
 
     private Clique<MyVector> clique;
     private int dimensions;
-    PartialFPTreeNode(PartialFPTreeNode parent, int dim) {
-        super(parent);
+    PartialFPTreeNode(PartialFPTreeNode parent, String name, int dim) {
+        super(parent, name);
         this.dimensions = dim;
 
         clique = new Clique<>(1000, MINSUP, IDEAL_COVERAGE, false, dim);
+    }
+    private PartialFPTreeNode(PartialFPTreeNode parent, String name) {
+        super(parent, name);
+        this.dimensions = 0;
+
+        clique = null;
     }
 
     void updateMinMax(MyVector data){
@@ -42,13 +48,28 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
+    protected AbstractFPTreeNode clone(String column) {
+        return new PartialFPTreeNode(this, column, dimensions + 1);
+    }
+
+    @Override
+    protected AbstractFPTreeNode cloneRoot() {
+        return new PartialFPTreeNode(null, "", 0);
+    }
+
+    @Override
     public List<IIndex> extractIndexes(String tableName, List<String> columns){
         return clique.getClusters(tableName, columns);
     }
 
     @Override
-    protected PartialFPTreeNode clone() {
-        return new PartialFPTreeNode(this, dimensions + 1);
+    void combineNode(AbstractFPTreeNode other) {
+
     }
+
+//    @Override
+//    protected PartialFPTreeNode clone() {
+//        return new PartialFPTreeNode(this, dimensions + 1);
+//    }
 }
 

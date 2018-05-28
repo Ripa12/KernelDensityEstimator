@@ -23,14 +23,12 @@ public class App
 
 
         System.out.println("-- Partial Compound Index --");
-        exp.testPartialFPGrowth();
-//        exp.run(true);
+//        exp.testPartialFPGrowth();
         String partialIndexInfo = Logger.getInstance().toString();
 
         Logger.getInstance().reset();
         System.out.println("-- Full Index --");
         exp.testFullFPGrowth();
-//        exp.run(false);
         String fullIndexInfo = Logger.getInstance().toString();
 
 

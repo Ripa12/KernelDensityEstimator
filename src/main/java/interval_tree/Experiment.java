@@ -60,7 +60,7 @@ public class Experiment {
 
         this.sourcePath = "data/testdata/unittests/" + filename;
         if (SystemUtils.IS_OS_WINDOWS) {
-            this.sourcePath = this.sourcePath.replaceFirst("/", "");
+            this.sourcePath = this.sourcePath.replaceFirst("/", "//");
         }
     }
 
@@ -89,8 +89,10 @@ public class Experiment {
         List<FullFPTree> fpTree = fullParser.getFpTree(); // ToDo: Should probably run more tests to see if multiple tables are handled properly.
         List<IIndex> indexList = new LinkedList<>();
         for (FullFPTree fullFPTree : fpTree) {
-            fullFPTree.extractItemSets(MINSUP);
-            indexList.addAll(fullFPTree.getIndices());
+//            fullFPTree.extractItemSets(MINSUP);
+//            indexList.addAll(fullFPTree.getIndices());
+
+            fullFPTree.findFrequentPatterns(MINSUP);
         }
         Logger.getInstance().stopTimer("ExtractItem-sets");
 
@@ -101,7 +103,7 @@ public class Experiment {
             System.out.println(idx.createIdxStatementWithId(indexIDs));
         }
 
-        testIndexes(indexList);
+//        testIndexes(indexList);
     }
 
     public void testPartialFPGrowth(){

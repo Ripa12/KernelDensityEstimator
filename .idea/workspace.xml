@@ -2,16 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43c2164e-8c55-4ad6-acee-9b3228d9d1d5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/data/testdata/unittests/query_batch.txt" afterPath="$PROJECT_DIR$/data/testdata/unittests/query_batch.txt" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/App.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/App.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/PartialIndex.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/PartialIndex.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/AbstractParser.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/AbstractParser.java" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interval_tree/App.class" afterPath="$PROJECT_DIR$/target/classes/interval_tree/App.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/testdata/unittests/query_batch.txt" afterPath="$PROJECT_DIR$/data/testdata/unittests/query_batch.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/App.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/App.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTreeNode.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTreeNode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTree.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTree.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTreeNode.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTreeNode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java" afterPath="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,23 +22,14 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="Experiment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="37" column="37" lean-forward="false" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/App.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+            <state relative-caret-position="266">
+              <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -47,51 +38,22 @@
       <file leaf-file-name="query_batch.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/testdata/unittests/query_batch.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="666" column="0" lean-forward="false" selection-start-line="666" selection-start-column="0" selection-end-line="666" selection-end-column="0" />
+            <state relative-caret-position="7901">
+              <caret line="759" column="0" lean-forward="false" selection-start-line="759" selection-start-column="0" selection-end-line="759" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/AbstractParser.java">
+      <file leaf-file-name="AbstractFPTree.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="173" column="24" lean-forward="false" selection-start-line="173" selection-start-column="24" selection-end-line="173" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PostgreSql.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="124" column="46" lean-forward="true" selection-start-line="124" selection-start-column="46" selection-end-line="124" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QueryGenerator.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="539">
-              <caret line="74" column="31" lean-forward="true" selection-start-line="74" selection-start-column="31" selection-end-line="74" selection-end-column="31" />
+            <state relative-caret-position="140">
+              <caret line="158" column="33" lean-forward="false" selection-start-line="158" selection-start-column="19" selection-end-line="158" selection-end-column="33" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#972#973#0" expanded="true" />
+                <element signature="e#1050#1051#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PartialIndex.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/PartialIndex.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="80" lean-forward="false" selection-start-line="26" selection-start-column="80" selection-end-line="26" selection-end-column="80" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -99,9 +61,103 @@
       <file leaf-file-name="PartialFPTreeNode.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="20" column="49" lean-forward="false" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
-              <folding />
+            <state relative-caret-position="357">
+              <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+              <folding>
+                <element signature="e#1287#1288#0" expanded="true" />
+                <element signature="e#1361#1362#0" expanded="true" />
+                <element signature="e#1423#1424#0" expanded="true" />
+                <element signature="e#1480#1481#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FullFPTreeNode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTreeNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="21">
+              <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+              <folding>
+                <element signature="e#450#451#0" expanded="true" />
+                <element signature="e#487#488#0" expanded="true" />
+                <element signature="e#778#779#0" expanded="true" />
+                <element signature="e#827#828#0" expanded="true" />
+                <element signature="e#1005#1006#0" expanded="true" />
+                <element signature="e#1056#1057#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FullFPTree.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTree.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1586">
+              <caret line="105" column="18" lean-forward="true" selection-start-line="105" selection-start-column="18" selection-end-line="105" selection-end-column="18" />
+              <folding>
+                <element signature="e#3776#3777#0" expanded="true" />
+                <element signature="e#3827#3828#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractFPTreeNode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTreeNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="59">
+              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding>
+                <element signature="e#2056#2057#0" expanded="true" />
+                <element signature="e#2106#2107#0" expanded="true" />
+                <element signature="e#2146#2147#0" expanded="true" />
+                <element signature="e#2183#2184#0" expanded="true" />
+                <element signature="e#2215#2216#0" expanded="true" />
+                <element signature="e#2250#2251#0" expanded="true" />
+                <element signature="e#2293#2294#0" expanded="true" />
+                <element signature="e#2322#2323#0" expanded="true" />
+                <element signature="e#2384#2385#0" expanded="true" />
+                <element signature="e#2420#2421#0" expanded="true" />
+                <marker date="1527496108813" expanded="true" signature="1601:1608" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/App.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="227">
+              <caret line="30" column="24" lean-forward="true" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QueryGenerator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PartialFPTree.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-280">
+              <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+              <folding>
+                <element signature="e#4080#4081#0" expanded="true" />
+                <element signature="e#4107#4108#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -117,11 +173,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>output</find>
-      <find>total</find>
-      <find>FPTreeNode</find>
-      <find>dimensionality</find>
-      <find>Find</find>
       <find>modelsAndClusters</find>
       <find />
       <find>0,</find>
@@ -147,6 +198,11 @@
       <find>seq</find>
       <find>Total qu</find>
       <find>G</find>
+      <find>treeNode</find>
+      <find>clone</find>
+      <find>conditionalPatternBase</find>
+      <find>minsup</find>
+      <find>conditionalTree</find>
     </findStrings>
     <replaceStrings>
       <replace>,</replace>
@@ -164,7 +220,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/Logger.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/PDF/UnivariateKernelEstimator.java" />
         <option value="$PROJECT_DIR$/data/testdata/unittests/test_data.csv" />
@@ -194,8 +249,6 @@
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/FullIndex.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/AbstractIndex.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/CompoundPartialIndex.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTreeNode.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTree.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FullParser/FullParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/InitializeFPTreeParser.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/ValidateFPTreeParser.java" />
@@ -203,24 +256,29 @@
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/Clique.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/MyVector.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/SupportCount/TableCount.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTreeNode.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/PartialParser/PopulateFPTreeParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/KnapsackProblem/DynamicProgramming.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/PartialIndex.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/App.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/DBMS/PostgreSql.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/AbstractParser.java" />
-        <option value="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTree.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTreeNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTreeNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/App.java" />
         <option value="$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java" />
+        <option value="$PROJECT_DIR$/data/testdata/unittests/query_batch.txt" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java" />
+        <option value="$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="2560" />
-    <option name="height" value="1440" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1618" />
+    <option name="height" value="870" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -237,175 +295,333 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
-          <expand>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="testdata" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="testdata" type="462c0819:PsiDirectoryNode" />
-              <item name="unittests" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="CandidateIndex" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="DataStructure" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="DBMS" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="Factory" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="FrequentPatternMining" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="FrequentPatternMining" type="462c0819:PsiDirectoryNode" />
-              <item name="SupportCount" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="KnapsackProblem" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="PDF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="SqlParser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="SqlParser" type="462c0819:PsiDirectoryNode" />
-              <item name="FullParser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="SqlParser" type="462c0819:PsiDirectoryNode" />
-              <item name="PartialParser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="interval_tree" type="b2602c69:ProjectViewProjectNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="interval_tree" type="462c0819:PsiDirectoryNode" />
-              <item name="SubspaceClustering" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interval_tree" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interval_tree" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SubspaceClustering" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interval_tree" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SqlParser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interval_tree" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SqlParser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FullParser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interval_tree" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KnapsackProblem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interval_tree" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FrequentPatternMining" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interval_tree" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FrequentPatternMining" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SupportCount" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interval_tree" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Factory" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interval_tree" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CandidateIndex" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="KernelDensityEstimator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="testdata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="unittests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -431,15 +647,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <module />
-    </configuration>
-    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.App">
+    <configuration default="false" name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="interval_tree.GUI.*" />
@@ -457,80 +666,14 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="interval_tree" />
       <envs />
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
+      <method />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
       <option name="PROGRAM_PARAMETERS" />
       <predefined_log_file id="idea.log" enabled="true" />
+      <method />
     </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="" />
@@ -587,6 +730,29 @@
       </Profilers>
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -601,6 +767,27 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
@@ -649,6 +836,45 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Application.App" />
+    </list>
     <recent_temporary>
       <list size="1">
         <item index="0" class="java.lang.String" itemvalue="Application.App" />
@@ -672,36 +898,57 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
+    <frame x="-9" y="-9" width="1618" height="870" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18339922" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5989086" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24147339" sideWeight="0.5025" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294964" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44172662" sideWeight="0.4975" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287858" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39699864" sideWeight="0.4975" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14726563" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.236875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3647482" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12687585" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24147339" sideWeight="0.5025" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3647482" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294964" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44172662" sideWeight="0.4975" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14726563" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.276259" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -742,17 +989,24 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java</url>
-          <line>188</line>
+          <line>190</line>
           <properties />
           <option name="timeStamp" value="223" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java</url>
+          <line>147</line>
+          <properties />
+          <option name="timeStamp" value="229" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="224" />
+      <option name="time" value="230" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="unit_bounds" />
         <watch expression="((java.util.ArrayList)((Clique)this).units).get(3)" custom="java.util.ArrayList,interval_tree.SubspaceClustering.Clique" />
+        <watch expression="((TreeMap)((FullFPTreeNode)((TreeMap.Entry)((TreeMap)((FullFPTreeNode)((FullFPTree)this).root).children).entrySet().toArray()[2]).getValue()).children).entrySet().toArray()[0]" custom="java.util.TreeMap,java.util.TreeMap.Entry,interval_tree.FrequentPatternMining.FullFPTreeNode,interval_tree.FrequentPatternMining.FullFPTree" />
       </configuration>
     </watches-manager>
   </component>
@@ -877,13 +1131,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTreeNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="23" column="70" lean-forward="false" selection-start-line="23" selection-start-column="70" selection-end-line="23" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/CliqueSubspace.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2055">
@@ -922,8 +1169,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SubspaceClustering/MyInterval.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
+        <state relative-caret-position="546">
           <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#497#498#0" expanded="false" />
+            <element signature="e#530#531#0" expanded="false" />
+            <element signature="e#575#576#0" expanded="false" />
+            <element signature="e#608#609#0" expanded="false" />
+            <element signature="e#1144#1145#0" expanded="false" />
+            <element signature="e#1207#1208#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -936,22 +1192,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/SqlParser/FullParser/FullParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTreeNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="25" column="186" lean-forward="false" selection-start-line="25" selection-start-column="186" selection-end-line="25" selection-end-column="186" />
+        <state relative-caret-position="399">
+          <caret line="23" column="69" lean-forward="false" selection-start-line="23" selection-start-column="69" selection-end-line="23" selection-end-column="69" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -964,24 +1207,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Logger.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="48" column="21" lean-forward="false" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="51" column="65" lean-forward="false" selection-start-line="51" selection-start-column="65" selection-end-line="51" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/SupportCount/TableCount.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="44" column="16" lean-forward="false" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
+        <state relative-caret-position="84">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#986#987#0" expanded="false" />
+            <element signature="e#1031#1032#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -989,13 +1221,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="29" column="32" lean-forward="false" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1042,22 +1267,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="20" column="49" lean-forward="false" selection-start-line="20" selection-start-column="49" selection-end-line="20" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/CandidateIndex/PartialIndex.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -1070,7 +1279,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
           <caret line="173" column="24" lean-forward="false" selection-start-line="173" selection-start-column="24" selection-end-line="173" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1082,6 +1290,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/SupportCount/TableCount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="71" column="59" lean-forward="false" selection-start-line="71" selection-start-column="59" selection-end-line="71" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTreeNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="16" column="10" lean-forward="true" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <folding>
+            <element signature="e#450#451#0" expanded="true" />
+            <element signature="e#487#488#0" expanded="true" />
+            <element signature="e#778#779#0" expanded="true" />
+            <element signature="e#827#828#0" expanded="true" />
+            <element signature="e#1005#1006#0" expanded="true" />
+            <element signature="e#1056#1057#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/FullFPTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1586">
+          <caret line="105" column="18" lean-forward="true" selection-start-line="105" selection-start-column="18" selection-end-line="105" selection-end-column="18" />
+          <folding>
+            <element signature="e#3776#3777#0" expanded="true" />
+            <element signature="e#3827#3828#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTreeNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding>
+            <element signature="e#1287#1288#0" expanded="true" />
+            <element signature="e#1361#1362#0" expanded="true" />
+            <element signature="e#1423#1424#0" expanded="true" />
+            <element signature="e#1480#1481#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/PartialFPTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-280">
+          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding>
+            <element signature="e#4080#4081#0" expanded="true" />
+            <element signature="e#4107#4108#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="30" column="24" lean-forward="true" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/data/testdata/unittests/query_batch.txt">
       <provider editor-type-id="LargeFileEditor">
         <state relative-caret-position="-124347">
@@ -1089,26 +1365,57 @@
         </state>
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="666" column="0" lean-forward="false" selection-start-line="666" selection-start-column="0" selection-end-line="666" selection-end-column="0" />
+        <state relative-caret-position="7901">
+          <caret line="759" column="0" lean-forward="false" selection-start-line="759" selection-start-column="0" selection-end-line="759" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTreeNode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="37" column="37" lean-forward="false" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="59">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="e#2056#2057#0" expanded="true" />
+            <element signature="e#2106#2107#0" expanded="true" />
+            <element signature="e#2146#2147#0" expanded="true" />
+            <element signature="e#2183#2184#0" expanded="true" />
+            <element signature="e#2215#2216#0" expanded="true" />
+            <element signature="e#2250#2251#0" expanded="true" />
+            <element signature="e#2293#2294#0" expanded="true" />
+            <element signature="e#2322#2323#0" expanded="true" />
+            <element signature="e#2384#2385#0" expanded="true" />
+            <element signature="e#2420#2421#0" expanded="true" />
+            <marker date="1527496108813" expanded="true" signature="1601:1608" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Factory/QueryGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="539">
-          <caret line="74" column="31" lean-forward="true" selection-start-line="74" selection-start-column="31" selection-end-line="74" selection-end-column="31" />
+        <state relative-caret-position="206">
+          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/Experiment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="94" column="0" lean-forward="false" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/interval_tree/FrequentPatternMining/AbstractFPTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="158" column="33" lean-forward="false" selection-start-line="158" selection-start-column="19" selection-end-line="158" selection-end-column="33" />
+          <folding>
+            <element signature="e#972#973#0" expanded="true" />
+            <element signature="e#1050#1051#0" expanded="true" />
           </folding>
         </state>
       </provider>
