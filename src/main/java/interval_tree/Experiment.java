@@ -135,37 +135,42 @@ public class Experiment {
 
         Logger.getInstance().setTimer();
         List<PartialFPTree> fpTree = validator.getFpTree();
-        List<IIndex> indexList = new LinkedList<>();
+//        List<IIndex> indexList = new LinkedList<>();
+        List<IIndex> partialIndices = new LinkedList<>();
+        List<IIndex> fullIndices = new LinkedList<>();
 
         for (PartialFPTree partialFPTree : fpTree) {
             partialFPTree.extractItemSets(MINSUP);
-            indexList.addAll(partialFPTree.getIndices());
+            partialIndices.addAll(partialFPTree.getIndices());
+            fullIndices.addAll(partialFPTree.findFrequentPatterns(MINSUP));
         }
         Logger.getInstance().stopTimer("ExtractItem-sets");
 
-
-        System.out.println("-- All generated Indexes --");
+        System.out.println("-- All generated Partial Indexes --");
         int indexIDs = 0;
-        for(IIndex idx : indexList) {
+        for(IIndex idx : partialIndices) {
             indexIDs++;
             System.out.println(idx.createIdxStatementWithId(indexIDs));
         }
 
-        List<CompoundPartialIndex> partialIndices = new LinkedList<>();
-        List<FullIndex> fullIndices = new LinkedList<>();
-
-        for (IIndex iIndex : indexList) {
-            if(iIndex instanceof CompoundPartialIndex){
-                partialIndices.add((CompoundPartialIndex) iIndex);
-            }
-            else
-            {
-                fullIndices.add((FullIndex) iIndex);
-            }
+        System.out.println("-- All generated Full Indexes --");
+        for(IIndex idx : fullIndices) {
+            indexIDs++;
+            System.out.println(idx.createIdxStatementWithId(indexIDs));
         }
 
+//        for (IIndex iIndex : indexList) {
+//            if(iIndex instanceof CompoundPartialIndex){
+//                partialIndices.add((CompoundPartialIndex) iIndex);
+//            }
+//            else
+//            {
+//                fullIndices.add((FullIndex) iIndex);
+//            }
+//        }
 
-        testIndexes(partialIndices, fullIndices);
+
+//        testIndexes(partialIndices, fullIndices);
     }
 
     private void parseQueries(IExpressionVisitor visitor){
@@ -218,8 +223,8 @@ public class Experiment {
         }
     }
 
-    private void testIndexes(List<CompoundPartialIndex> partialIndices,
-                             List<FullIndex> fullIndices){
+    private void testIndexes(List<IIndex> partialIndices,
+                             List<IIndex> fullIndices){
         PostgreSql postSql = null;
         try {
             postSql = new PostgreSql();
@@ -229,7 +234,7 @@ public class Experiment {
 
             postSql.buildCandidateIndexes(fullIndices);
 
-            for (FullIndex fullIndex : fullIndices) {
+            for (IIndex fullIndex : fullIndices) {
                 for(int i = partialIndices.size()-1; i >= 0; i--){
                     if(fullIndex.isAPrefix(partialIndices.get(i).getColumnName())){
                         partialIndices.remove(i);

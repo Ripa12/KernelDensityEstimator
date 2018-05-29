@@ -1,10 +1,12 @@
 package interval_tree.FrequentPatternMining;
 
+import interval_tree.CandidateIndex.FullIndex;
 import interval_tree.CandidateIndex.IIndex;
 import interval_tree.Logger;
 import interval_tree.SubspaceClustering.Clique;
 import interval_tree.SubspaceClustering.MyVector;
 
+import java.util.Collections;
 import java.util.List;
 
 import static interval_tree.Experiment.IDEAL_COVERAGE;
@@ -20,7 +22,7 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
 
         clique = new Clique<>(1000, MINSUP, IDEAL_COVERAGE, false, dim);
     }
-    private PartialFPTreeNode(PartialFPTreeNode parent, String name) {
+    PartialFPTreeNode(PartialFPTreeNode parent, String name) {
         super(parent, name);
         this.dimensions = 0;
 
@@ -54,7 +56,7 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
 
     @Override
     protected AbstractFPTreeNode cloneRoot() {
-        return new PartialFPTreeNode(null, "", 0);
+        return new PartialFPTreeNode(null, "");
     }
 
     @Override
@@ -64,7 +66,8 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
 
     @Override
     public List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns) {
-        return null;
+        return Collections
+                .singletonList(new FullIndex(frequency, 0, tableName, String.join(",", columns)));
     }
 
     @Override
@@ -72,9 +75,5 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
 
     }
 
-//    @Override
-//    protected PartialFPTreeNode clone() {
-//        return new PartialFPTreeNode(this, dimensions + 1);
-//    }
 }
 

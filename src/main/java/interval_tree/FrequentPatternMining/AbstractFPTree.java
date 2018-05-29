@@ -175,12 +175,9 @@ public abstract class AbstractFPTree {
             // Is the item frequent? (count >= minSupport)
             double frequentItemsetCount = 0;
 
-            AbstractFPTreeNode combinedTreeNode = createRoot();
 
             // Jump from leaf to leaf
             for (AbstractFPTreeNode treeNode : treeNodes) {// while (treeNode != null) {
-
-                combinedTreeNode.combineNode(treeNode);
 
                 String conditionalPattern = "";
                 frequentItemsetCount += treeNode.getFrequency();
@@ -220,7 +217,8 @@ public abstract class AbstractFPTree {
 //                        / transactionCount));
                 test.add(currentPattern);
 
-                frequentPatterns.addAll(combinedTreeNode.extractIndexes(frequentItemsetCount, tableName,
+                AbstractFPTreeNode tempNode = createRoot();
+                frequentPatterns.addAll(tempNode.extractIndexes(frequentItemsetCount, tableName,
                         Arrays.asList(currentPattern.split(PATTERN_DELIMITER))));
 
 //                frequentPatterns.addAll(combinedTreeNode.extractIndexes(tableName,

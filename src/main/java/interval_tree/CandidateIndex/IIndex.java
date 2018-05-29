@@ -9,5 +9,9 @@ public interface IIndex {
     double getWeight();
     void setWeight(double w);
 
+    default boolean isAPrefix(String other) {
+        return other.startsWith(getColumnName());
+    }
+
 //    boolean isAPrefix(String other);
 }

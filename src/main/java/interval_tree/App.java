@@ -23,7 +23,7 @@ public class App
 
 
         System.out.println("-- Partial Compound Index --");
-//        exp.testPartialFPGrowth();
+        exp.testPartialFPGrowth();
         String partialIndexInfo = Logger.getInstance().toString();
 
         Logger.getInstance().reset();

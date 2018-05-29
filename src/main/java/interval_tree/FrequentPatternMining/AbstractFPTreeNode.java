@@ -27,7 +27,7 @@ public abstract class AbstractFPTreeNode{
     protected abstract AbstractFPTreeNode clone(String column);
     protected abstract AbstractFPTreeNode cloneRoot();
     public abstract List<IIndex> extractIndexes(String tableName, List<String> columns);
-    public abstract List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns);
+    public abstract List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns); // ToDo: Could probably be static
 
     final AbstractFPTreeNode getOrCreateChild(String name){ // ToDo: Is this a good name? Maybe increment frequency in an package private function instead; easier to understand that way.
         AbstractFPTreeNode temp;
@@ -74,14 +74,9 @@ public abstract class AbstractFPTreeNode{
         }
     }
 
-    final void removeChild(AbstractFPTreeNode child){
-        this.children.remove(child.column);
-    }
-
     final void setFrequency(int freq){
         this.frequency = freq;
     }
-
     final void incFrequency(){
         this.frequency += 1;
     }
@@ -95,13 +90,4 @@ public abstract class AbstractFPTreeNode{
     }
 
     abstract void combineNode(AbstractFPTreeNode other);
-
-//    final AbstractFPTreeNode getFirstChild(){
-//        AbstractFPTreeNode temp = null;
-//        if (!children.firstKey().isEmpty()) {
-//            temp = children.get(children.firstKey());
-//        }
-//
-//        return temp;
-//    }
 }

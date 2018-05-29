@@ -118,6 +118,6 @@ public class PartialFPTree extends AbstractFPTree{
 
     @Override
     public AbstractFPTreeNode createRoot() {
-        return null;
+        return new PartialFPTreeNode(null, "");
     }
 }
