@@ -15,6 +15,10 @@ public abstract class AbstractIndex implements IIndex{
         this.columnNames = c;
     }
 
+    public final boolean isAPrefix(String other) {
+        return other.startsWith(columnNames);
+    }
+
     @Override
     public String getColumnName(){
         return this.columnNames;
