@@ -13,9 +13,8 @@ import java.util.List;
  */
 public class FullFPTreeNode extends AbstractFPTreeNode {
 
-    FullFPTreeNode(FullFPTreeNode parent) {
-        super(parent);
-
+    FullFPTreeNode(FullFPTreeNode parent, String column) {
+        super(parent, column);
     }
 
     @Override
@@ -25,7 +24,17 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
-    protected FullFPTreeNode clone() {
-        return new FullFPTreeNode(this);
+    void combineNode(AbstractFPTreeNode other) {
+        this.frequency += other.frequency;
+    }
+
+    @Override
+    protected FullFPTreeNode clone(String col) {
+        return new FullFPTreeNode(this, col);
+    }
+
+    @Override
+    protected AbstractFPTreeNode cloneRoot() {
+        return new FullFPTreeNode(null, "");
     }
 }
