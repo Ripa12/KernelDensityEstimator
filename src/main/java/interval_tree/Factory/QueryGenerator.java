@@ -69,8 +69,8 @@ public final static String COLUMN_LABELS[] = {"A", "B", "C", "D", "E", "F", "G",
     };
 
 
-    private final static int NR_OF_QUERIES = 30; // ToDo: Null-pointer exception if very small
-    private final static int MAX_DUPLICATES = 50;
+    private final static int NR_OF_QUERIES = 10; // ToDo: Null-pointer exception if very small
+    private final static int MAX_DUPLICATES = 10;
 
     private static Random rand;
 

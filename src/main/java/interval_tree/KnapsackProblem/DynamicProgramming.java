@@ -47,7 +47,7 @@ public class DynamicProgramming {
         return isPicked;
     }
 
-    public static void solveKP(List<? extends IIndex> idxs, int cap) {
+    public static int solveKP(List<? extends IIndex> idxs, int cap) {
 
         int n = idxs.size();
         int capcity = cap;
@@ -65,9 +65,11 @@ public class DynamicProgramming {
         long endTime = System.currentTimeMillis();
 
         int totalValue = 0;
+        int totalWeight = 0;
         for ( int i = n-1; i >= 0; i-- ) {
             if ( isPicked[i] ) {
                 totalValue += value[i];
+                totalWeight += weight[i];
             }
             else{
                 idxs.remove(i);
@@ -77,5 +79,7 @@ public class DynamicProgramming {
         System.out.println();
         System.out.println("Max Value = " + totalValue);
         System.out.println("Total Time: " + (endTime - startTime) + " ms");
+
+        return totalWeight;
     }
 }

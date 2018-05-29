@@ -8,4 +8,6 @@ public interface IIndex {
     double getValue();
     double getWeight();
     void setWeight(double w);
+
+//    boolean isAPrefix(String other);
 }

@@ -325,11 +325,11 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
         }
 
         // ToDo: Macro here
-        // ToDo: accumulatedCoverage is sometimes larger than total!!!
         if((accumulatedCoverage / ((double) total)) < idealCoverage){
             candidates.clear();
-            candidates.add(new FullIndex(total, 0, tableName, String.join(",", columns)));
+//            candidates.add(new FullIndex(total, 0, tableName, String.join(",", columns)));
         }
+        candidates.add(new FullIndex(total, 0, tableName, String.join(",", columns)));
 
         return candidates;
     }

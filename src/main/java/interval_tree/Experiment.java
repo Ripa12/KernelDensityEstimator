@@ -24,6 +24,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static interval_tree.Factory.QueryGenerator.COLUMN_LABELS;
 import static interval_tree.Factory.QueryGenerator.TABLE_NAME;
@@ -36,7 +37,7 @@ public class Experiment {
 
 
     public static double MINSUP = .02;
-    public static double IDEAL_COVERAGE = 0.99;
+    public static double IDEAL_COVERAGE = 0.8;
 
     /**
      * Batch of queries
@@ -150,7 +151,21 @@ public class Experiment {
             System.out.println(idx.createIdxStatementWithId(indexIDs));
         }
 
-        testIndexes(indexList);
+        List<CompoundPartialIndex> partialIndices = new LinkedList<>();
+        List<FullIndex> fullIndices = new LinkedList<>();
+
+        for (IIndex iIndex : indexList) {
+            if(iIndex instanceof CompoundPartialIndex){
+                partialIndices.add((CompoundPartialIndex) iIndex);
+            }
+            else
+            {
+                fullIndices.add((FullIndex) iIndex);
+            }
+        }
+
+
+        testIndexes(partialIndices, fullIndices);
     }
 
     private void parseQueries(IExpressionVisitor visitor){
@@ -185,9 +200,51 @@ public class Experiment {
             postSql = new PostgreSql();
             postSql.estimateWeights(indexList);
 
-            DynamicProgramming.solveKP(indexList, 900000);
+            DynamicProgramming.solveKP(indexList, 1200000);
 
             postSql.buildCandidateIndexes(indexList);
+            postSql.testIndexes(sourcePath);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+        }
+        finally {
+            try {
+                postSql.close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    private void testIndexes(List<CompoundPartialIndex> partialIndices,
+                             List<FullIndex> fullIndices){
+        PostgreSql postSql = null;
+        try {
+            postSql = new PostgreSql();
+            postSql.estimateWeights(fullIndices);
+
+            int leftover = DynamicProgramming.solveKP(fullIndices, 1200000);
+
+            postSql.buildCandidateIndexes(fullIndices);
+
+            for (FullIndex fullIndex : fullIndices) {
+                for(int i = partialIndices.size()-1; i >= 0; i--){
+                    if(fullIndex.isAPrefix(partialIndices.get(i).getColumnName())){
+                        partialIndices.remove(i);
+                    }
+                }
+            }
+
+            postSql.estimateWeights(partialIndices);
+
+            System.out.println(leftover);
+
+            DynamicProgramming.solveKP(partialIndices, 1200000 - leftover);
+
+            postSql.buildCandidateIndexes(partialIndices);
+
             postSql.testIndexes(sourcePath);
 
         } catch (Exception e) {
