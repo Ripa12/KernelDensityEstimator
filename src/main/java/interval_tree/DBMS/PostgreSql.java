@@ -30,12 +30,12 @@ public class PostgreSql {
         indexIDs = -1;
 
         Class.forName("org.postgresql.Driver");
-//        c = DriverManager
-//                .getConnection("jdbc:postgresql://localhost:5432/testDB?currentSchema=mgd",
-//                            "ripa12", "password");
         c = DriverManager
                 .getConnection("jdbc:postgresql://localhost:5432/testDB?currentSchema=mgd",
-                        "postgres", "postgres");
+                            "ripa12", "password");
+//        c = DriverManager
+//                .getConnection("jdbc:postgresql://localhost:5432/testDB?currentSchema=mgd",
+//                        "postgres", "postgres");
 
         stmt = c.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
@@ -122,8 +122,8 @@ public class PostgreSql {
 
                 int c = 0;
                 for (String line; (line = br.readLine()) != null; ) {
-                    c++;
-                    System.out.println("Current query: " + c);
+//                    c++;
+//                    System.out.println("Current query: " + c);
 //                    outputResult(stmt.executeQuery("explain analyze " + line));
                     stmt.executeQuery(line);
                 }

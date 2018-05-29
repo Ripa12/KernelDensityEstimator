@@ -273,12 +273,12 @@ public abstract class AbstractFPTree {
                 List<String> path = new ArrayList<>();
                 List<Double> pathValues = new ArrayList<>();
 
-                AbstractFPTreeNode tempRoot = root; // My Code
+//                AbstractFPTreeNode tempRoot = root; // My Code
 
                 while (tokenizer.hasMoreTokens()) {
                     String conditionalToken = tokenizer.nextToken();
 
-                    tempRoot = tempRoot.getChild(conditionalToken);  // My Code
+//                    tempRoot = tempRoot.getChild(conditionalToken);  // My Code
 
                     if (conditionalItemFrequencies
                             .containsKey(conditionalToken)) {

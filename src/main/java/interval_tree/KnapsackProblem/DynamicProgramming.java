@@ -48,6 +48,8 @@ public class DynamicProgramming {
     }
 
     public static int solveKP(List<? extends IIndex> idxs, int cap) {
+        if(idxs.isEmpty())
+            return 0;
 
         int n = idxs.size();
         int capcity = cap;

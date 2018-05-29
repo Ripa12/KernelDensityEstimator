@@ -36,6 +36,7 @@ public class Experiment {
     // https://www.programcreek.com/java-api-examples/index.php?source_dir=Weka-for-Android-master/src/weka/classifiers/meta/RegressionByDiscretization.java#
 
 
+    public static int STORAGE_CPACITY = 20000;
     public static double MINSUP = .02;
     public static double IDEAL_COVERAGE = 0.8;
 
@@ -104,7 +105,7 @@ public class Experiment {
             System.out.println(idx.createIdxStatementWithId(indexIDs));
         }
 
-//        testIndexes(indexList);
+        testIndexes(indexList);
     }
 
     public void testPartialFPGrowth(){
@@ -170,7 +171,7 @@ public class Experiment {
 //        }
 
 
-//        testIndexes(partialIndices, fullIndices);
+        testIndexes(partialIndices, fullIndices);
     }
 
     private void parseQueries(IExpressionVisitor visitor){
@@ -205,7 +206,7 @@ public class Experiment {
             postSql = new PostgreSql();
             postSql.estimateWeights(indexList);
 
-            DynamicProgramming.solveKP(indexList, 1200000);
+            DynamicProgramming.solveKP(indexList, STORAGE_CPACITY);
 
             postSql.buildCandidateIndexes(indexList);
             postSql.testIndexes(sourcePath);
@@ -230,7 +231,7 @@ public class Experiment {
             postSql = new PostgreSql();
             postSql.estimateWeights(fullIndices);
 
-            int leftover = DynamicProgramming.solveKP(fullIndices, 1200000);
+            int leftover = DynamicProgramming.solveKP(fullIndices, STORAGE_CPACITY);
 
             postSql.buildCandidateIndexes(fullIndices);
 
@@ -246,7 +247,7 @@ public class Experiment {
 
             System.out.println(leftover);
 
-            DynamicProgramming.solveKP(partialIndices, 1200000 - leftover);
+            DynamicProgramming.solveKP(partialIndices, STORAGE_CPACITY - leftover);
 
             postSql.buildCandidateIndexes(partialIndices);
 
