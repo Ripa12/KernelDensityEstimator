@@ -92,7 +92,7 @@ public class Experiment {
 //            fullFPTree.extractItemSets(MINSUP);
 //            indexList.addAll(fullFPTree.getIndices());
 
-            fullFPTree.findFrequentPatterns(MINSUP);
+            indexList.addAll(fullFPTree.findFrequentPatterns(MINSUP));
         }
         Logger.getInstance().stopTimer("ExtractItem-sets");
 

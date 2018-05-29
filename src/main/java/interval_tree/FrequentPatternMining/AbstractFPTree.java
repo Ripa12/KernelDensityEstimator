@@ -141,17 +141,22 @@ public abstract class AbstractFPTree {
 
     }
 
-    public void findFrequentPatterns(double minsup){
+    public Set<IIndex> findFrequentPatterns(double minsup){
         this.minsup = minsup * totalSupportCount;
 
-        Set<String> frequentPatterns = new HashSet<>();
-        fpGrowthStep(header, frequentPatterns, "");
+        Set<IIndex> frequentPatterns = new HashSet<>();
+        Set<String> test = new HashSet<>();
+        fpGrowthStep(header, frequentPatterns, test, "");
 
-        System.out.println(frequentPatterns);
+        System.out.println(test);
+
+        return frequentPatterns;
     }
 
+    // MIT license
+    // https://github.com/PySualk/fp-growth-java/blob/master/src/main/java/org/sualk/fpgrowth/FPgrowth.java
     private void fpGrowthStep(HashMap<String, LinkedList<AbstractFPTreeNode>> headerTable,
-                              Set<String> frequentPatterns, String base) {
+                              Set<IIndex> frequentPatterns, Set<String> test,  String base) {
 
         for (String item : headerTable.keySet()) {
             List<AbstractFPTreeNode> treeNodes = headerTable.get(item);
@@ -213,7 +218,10 @@ public abstract class AbstractFPTree {
 //                frequentPatterns.add(new FrequentPattern(currentPattern,
 //                        frequentItemsetCount, (double) frequentItemsetCount
 //                        / transactionCount));
-                frequentPatterns.add(currentPattern);
+                test.add(currentPattern);
+
+                frequentPatterns.addAll(combinedTreeNode.extractIndexes(frequentItemsetCount, tableName,
+                        Arrays.asList(currentPattern.split(PATTERN_DELIMITER))));
 
 //                frequentPatterns.addAll(combinedTreeNode.extractIndexes(tableName,
 //                        Arrays.asList(currentPattern.split(PATTERN_DELIMITER))));
@@ -294,7 +302,7 @@ public abstract class AbstractFPTree {
 //            if (!conditionalTree.getChildren().isEmpty())
             if (conditionalTree.getChildCount() > 0)
                 fpGrowthStep(conditionalHeaderTable,
-                        frequentPatterns, currentPattern);
+                        frequentPatterns, test, currentPattern);
         }
     }
 }

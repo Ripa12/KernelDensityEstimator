@@ -24,6 +24,12 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
+    public List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns) {
+        return Collections
+                .singletonList(new FullIndex(frequency, 0, tableName, String.join(",", columns)));
+    }
+
+    @Override
     void combineNode(AbstractFPTreeNode other) {
         this.frequency += other.frequency;
     }

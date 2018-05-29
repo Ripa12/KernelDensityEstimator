@@ -63,6 +63,11 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
+    public List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns) {
+        return null;
+    }
+
+    @Override
     void combineNode(AbstractFPTreeNode other) {
 
     }

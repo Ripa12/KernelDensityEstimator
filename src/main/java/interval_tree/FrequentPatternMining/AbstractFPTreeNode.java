@@ -27,6 +27,7 @@ public abstract class AbstractFPTreeNode{
     protected abstract AbstractFPTreeNode clone(String column);
     protected abstract AbstractFPTreeNode cloneRoot();
     public abstract List<IIndex> extractIndexes(String tableName, List<String> columns);
+    public abstract List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns);
 
     final AbstractFPTreeNode getOrCreateChild(String name){ // ToDo: Is this a good name? Maybe increment frequency in an package private function instead; easier to understand that way.
         AbstractFPTreeNode temp;
