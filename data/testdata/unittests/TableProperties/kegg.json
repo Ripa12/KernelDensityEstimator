@@ -1,0 +1,156 @@
+[
+  [
+    {
+      "TABLE_NAME": "KEGG Metabolic Reaction Network",
+      "COLUMN_LABELS": ["Connected Components", "Diameter", "Radius", "Centralization", "Shortest Path", "Characteristic Path Length",
+      "Avg.num.Neighbours", "Density", "Heterogeneity", "Isolated Nodes", "Number of Self Loops", "Multi-edge Node Pair", "NeighborhoodConnectivity",
+      "NumberOfDirectedEdges", "Stress", "SelfLoops", "Partner Of MultiEdged NodePairs", "Degree", "TopologicalCoefficient", "BetweennessCentrality",
+      "Radiality", "Eccentricity", "NumberOfUndirectedEdges", "ClosenessCentrality", "AverageShortestPathLength", "ClusteringCoefficient", "nodeCount",
+      "edgeCount"],
+      "COLUMN_MIN_MAX": [
+        { "min": "1", "max": "39", "isDecimal": "0" },
+        { "min": "1", "max": "46", "isDecimal": "0" },
+        { "min": "13", "max": "1", "isDecimal": "0" },
+        { "min": "0", "max": "1", "isDecimal": "1" },
+        { "min": "2", "max": "23420", "isDecimal": "0" },
+        { "min": "1", "max": "15.9729", "isDecimal": "1" },
+        { "min": "0.666667", "max": "3.44", "isDecimal": "1" },
+        { "min": "0.00821018", "max": "1", "isDecimal": "1" },
+        { "min": "0", "max": "1.7962", "isDecimal": "1" },
+        { "min": "0", "max": "3", "isDecimal": "0" },
+        { "min": "0", "max": "4", "isDecimal": "0" },
+        { "min": "0", "max": "220", "isDecimal": "0" },
+        { "min": "0.666667", "max": "15.6048", "isDecimal": "1" },
+        { "min": "0.666667", "max": "10.2222", "isDecimal": "1" },
+        { "min": "0", "max": "2112.06", "isDecimal": "1" },
+        { "min": "0", "max": "0.666667", "isDecimal": "1" },
+        { "min": "0", "max": "3", "isDecimal": "1" },
+        { "min": "1", "max": "10.2222", "isDecimal": "1" },
+        { "min": "0", "max": "1", "isDecimal": "1" },
+        { "min": "0.333333", "max": "1", "isDecimal": "1" },
+        { "min": "0.543728", "max": "30744600000", "isDecimal": "1" },
+        { "min": "0.666667", "max": "25.0341", "isDecimal": "1" },
+        { "min": "0", "max": "0.666667", "isDecimal": "1" },
+        { "min": "0.102206", "max": "1", "isDecimal": "1" },
+        { "min": "0.666667", "max": "12.667", "isDecimal": "1" },
+        { "min": "0", "max": "1", "isDecimal": "1" },
+        { "min": "2", "max": "232", "isDecimal": "0" },
+        { "min": "1", "max": "444", "isDecimal": "0" }
+      ],
+      "COLUMN_DENSE_INTERVALS": [
+        [
+          { "min": 2, "max": 5, "probability": 0.6},
+          { "min": 16, "max": 20, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 8, "probability": 0.8},
+          { "min": 31, "max": 36, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ],
+        [
+          { "min": 5, "max": 5, "probability": 0.8},
+          { "min": 5, "max": 5, "probability": 0.8}
+        ]
+      ]
+    }
+  ]
+]
