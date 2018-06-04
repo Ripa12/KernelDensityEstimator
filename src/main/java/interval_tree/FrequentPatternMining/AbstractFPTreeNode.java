@@ -1,6 +1,7 @@
 package interval_tree.FrequentPatternMining;
 
 import interval_tree.CandidateIndex.IIndex;
+import interval_tree.FrequentPatternMining.SupportCount.TableCount;
 
 import java.util.List;
 import java.util.TreeMap;
@@ -24,9 +25,10 @@ public abstract class AbstractFPTreeNode{
         this.column = column;
     }
 
-    protected abstract AbstractFPTreeNode clone(String column);
+    protected abstract AbstractFPTreeNode makeChild(String column);
+    protected abstract AbstractFPTreeNode makeChild(AbstractFPTreeNode other);
     protected abstract AbstractFPTreeNode cloneRoot();
-    public abstract List<IIndex> extractIndexes(String tableName, List<String> columns);
+    public abstract List<IIndex> extractIndexes(String tableName, List<String> columns, TableCount tc);
     public abstract List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns); // ToDo: Could probably be static
 
     final AbstractFPTreeNode getOrCreateChild(String name){ // ToDo: Is this a good name? Maybe increment frequency in an package private function instead; easier to understand that way.
@@ -34,7 +36,7 @@ public abstract class AbstractFPTreeNode{
         if (children.containsKey(name)) {
             temp = children.get(name);
         } else {
-            temp = clone(name); // ToDo: rename clone() to makeChild()
+            temp = makeChild(name); // ToDo: rename makeChild() to makeChild()
 
             children.put(name, temp);
         }
@@ -70,7 +72,7 @@ public abstract class AbstractFPTreeNode{
     public void addChild(AbstractFPTreeNode child) {
         if(!this.children.containsKey(child.column)) {
             this.children.put(child.column, child);
-            child.parent = this; // Redundant, already done in clone()
+            child.parent = this; // Redundant, already done in makeChild()
         }
     }
 

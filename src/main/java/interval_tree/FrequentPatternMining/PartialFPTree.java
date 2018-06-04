@@ -111,7 +111,7 @@ public class PartialFPTree extends AbstractFPTree{
         if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
 
             if (node instanceof PartialFPTreeNode) {
-                indices.addAll(node.extractIndexes(tableName, columns));
+                indices.addAll(node.extractIndexes(tableName, columns, tableCount));
             }
         }
     }

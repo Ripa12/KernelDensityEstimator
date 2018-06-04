@@ -38,73 +38,9 @@ public class FullFPTree extends AbstractFPTree{
 
     void extractItemSet(AbstractFPTreeNode node, List<String> columns){
         if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
-            indices.addAll(node.extractIndexes(tableName, columns));
+            indices.addAll(node.extractIndexes(tableName, columns, tableCount));
         }
     }
-
-
-    //// new
-
-//    public AbstractFPTree conditionalTree(List<List<AbstractFPTreeNode>> paths) {
-//        AbstractFPTree tree = new FullFPTree(tableCount, tableName);
-//
-//        Set<String> items = new HashSet<>();
-//        String conditionItem = null;
-//        for (List<AbstractFPTreeNode> path : paths) {
-//            AbstractFPTreeNode point = tree.getRoot();
-//            if (conditionItem == null) {
-//                conditionItem = path.get(path.size() - 1).column;
-//            }
-//
-//            for (AbstractFPTreeNode node : path) {
-//                AbstractFPTreeNode nextPoint = point.getChild(node.column);
-//                if (nextPoint == null) {
-//                    items.add(node.column);
-//                    int count;
-//                    if (node.column.equals(conditionItem)) {
-//                        count = node.getFrequency();
-//                    } else {
-//                        count = 0; // nextPoint is already zero when initialized
-//                    }
-//                    nextPoint = nextPoint.clone(node.column);
-//                    nextPoint.setFrequency(count);
-//
-//                    point.addChild(nextPoint);
-//                    tree.header.get(nextPoint.column).add(nextPoint);//tree.updateNeighbors(nextPoint);
-//                }
-//                point = nextPoint;
-//            }
-//        }
-//
-//        for (List<AbstractFPTreeNode> path : tree.getPrefixPaths(conditionItem)) {
-//            Integer count = path.get(path.size() - 1).getFrequency();
-//            for (int i = path.size() - 1; i >= 0; i--) {
-//                AbstractFPTreeNode node = path.get(i);
-//                node.setFrequency(count);
-//            }
-//        }
-//
-//        for (String item : items) {
-//            double support = 0;
-//            for (AbstractFPTreeNode node : tree.getNodes(item)) {
-//                support += node.getFrequency();
-//            }
-//            for (AbstractFPTreeNode node : tree.getNodes(item)) {
-//                if (support / totalSupportCount < minsup) {
-//                    if (node.parent != null) {
-//                        node.getParent().removeChild(node);
-//                    }
-//                }
-//            }
-//        }
-//
-//        for (FPNode node : tree.getNodes(conditionItem)) {
-//            if (node.hasParent()) {
-//                node.getParent().removeChild(node);
-//            }
-//        }
-//        return tree;
-//    }
 
     @Override
     public AbstractFPTreeNode createRoot() {

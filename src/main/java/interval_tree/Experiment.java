@@ -27,6 +27,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static interval_tree.Factory.QueryGenerator.COLUMN_LABELS;
+import static interval_tree.Factory.QueryGenerator.COLUMN_MIN_MAX;
 import static interval_tree.Factory.QueryGenerator.TABLE_NAME;
 
 public class Experiment {
@@ -68,7 +69,7 @@ public class Experiment {
 
     private TableCount initiateTables(){
         TableCount tableCount = new TableCount(MINSUP, new String[]{TABLE_NAME});
-        tableCount.addColumns(TABLE_NAME, COLUMN_LABELS);
+        tableCount.addColumns(TABLE_NAME, COLUMN_LABELS, COLUMN_MIN_MAX);
         return tableCount;
     }
 
@@ -105,7 +106,7 @@ public class Experiment {
             System.out.println(idx.createIdxStatementWithId(indexIDs));
         }
 
-        testIndexes(indexList);
+//        testIndexes(indexList);
     }
 
     public void testPartialFPGrowth(){
@@ -171,7 +172,7 @@ public class Experiment {
 //        }
 
 
-        testIndexes(partialIndices, fullIndices);
+//        testIndexes(partialIndices, fullIndices);
     }
 
     private void parseQueries(IExpressionVisitor visitor){

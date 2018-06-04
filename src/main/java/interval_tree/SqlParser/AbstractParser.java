@@ -1,6 +1,6 @@
 package interval_tree.SqlParser;
 
-import interval_tree.DataStructure.IntervalTree;
+import interval_tree.FrequentPatternMining.SupportCount.TableCount;
 import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.expression.operators.arithmetic.*;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
@@ -11,16 +11,18 @@ import net.sf.jsqlparser.statement.select.SubSelect;
 
 public abstract class AbstractParser implements IExpressionVisitor{
 
-    private int extractedValue; // ToDo: Only integers are considered as of now
+    protected TableCount tableCount;
+    private double extractedValue; // ToDo: Only integers are considered as of now
     private String extractedColumn;
-    private boolean isInterval;
+//    private boolean isInterval;
     private String currentTable;
 
-    public AbstractParser(){
-        this.extractedValue = 0;
+    public AbstractParser(TableCount tableCount){
+        this.tableCount = tableCount;
+        this.extractedValue = 0.0;
         this.currentTable = "";
         this.extractedColumn = "";
-        this.isInterval = false;
+//        this.isInterval = false;
     }
 
     @Override
@@ -58,10 +60,10 @@ public abstract class AbstractParser implements IExpressionVisitor{
     }
 
     public void visit(DoubleValue doubleValue) {
-        extractedValue = (int)doubleValue.getValue();
+        extractedValue = doubleValue.getValue();
     }
     public void visit(LongValue longValue) {
-        extractedValue = (int)longValue.getValue();
+        extractedValue = (double) longValue.getValue();
     }
 
     @Override
@@ -114,14 +116,14 @@ public abstract class AbstractParser implements IExpressionVisitor{
 
     }
 
-    protected abstract void finiteInterval(String column, int start, int end);
+    protected abstract void finiteInterval(String column, double start, double end);
 
     @Override
     public void visit(AndExpression andExpression) {
-        int start, end;
+        double start, end;
         String leftCol, rightCol;
 
-        isInterval = true;
+//        isInterval = true;
 
         andExpression.getLeftExpression().accept(this);
         start = extractedValue;
@@ -140,7 +142,7 @@ public abstract class AbstractParser implements IExpressionVisitor{
             // ToDo: no support for infinity yet...
         }
 
-        isInterval = false;
+//        isInterval = false;
 
         // ToDo: might need to reset extractedValues here.
     }
@@ -155,7 +157,7 @@ public abstract class AbstractParser implements IExpressionVisitor{
 
     }
 
-    protected abstract void equalsTo(String col, int point);
+    protected abstract void equalsTo(String col, double point);
 
     @Override
     public void visit(EqualsTo equalsTo) {
@@ -165,6 +167,7 @@ public abstract class AbstractParser implements IExpressionVisitor{
         equalsTo(extractedColumn, extractedValue);
     }
 
+    protected abstract void greaterThan(String col, double point);
     @Override
     public void visit(GreaterThan greaterThan) {
         greaterThan.getLeftExpression().accept(this);
@@ -172,12 +175,18 @@ public abstract class AbstractParser implements IExpressionVisitor{
 
         // ToDo: what if decimal?
         extractedValue -= 1;
+
+//        if(!isInterval)
+        greaterThan(extractedColumn, extractedValue);
     }
 
     @Override
     public void visit(GreaterThanEquals greaterThanEquals) {
         greaterThanEquals.getLeftExpression().accept(this);
         greaterThanEquals.getRightExpression().accept(this);
+
+//        if(!isInterval)
+        greaterThan(extractedColumn, extractedValue);
     }
 
     @Override
@@ -195,18 +204,25 @@ public abstract class AbstractParser implements IExpressionVisitor{
 
     }
 
+    protected abstract void MinorThan(String col, double point);
     @Override
     public void visit(MinorThan minorThan) {
         minorThan.getLeftExpression().accept(this);
         minorThan.getRightExpression().accept(this);
 
         extractedValue += 1;
+
+//        if(!isInterval)
+        greaterThan(extractedColumn, extractedValue);
     }
 
     @Override
     public void visit(MinorThanEquals minorThanEquals) {
         minorThanEquals.getLeftExpression().accept(this);
         minorThanEquals.getRightExpression().accept(this);
+
+//        if(!isInterval)
+        greaterThan(extractedColumn, extractedValue);
     }
 
     @Override

@@ -60,6 +60,7 @@ import interval_tree.CandidateIndex.CompoundPartialIndex;
 import interval_tree.CandidateIndex.FullIndex;
 import interval_tree.CandidateIndex.IIndex;
 import interval_tree.CandidateIndex.PartialIndex;
+import interval_tree.FrequentPatternMining.SupportCount.TableCount;
 import interval_tree.SubspaceClustering.MyVector;
 
 /**
@@ -286,8 +287,6 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
                 }
             }
         }
-//        System.out.println("Find multi-dimensionality: " + (System.nanoTime() - startTime) / 1000000000.0);
-
 
         Integer dim = dimensionToDenseSubspaces.lastKey();
         List<CliqueSubspace<V>> subspaces = dimensionToDenseSubspaces.get(dim);
@@ -306,7 +305,8 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
         }
     }
 
-    public List<IIndex> getClusters(String tableName, List<String> columns){
+    public List<IIndex> getClusters(String tableName, List<String> columns,
+                                    double[] negativeInfinity, double[] positiveInfinity, TableCount tc){
         if(modelsAndClusters == null)
             return null;
 
@@ -319,7 +319,8 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
 
             // ToDo: Are too many candidate clusters created before being pruned?
             if ((coverage / ((double) total)) >= tau) {
-                candidates.add(((CliqueSubspace) modelAndCluster.getFirst()).makePartialIndex(tableName, columns));
+                candidates.add(((CliqueSubspace) modelAndCluster.getFirst()).makePartialIndex(tableName, columns,
+                        negativeInfinity, positiveInfinity, tc));
                 accumulatedCoverage += coverage;
             }
         }
@@ -327,9 +328,7 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
         // ToDo: Macro here
         if((accumulatedCoverage / ((double) total)) < idealCoverage){
             candidates.clear();
-//            candidates.add(new FullIndex(total, 0, tableName, String.join(",", columns)));
         }
-//        candidates.add(new FullIndex(total, 0, tableName, String.join(",", columns)));
 
         return candidates;
     }
@@ -363,7 +362,6 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
      * @return the one dimensional dense subspaces reverse ordered by their
      * coverage
      */
-//    private List<CliqueSubspace<V>> findOneDimensionalDenseSubspaces(Relation<V> database) {
     private List<CliqueSubspace<V>> findOneDimensionalDenseSubspaces() {
         List<CliqueSubspace<V>> denseSubspaceCandidates = findOneDimensionalDenseSubspaceCandidates();
 
@@ -383,7 +381,6 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
      * @return a list of the {@code k}-dimensional dense subspaces sorted in
      * reverse order by their coverage
      */
-//    private List<CliqueSubspace<V>> findDenseSubspaces(Relation<V> database, List<CliqueSubspace<V>> denseSubspaces) {
     private List<CliqueSubspace<V>> findDenseSubspaces(List<CliqueSubspace<V>> denseSubspaces) {
         List<CliqueSubspace<V>> denseSubspaceCandidates = findDenseSubspaceCandidates(denseSubspaces);
 
@@ -399,20 +396,6 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
     // Code from GeeksForGeeks
     private void binaryInsert(ArrayList<CliqueUnit<V>> units, int l, int u, V vector) {
         assert u >= l;
-
-        // ToDo: Should work but does not! In the meantime, settle for binary insert...
-//        int dim = units.get(0).getIntervals().get(0).getDimension();
-//        int j = (int)Math.floor(vector.getValue(dim).doubleValue()/((maxima[dim] - minima[dim]) / xsi));
-//
-//        units.get(j).addFeatureVector(null, vector);
-//
-//        boolean terminate = false;
-//        while (!terminate) {
-//            j++;
-//            if (j > u || !units.get(j).addFeatureVector(null, vector)) {
-//                terminate = true;
-//            }
-//        }
 
         int j = 0;
         int lower = l;

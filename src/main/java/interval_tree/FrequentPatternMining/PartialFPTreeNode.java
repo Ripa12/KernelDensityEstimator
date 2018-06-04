@@ -2,6 +2,7 @@ package interval_tree.FrequentPatternMining;
 
 import interval_tree.CandidateIndex.FullIndex;
 import interval_tree.CandidateIndex.IIndex;
+import interval_tree.FrequentPatternMining.SupportCount.TableCount;
 import interval_tree.Logger;
 import interval_tree.SubspaceClustering.Clique;
 import interval_tree.SubspaceClustering.MyVector;
@@ -50,8 +51,15 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
-    protected AbstractFPTreeNode clone(String column) {
+    protected AbstractFPTreeNode makeChild(String column) {
         return new PartialFPTreeNode(this, column, dimensions + 1);
+    }
+
+    @Override
+    protected AbstractFPTreeNode makeChild(AbstractFPTreeNode other) {
+        PartialFPTreeNode newChild =  new PartialFPTreeNode(this, other.column);
+        newChild.clique = other instanceof PartialFPTreeNode ? ((PartialFPTreeNode) other).clique : null;
+        return newChild;
     }
 
     @Override
@@ -60,8 +68,14 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
-    public List<IIndex> extractIndexes(String tableName, List<String> columns){
-        return clique.getClusters(tableName, columns);
+    public List<IIndex> extractIndexes(String tableName, List<String> columns, TableCount tc){
+        double[] negativeInfinity = new double[columns.size()];
+        double[] positiveInfinity = new double[columns.size()];
+        for (int i = 0; i < columns.size(); i++) {
+            negativeInfinity[i] = tc.getNegativeInfinityLimit(tableName, column);
+            positiveInfinity[i] = tc.getPositiveInfinityLimit(tableName, column);
+        }
+        return clique.getClusters(tableName, columns, negativeInfinity, positiveInfinity, tc);
     }
 
     @Override

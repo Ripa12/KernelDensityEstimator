@@ -2,6 +2,7 @@ package interval_tree.FrequentPatternMining;
 
 import interval_tree.CandidateIndex.FullIndex;
 import interval_tree.CandidateIndex.IIndex;
+import interval_tree.FrequentPatternMining.SupportCount.TableCount;
 import interval_tree.SubspaceClustering.Clique;
 import interval_tree.SubspaceClustering.MyVector;
 
@@ -18,7 +19,7 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
-    public List<IIndex> extractIndexes(String tableName, List<String> columns){
+    public List<IIndex> extractIndexes(String tableName, List<String> columns, TableCount tc){
         return Collections
                 .singletonList(new FullIndex(frequency, 0, tableName, String.join(",", columns)));
     }
@@ -35,8 +36,13 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
-    protected FullFPTreeNode clone(String col) {
+    protected AbstractFPTreeNode makeChild(String col) {
         return new FullFPTreeNode(this, col);
+    }
+
+    @Override
+    protected AbstractFPTreeNode makeChild(AbstractFPTreeNode other) {
+        return new FullFPTreeNode(this, other.column);
     }
 
     @Override
