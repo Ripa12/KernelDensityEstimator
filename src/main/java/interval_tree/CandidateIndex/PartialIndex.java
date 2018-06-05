@@ -81,7 +81,23 @@ public class PartialIndex extends AbstractIndex {
         }
     }
 
-    public String getPredicate() {
-        return "(" + columnNames + " >= " + start + " AND " + columnNames + " <= " + end + ")";
+    String getPredicate() {
+
+        switch (conditionType) {
+            case INTERVAL: {
+                return "(" + columnNames + " >= " + start + " AND " + columnNames + " <= " + end + ")";
+            }
+            case POINT: {
+                return "(" + columnNames + " = " + start + ")";
+            }
+            case LESS_THAN: {
+                return "(" + columnNames + " <= " + end + ")";
+            }
+            case GREATER_THAN: {
+                return "(" + columnNames + " >= " + start + ")";
+            }
+            default:
+                return null;
+        }
     }
 }

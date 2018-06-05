@@ -299,18 +299,17 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
     }
 
     public void validateClusters(V featureVector){
-
         for (Pair<Subspace, ModifiableDBIDs> modelAndCluster : modelsAndClusters) {
             ((CliqueSubspace) modelAndCluster.getFirst()).contains(featureVector);
         }
     }
 
-    public List<IIndex> getClusters(String tableName, List<String> columns,
+    public List<CompoundPartialIndex> getClusters(String tableName, List<String> columns,
                                     double[] negativeInfinity, double[] positiveInfinity, TableCount tc){
         if(modelsAndClusters == null)
             return null;
 
-        List<IIndex> candidates = new LinkedList<>();
+        List<CompoundPartialIndex> candidates = new LinkedList<>();
         double accumulatedCoverage = 0;
 
         for (Pair<Subspace, ModifiableDBIDs> modelAndCluster : modelsAndClusters) {

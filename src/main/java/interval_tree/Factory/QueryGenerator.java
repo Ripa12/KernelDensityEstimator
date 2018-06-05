@@ -4,6 +4,7 @@ package interval_tree.Factory;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -18,34 +19,39 @@ public final static String TABLE_NAME = "TestTable";
 
 //    public final static String COLUMN_LABELS[] = {"GTT", "GTn", "GGn", "Ts", "Tp", "T48", "T2", "P2", "TIC", "mf"};
 public final static String COLUMN_LABELS[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p"};
-//    public final static double COLUMN_MIN_MAX[][] = {
-//            {253.547, 72784.872}, // GTT
-//            {1307.675, 3560.741}, // GTn
-//            {6589.002, 9797.103}, // GGn
-//            {5.304, 645.249}, // Ts
-//            {5.304, 645.249}, // Tp
-//            {442.364, 1115.797}, // T48
-//            {540.442, 789.094}, // T2
-////            {5.828, 23.14}, // P2
-////            {0.0, 92.556}, // TIC
-////            {0.068, 1.832}, // mf
-//    };
-//    public final static double COLUMN_DENSE_INTERVALS[][][] = {
-//            {{300, 1000, 60}, {50000, 70000, 90}}, // GTT
-//            {{1500, 1700, 60}, {2500, 2550, 90}},// GTn
-//            {{7000, 7200, 60}, {8000, 8200, 90}},// GGn
-//            {{10, 30, 60}, {450, 500, 90}},// Ts
-//            {{10, 30, 60}, {450, 500, 90}},// Tp
-//            {{500, 550, 60}, {700, 720, 90}},// T48
-//            {{600, 620, 60}, {660, 690, 90}},// T2
-////            {{6, 14, 60}, {18, 20, 90}},// P2
-////            {{0, 20, 60}, {80, 84, 90}},// TIC
-////            {{0.080, 0.130, 60}, {1.0, 1.3, 90}}// mf
-//    };
-
     /**
      * Min Max IsDecimal(0 or 1)
      **/
+//    public final static double COLUMN_MIN_MAX[][] = {
+//            { 1, 39, 0 },
+//        { 1, 46, 0 },
+//        { 13, 1, 0 },
+//        { 0, 1, 1 },
+//        { 2, 23420, 0 },
+//        { 1, 15.9729, 1 },
+//        { 0.666667, 3.44, 1 },
+//        { 0.00821018, 1, 1 },
+//        { 0, 1.7962, 1 },
+//        { 0, 3, 0 },
+//        { 0, 4, 0 },
+//        { 0, 220, 0 },
+//        { 0.666667, 15.6048, 1 },
+//        { 0.666667, 10.2222, 1 },
+//        { 0, 2112.06, 1 },
+//        { 0, 0.666667, 1 },
+//        { 0, 3, 1 },
+//        { 1, 10.2222, 1 },
+//        { 0, 1, 1 },
+//        { 0.333333, 1, 1 },
+//        { 0.543728, 307446000, 1 }, //30744600000
+//        { 0.666667, 25.0341, 1 },
+//        { 0, 0.666667, 1 },
+//        { 0.102206, 1, 1 },
+//        { 0.666667, 12.667, 1 },
+//        { 0, 1, 1 },
+//        { 2, 232, 0 },
+//        { 1, 444, 0 }
+//    };
     public final static double COLUMN_MIN_MAX[][] = {
             {-0, 100000, 0}, // GTT 1
             {-0, 100000, 0}, // GTn 2
@@ -86,7 +92,7 @@ public final static String COLUMN_LABELS[] = {"a", "b", "c", "d", "e", "f", "g",
 
 
     private final static int NR_OF_QUERIES = 20; // ToDo: Null-pointer exception if very small
-    private final static int MAX_DUPLICATES = 500;
+    private final static int MAX_DUPLICATES = 400;
 
     private static Random rand;
 
@@ -159,8 +165,8 @@ public final static String COLUMN_LABELS[] = {"a", "b", "c", "d", "e", "f", "g",
     public static void generatePredicate(StringBuilder tempStmt, int selectedColumn){
 
         if (rand.nextInt(INTERVAL_PROBABILITY) > 0) {
-            int start = 0;
-            int end = 0;
+            double start = 0;
+            double end = 0;
 
             int random = ThreadLocalRandom.current().nextInt(100);
             boolean success = false;
@@ -168,30 +174,38 @@ public final static String COLUMN_LABELS[] = {"a", "b", "c", "d", "e", "f", "g",
             for (double[] denseInterval : COLUMN_DENSE_INTERVALS[selectedColumn]) {
                 if (!success && random <= denseInterval[2]){
                     success = true;
-//                    start = ThreadLocalRandom.current().nextDouble(denseInterval[1] + 1.0 - denseInterval[0]) + denseInterval[0];
-//                    end = ThreadLocalRandom.current().nextDouble(denseInterval[1] + 1.0 - start) + start;
-                    start = ThreadLocalRandom.current().nextInt((int)(denseInterval[1] + 1.0 - denseInterval[0])) + (int)denseInterval[0];
-                    end = ThreadLocalRandom.current().nextInt((int)(denseInterval[1] + 1.0 - start)) + start;
+                    if(COLUMN_MIN_MAX[selectedColumn][2] == 1) {
+                        start = ThreadLocalRandom.current().nextDouble(denseInterval[1] + 1.0 - denseInterval[0]) + denseInterval[0];
+                        end = ThreadLocalRandom.current().nextDouble(denseInterval[1] + 1.0 - start) + start;
+                    }
+                    else {
+                        start = ThreadLocalRandom.current().nextInt((int) (denseInterval[1] + 1.0 - denseInterval[0])) + (int) denseInterval[0];
+                        end = ThreadLocalRandom.current().nextInt((int) (denseInterval[1] + 1.0 - start)) + start;
+                    }
                 }
             }
 
-            if(!success){
-//                start = ThreadLocalRandom.current().nextDouble((COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - COLUMN_MIN_MAX[selectedColumn][0])) + COLUMN_MIN_MAX[selectedColumn][0];
-//                end = ThreadLocalRandom.current().nextDouble((COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - start)) + start;
-                start = ThreadLocalRandom.current().nextInt((int)(COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - COLUMN_MIN_MAX[selectedColumn][0])) + (int)COLUMN_MIN_MAX[selectedColumn][0];
-                end = ThreadLocalRandom.current().nextInt((int)(COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - start)) + start;
+            if(!success) {
+                if (COLUMN_MIN_MAX[selectedColumn][2] == 1) {
+                    start = ThreadLocalRandom.current().nextDouble((COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - COLUMN_MIN_MAX[selectedColumn][0])) + COLUMN_MIN_MAX[selectedColumn][0];
+                    end = ThreadLocalRandom.current().nextDouble((COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - start)) + start;
+                }
+                else {
+                    start = ThreadLocalRandom.current().nextInt((int) (COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - COLUMN_MIN_MAX[selectedColumn][0])) + (int) COLUMN_MIN_MAX[selectedColumn][0];
+                    end = ThreadLocalRandom.current().nextInt((int) (COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - start)) + start;
+                }
             }
 
             tempStmt.append(COLUMN_LABELS[selectedColumn])
                     .append(" < ")
-                    .append(start)
+                    .append(COLUMN_MIN_MAX[selectedColumn][2] == 1 ? start : String.valueOf((int) start))
                     .append(" AND ")
-                    .append(end)
+                    .append(COLUMN_MIN_MAX[selectedColumn][2] == 1 ? end : String.valueOf((int) end))
                     .append(" < ")
                     .append(COLUMN_LABELS[selectedColumn]);
 
         } else {
-            int start = 0;
+            double start = 0;
 
             int random = ThreadLocalRandom.current().nextInt(100);
             boolean success = false;
@@ -199,18 +213,26 @@ public final static String COLUMN_LABELS[] = {"a", "b", "c", "d", "e", "f", "g",
             for (double[] denseInterval : COLUMN_DENSE_INTERVALS[selectedColumn]) {
                 if (!success && random <= denseInterval[2]){
                     success = true;
-//                    start = ThreadLocalRandom.current().nextDouble((denseInterval[1] + 1.0 - denseInterval[0])) + denseInterval[0];
-                    start = ThreadLocalRandom.current().nextInt((int)(denseInterval[1] + 1.0 - denseInterval[0])) + (int)denseInterval[0];
+                    if(COLUMN_MIN_MAX[selectedColumn][2] == 1) {
+                        start = ThreadLocalRandom.current().nextDouble((denseInterval[1] + 1.0 - denseInterval[0])) + denseInterval[0];
+                    }
+                    else {
+                        start = ThreadLocalRandom.current().nextInt((int) (denseInterval[1] + 1.0 - denseInterval[0])) + (int) denseInterval[0];
+                    }
                 }
             }
             if(!success) {
-//                start = ThreadLocalRandom.current().nextDouble((COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - COLUMN_MIN_MAX[selectedColumn][0])) + COLUMN_MIN_MAX[selectedColumn][0];
-                start = ThreadLocalRandom.current().nextInt((int)(COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - COLUMN_MIN_MAX[selectedColumn][0])) + (int)COLUMN_MIN_MAX[selectedColumn][0];
+                if(COLUMN_MIN_MAX[selectedColumn][2] == 1) {
+                    start = ThreadLocalRandom.current().nextDouble((COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - COLUMN_MIN_MAX[selectedColumn][0])) + COLUMN_MIN_MAX[selectedColumn][0];
+                }
+                else {
+                    start = ThreadLocalRandom.current().nextInt((int) (COLUMN_MIN_MAX[selectedColumn][1] + 1.0 - COLUMN_MIN_MAX[selectedColumn][0])) + (int) COLUMN_MIN_MAX[selectedColumn][0];
+                }
             }
 
             tempStmt.append(COLUMN_LABELS[selectedColumn])
                     .append(" = ")
-                    .append(start);
+                    .append(COLUMN_MIN_MAX[selectedColumn][2] == 1 ? start : String.valueOf((int) start));
         }
     }
 }

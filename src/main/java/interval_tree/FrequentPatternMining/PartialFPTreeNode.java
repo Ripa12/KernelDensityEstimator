@@ -1,5 +1,6 @@
 package interval_tree.FrequentPatternMining;
 
+import interval_tree.CandidateIndex.CompoundPartialIndex;
 import interval_tree.CandidateIndex.FullIndex;
 import interval_tree.CandidateIndex.IIndex;
 import interval_tree.FrequentPatternMining.SupportCount.TableCount;
@@ -15,6 +16,7 @@ import static interval_tree.Experiment.MINSUP;
 
 public class PartialFPTreeNode extends AbstractFPTreeNode {
 
+    private List<CompoundPartialIndex> indices;
     private Clique<MyVector> clique;
     private int dimensions;
     PartialFPTreeNode(PartialFPTreeNode parent, String name, int dim) {
@@ -68,14 +70,14 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
-    public List<IIndex> extractIndexes(String tableName, List<String> columns, TableCount tc){
+    public List<? extends IIndex> extractIndexes(String tableName, List<String> columns, TableCount tc){
         double[] negativeInfinity = new double[columns.size()];
         double[] positiveInfinity = new double[columns.size()];
         for (int i = 0; i < columns.size(); i++) {
             negativeInfinity[i] = tc.getNegativeInfinityLimit(tableName, column);
             positiveInfinity[i] = tc.getPositiveInfinityLimit(tableName, column);
         }
-        return clique.getClusters(tableName, columns, negativeInfinity, positiveInfinity, tc);
+        return indices = clique.getClusters(tableName, columns, negativeInfinity, positiveInfinity, tc);
     }
 
     @Override

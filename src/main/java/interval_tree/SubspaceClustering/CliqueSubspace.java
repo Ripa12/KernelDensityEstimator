@@ -132,23 +132,23 @@ public class CliqueSubspace<V extends MyVector> extends Subspace {
 
         for (int i = 0; i < lowerBounds.length; i++) {
             if (negativeInfinity[i] <= lowerBounds[i] && positiveInfinity[i] >= maximumBounds[i]) {
-                CompoundPartialIndex.Predicate tempPredicate = new CompoundPartialIndex.Predicate();
+//                PartialIndex tempPredicate;
 
                 if(negativeInfinity[i] >= lowerBounds[i]){
-                    tempPredicate.addPartialIndex(new PartialIndex(coverage, 0, table, columns.get(i),
+                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
                             tc.getCorrectType(table, columns.get(i), maximumBounds[i]),
                             PartialIndex.ConditionType.LESS_THAN));
                 }
                 else if(positiveInfinity[i] <= maximumBounds[i]){
-                    tempPredicate.addPartialIndex(new PartialIndex(coverage, 0, table, columns.get(i),
+                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
                             tc.getCorrectType(table, columns.get(i), lowerBounds[i]), PartialIndex.ConditionType.GREATER_THAN));
                 }
                 else {
-                    tempPredicate.addPartialIndex(new PartialIndex(coverage, 0, table, columns.get(i),
+                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
                             tc.getCorrectType(table, columns.get(i), lowerBounds[i]),
                             tc.getCorrectType(table, columns.get(i), maximumBounds[i])));
                 }
-                compoundPartialIndex.addCompoundPredicate(tempPredicate);
+//                compoundPartialIndex.addCompoundPredicate(tempPredicate);
             }
         }
 
