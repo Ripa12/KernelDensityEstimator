@@ -1,5 +1,7 @@
 package interval_tree.FrequentPatternMining;
 
+import interval_tree.CandidateIndex.CompoundPartialIndex;
+import interval_tree.CandidateIndex.IIndex;
 import interval_tree.FrequentPatternMining.SupportCount.TableCount;
 import interval_tree.Logger;
 import interval_tree.SubspaceClustering.MyData;
@@ -111,7 +113,8 @@ public class PartialFPTree extends AbstractFPTree{
         if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
 
             if (node instanceof PartialFPTreeNode) {
-                indices.addAll(node.extractIndexes(tableName, columns, tableCount));
+//                indices.addAll(node.extractIndexes(tableName, columns, tableCount));
+                node.extractIndexes(tableName, columns, tableCount);
             }
         }
     }
@@ -120,4 +123,5 @@ public class PartialFPTree extends AbstractFPTree{
     public AbstractFPTreeNode createRoot() {
         return new PartialFPTreeNode(null, "");
     }
+
 }

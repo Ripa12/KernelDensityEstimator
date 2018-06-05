@@ -18,7 +18,7 @@ public abstract class AbstractFPTree {
     protected HashMap<String, LinkedList<AbstractFPTreeNode>> header;
     protected double minsup;
     protected double totalSupportCount;
-    protected List<IIndex> indices;
+//    protected List<IIndex> indices; // ToDo: might not be needed!
     protected String tableName;
     protected TableCount tableCount;
 
@@ -38,12 +38,12 @@ public abstract class AbstractFPTree {
         return this.root;
     }
 
-    final public List<IIndex> getIndices() {
-        return indices;
-    }
+//    final public List<IIndex> getIndices() {
+//        return indices;
+//    }
 
     public void extractItemSets(double minsup) {
-        indices = new LinkedList<>();
+//        indices = new LinkedList<>();
         this.minsup = minsup;
 
         LinkedList<String> cols = new LinkedList<>();
@@ -147,7 +147,6 @@ public abstract class AbstractFPTree {
 
     private class FPGrowthPair {
         List<AbstractFPTreeNode> treeNodes;
-
         double frequency;
 
         private FPGrowthPair(List<AbstractFPTreeNode> t, double f){
@@ -161,6 +160,8 @@ public abstract class AbstractFPTree {
     // https://github.com/PySualk/fp-growth-java/blob/master/src/main/java/org/sualk/fpgrowth/FPgrowth.java
     private void fpGrowthStep(HashMap<String, LinkedList<AbstractFPTreeNode>> headerTable,
                               Set<IIndex> frequentPatterns, Set<String> test,  String base) {
+
+//        boolean isTop = leaves.isEmpty();
 
         for (String item : headerTable.keySet()) {
             List<AbstractFPTreeNode> treeNodes = headerTable.get(item);
@@ -176,8 +177,16 @@ public abstract class AbstractFPTree {
             // Is the item frequent? (count >= minSupport)
             double frequentItemsetCount = 0;
 
+//            if (isTop)
+//                leaves.clear();
+
+
             // Jump from leaf to leaf
             for (AbstractFPTreeNode treeNode : treeNodes) {// while (treeNode != null) {
+
+//                if(isTop)
+//                    leaves.add(treeNode);
+
 
                 List<AbstractFPTreeNode> nodePattern = new LinkedList<>();
                 String conditionalPattern = "";
@@ -190,16 +199,18 @@ public abstract class AbstractFPTree {
                 while (parentNode.parent != null) {
                     conditionalPattern = parentNode.column.concat(
                             PATTERN_DELIMITER + conditionalPattern);
-                    nodePattern.add(parentNode);
+                    nodePattern.add(parentNode.clone(treeNode));
+//                    nodePattern.add(parentNode);
                     parentNode = parentNode.getParent();
                 }
                 if (conditionalPattern.endsWith(PATTERN_DELIMITER))
                     conditionalPattern = conditionalPattern.substring(0,
                             conditionalPattern.length() - 1);
 
-                if (!conditionalPattern.equals(""))
+                if (!conditionalPattern.equals("")) {
                     conditionalPatternBase.put(conditionalPattern,
                             new FPGrowthPair(nodePattern, supportConditionalPattern));
+                }
 
             }
 
@@ -210,9 +221,14 @@ public abstract class AbstractFPTree {
             } else {
                 test.add(currentPattern);
 
-                AbstractFPTreeNode tempNode = createRoot();
-                frequentPatterns.addAll(tempNode.extractIndexes(frequentItemsetCount, tableName,
-                        Arrays.asList(currentPattern.split(PATTERN_DELIMITER))));
+//                AbstractFPTreeNode tempNode = createRoot();
+//                frequentPatterns.addAll(tempNode.extractIndexes(frequentItemsetCount, tableName,
+//                        Arrays.asList(currentPattern.split(PATTERN_DELIMITER))));
+                for (AbstractFPTreeNode treeNode : treeNodes) {
+                    frequentPatterns.addAll(treeNode.extractIndexes(frequentItemsetCount, tableName,
+                            Arrays.asList(currentPattern.split(PATTERN_DELIMITER))));
+                }
+
             }
 
             // 2. Step: Conditional FP-Tree

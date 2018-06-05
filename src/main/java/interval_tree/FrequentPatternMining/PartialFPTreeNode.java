@@ -4,11 +4,12 @@ import interval_tree.CandidateIndex.CompoundPartialIndex;
 import interval_tree.CandidateIndex.FullIndex;
 import interval_tree.CandidateIndex.IIndex;
 import interval_tree.FrequentPatternMining.SupportCount.TableCount;
-import interval_tree.Logger;
 import interval_tree.SubspaceClustering.Clique;
 import interval_tree.SubspaceClustering.MyVector;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import static interval_tree.Experiment.IDEAL_COVERAGE;
@@ -16,7 +17,9 @@ import static interval_tree.Experiment.MINSUP;
 
 public class PartialFPTreeNode extends AbstractFPTreeNode {
 
-    private List<CompoundPartialIndex> indices;
+//    private List<CompoundPartialIndex> indices;
+
+
     private Clique<MyVector> clique;
     private int dimensions;
     PartialFPTreeNode(PartialFPTreeNode parent, String name, int dim) {
@@ -29,6 +32,12 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
         super(parent, name);
         this.dimensions = 0;
 
+        clique = null;
+    }
+
+    private PartialFPTreeNode(String name) {
+        super(null, name);
+        this.dimensions = 0;
         clique = null;
     }
 
@@ -61,12 +70,8 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
     protected AbstractFPTreeNode makeChild(AbstractFPTreeNode other) {
         PartialFPTreeNode newChild =  new PartialFPTreeNode(this, other.column);
         newChild.clique = other instanceof PartialFPTreeNode ? ((PartialFPTreeNode) other).clique : null;
+        newChild.indices = other.indices;
         return newChild;
-    }
-
-    @Override
-    protected AbstractFPTreeNode cloneRoot() {
-        return new PartialFPTreeNode(null, "");
     }
 
     @Override
@@ -82,13 +87,26 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
 
     @Override
     public List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns) {
-        return Collections
-                .singletonList(new FullIndex(frequency, 0, tableName, String.join(",", columns)));
+//        return Collections
+//                .singletonList(new FullIndex(frequency, 0, tableName, String.join(",", columns)));
+        List<IIndex> result = new LinkedList<>();
+        for (IIndex index : indices) {
+            CompoundPartialIndex tempComp = new CompoundPartialIndex(tableName);
+            if(index instanceof CompoundPartialIndex){
+                for (String treeNode : columns) {
+                    tempComp.addCompoundPredicate(((CompoundPartialIndex) index).getPredicate(treeNode));
+                }
+                result.add(tempComp);
+            }
+        }
+        return result;
     }
 
     @Override
-    void combineNode(AbstractFPTreeNode other) {
-
+    AbstractFPTreeNode clone(AbstractFPTreeNode other) {
+        PartialFPTreeNode newNode = new PartialFPTreeNode(column);
+        newNode.indices = other.indices;
+        return newNode;
     }
 
 }

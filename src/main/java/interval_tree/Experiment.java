@@ -143,7 +143,7 @@ public class Experiment {
 
         for (PartialFPTree partialFPTree : fpTree) {
             partialFPTree.extractItemSets(MINSUP);
-            partialIndices.addAll(partialFPTree.getIndices());
+//            partialIndices.addAll(partialFPTree.getIndices());
             fullIndices.addAll(partialFPTree.findFrequentPatterns(MINSUP));
         }
         Logger.getInstance().stopTimer("ExtractItem-sets");

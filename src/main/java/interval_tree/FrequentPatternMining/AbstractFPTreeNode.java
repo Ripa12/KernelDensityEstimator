@@ -3,6 +3,7 @@ package interval_tree.FrequentPatternMining;
 import interval_tree.CandidateIndex.IIndex;
 import interval_tree.FrequentPatternMining.SupportCount.TableCount;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -11,6 +12,7 @@ import java.util.TreeMap;
  */
 public abstract class AbstractFPTreeNode{
 
+    protected List<? extends IIndex> indices;
     protected AbstractFPTreeNode parent;
     protected TreeMap<String, AbstractFPTreeNode> children;
     protected int frequency;
@@ -19,6 +21,7 @@ public abstract class AbstractFPTreeNode{
 
     protected AbstractFPTreeNode(AbstractFPTreeNode parent, String column) {
         this.children = new TreeMap<>();
+        indices = new ArrayList<>();
         this.parent = parent;
         this.frequency = 0;
 
@@ -27,7 +30,6 @@ public abstract class AbstractFPTreeNode{
 
     protected abstract AbstractFPTreeNode makeChild(String column);
     protected abstract AbstractFPTreeNode makeChild(AbstractFPTreeNode other);
-    protected abstract AbstractFPTreeNode cloneRoot();
     public abstract List<? extends IIndex> extractIndexes(String tableName, List<String> columns, TableCount tc);
     public abstract List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns); // ToDo: Could probably be static
 
@@ -68,7 +70,6 @@ public abstract class AbstractFPTreeNode{
 
 
     /// new
-
     public void addChild(AbstractFPTreeNode child) {
         if(!this.children.containsKey(child.column)) {
             this.children.put(child.column, child);
@@ -91,5 +92,5 @@ public abstract class AbstractFPTreeNode{
         return this.children;
     }
 
-    abstract void combineNode(AbstractFPTreeNode other);
+    abstract AbstractFPTreeNode clone(AbstractFPTreeNode other);
 }

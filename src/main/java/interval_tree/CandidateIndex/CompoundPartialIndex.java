@@ -108,6 +108,10 @@ public class CompoundPartialIndex implements IIndex {
         return  "CREATE INDEX idx_" + id + " ON "+tableName+"("+ getColumnName() +") where " + f.toString(); // ToDo: what table-name to use?
     }
 
+    public PartialIndex getPredicate(String name){
+        return predicateList.get(name);
+    }
+
     @Override
     public String getColumnName() {
         Iterator it = predicateList.entrySet().iterator();

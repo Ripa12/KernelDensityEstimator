@@ -3,8 +3,6 @@ package interval_tree.FrequentPatternMining;
 import interval_tree.CandidateIndex.FullIndex;
 import interval_tree.CandidateIndex.IIndex;
 import interval_tree.FrequentPatternMining.SupportCount.TableCount;
-import interval_tree.SubspaceClustering.Clique;
-import interval_tree.SubspaceClustering.MyVector;
 
 import java.util.Collections;
 import java.util.List;
@@ -31,8 +29,9 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
-    void combineNode(AbstractFPTreeNode other) {
-        this.frequency += other.frequency;
+    AbstractFPTreeNode clone(AbstractFPTreeNode other) {
+//        this.frequency += other.frequency;
+        return this;
     }
 
     @Override
@@ -43,10 +42,5 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
     @Override
     protected AbstractFPTreeNode makeChild(AbstractFPTreeNode other) {
         return new FullFPTreeNode(this, other.column);
-    }
-
-    @Override
-    protected AbstractFPTreeNode cloneRoot() {
-        return new FullFPTreeNode(null, "");
     }
 }

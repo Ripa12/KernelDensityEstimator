@@ -38,7 +38,7 @@ public class FullFPTree extends AbstractFPTree{
 
     void extractItemSet(AbstractFPTreeNode node, List<String> columns){
         if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
-            indices.addAll(node.extractIndexes(tableName, columns, tableCount));
+//            indices.addAll(node.extractIndexes(tableName, columns, tableCount));
         }
     }
 
