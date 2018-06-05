@@ -66,13 +66,13 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
         return new PartialFPTreeNode(this, column, dimensions + 1);
     }
 
-    @Override
-    protected AbstractFPTreeNode makeChild(AbstractFPTreeNode other) {
-        PartialFPTreeNode newChild =  new PartialFPTreeNode(this, other.column);
-        newChild.clique = other instanceof PartialFPTreeNode ? ((PartialFPTreeNode) other).clique : null;
-        newChild.indices = other.indices;
-        return newChild;
-    }
+//    @Override
+//    protected AbstractFPTreeNode makeChild(AbstractFPTreeNode other) {
+//        PartialFPTreeNode newChild =  new PartialFPTreeNode(this, other.column);
+//        newChild.clique = null;
+//        newChild.indices = other.indices;
+//        return newChild;
+//    }
 
     @Override
     public List<? extends IIndex> extractIndexes(String tableName, List<String> columns, TableCount tc){

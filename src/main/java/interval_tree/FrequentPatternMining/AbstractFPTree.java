@@ -18,7 +18,6 @@ public abstract class AbstractFPTree {
     protected HashMap<String, LinkedList<AbstractFPTreeNode>> header;
     protected double minsup;
     protected double totalSupportCount;
-//    protected List<IIndex> indices; // ToDo: might not be needed!
     protected String tableName;
     protected TableCount tableCount;
 
@@ -38,12 +37,8 @@ public abstract class AbstractFPTree {
         return this.root;
     }
 
-//    final public List<IIndex> getIndices() {
-//        return indices;
-//    }
 
     public void extractItemSets(double minsup) {
-//        indices = new LinkedList<>();
         this.minsup = minsup;
 
         LinkedList<String> cols = new LinkedList<>();
@@ -90,10 +85,11 @@ public abstract class AbstractFPTree {
                               List<Double> wordValues, Map<String, LinkedList<AbstractFPTreeNode>> headerTable) {
         if (tree.getChildCount() == 0) {
             if (words.size() > 0) {
-                AbstractFPTreeNode subTree = tree.makeChild(words.get(0));
-                subTree.setFrequency(((int) wordValues.get(0).intValue()));
-                if (headerTable.containsKey(words.get(0))) {
-                    headerTable.get(words.get(0)).addFirst(subTree);
+                AbstractFPTreeNode subTree = words.get(0);
+                subTree.setParent(tree);
+                subTree.setFrequency((wordValues.get(0).intValue()));
+                if (headerTable.containsKey(words.get(0).column)) {
+                    headerTable.get(words.get(0).column).addFirst(subTree);
                 } else {
                     LinkedList<AbstractFPTreeNode> newList = new LinkedList<>();
                     newList.add(subTree);
@@ -116,10 +112,11 @@ public abstract class AbstractFPTree {
                     return;
                 }
             }
-            AbstractFPTreeNode newChild = tree.makeChild(words.get(0));
-            newChild.setFrequency(((int) wordValues.get(0).intValue()));
-            if (headerTable.containsKey(words.get(0))) {
-                headerTable.get(words.get(0)).addFirst(newChild);
+            AbstractFPTreeNode newChild = words.get(0);
+            newChild.setParent(tree);
+            newChild.setFrequency((wordValues.get(0).intValue()));
+            if (headerTable.containsKey(words.get(0).column)) {
+                headerTable.get(words.get(0).column).addFirst(newChild);
             } else {
                 LinkedList<AbstractFPTreeNode> newList = new LinkedList<>();
                 newList.add(newChild);
@@ -161,8 +158,6 @@ public abstract class AbstractFPTree {
     private void fpGrowthStep(HashMap<String, LinkedList<AbstractFPTreeNode>> headerTable,
                               Set<IIndex> frequentPatterns, Set<String> test,  String base) {
 
-//        boolean isTop = leaves.isEmpty();
-
         for (String item : headerTable.keySet()) {
             List<AbstractFPTreeNode> treeNodes = headerTable.get(item);
 
@@ -177,16 +172,9 @@ public abstract class AbstractFPTree {
             // Is the item frequent? (count >= minSupport)
             double frequentItemsetCount = 0;
 
-//            if (isTop)
-//                leaves.clear();
-
 
             // Jump from leaf to leaf
-            for (AbstractFPTreeNode treeNode : treeNodes) {// while (treeNode != null) {
-
-//                if(isTop)
-//                    leaves.add(treeNode);
-
+            for (AbstractFPTreeNode treeNode : treeNodes) {
 
                 List<AbstractFPTreeNode> nodePattern = new LinkedList<>();
                 String conditionalPattern = "";
@@ -196,11 +184,10 @@ public abstract class AbstractFPTree {
                 AbstractFPTreeNode parentNode = treeNode.getParent();
 
                 // Work yourself up to the root
-                while (parentNode.parent != null) {
+                while (parentNode.getParent() != null) {
                     conditionalPattern = parentNode.column.concat(
                             PATTERN_DELIMITER + conditionalPattern);
                     nodePattern.add(parentNode.clone(treeNode));
-//                    nodePattern.add(parentNode);
                     parentNode = parentNode.getParent();
                 }
                 if (conditionalPattern.endsWith(PATTERN_DELIMITER))
@@ -221,9 +208,7 @@ public abstract class AbstractFPTree {
             } else {
                 test.add(currentPattern);
 
-//                AbstractFPTreeNode tempNode = createRoot();
-//                frequentPatterns.addAll(tempNode.extractIndexes(frequentItemsetCount, tableName,
-//                        Arrays.asList(currentPattern.split(PATTERN_DELIMITER))));
+                // ToDo: FullIndexes would create duplicates if not for SetList
                 for (AbstractFPTreeNode treeNode : treeNodes) {
                     frequentPatterns.addAll(treeNode.extractIndexes(frequentItemsetCount, tableName,
                             Arrays.asList(currentPattern.split(PATTERN_DELIMITER))));

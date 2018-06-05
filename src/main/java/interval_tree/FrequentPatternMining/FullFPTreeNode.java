@@ -31,7 +31,7 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
     @Override
     AbstractFPTreeNode clone(AbstractFPTreeNode other) {
 //        this.frequency += other.frequency;
-        return this;
+        return new FullFPTreeNode(null, column);
     }
 
     @Override
@@ -39,8 +39,8 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
         return new FullFPTreeNode(this, col);
     }
 
-    @Override
-    protected AbstractFPTreeNode makeChild(AbstractFPTreeNode other) {
-        return new FullFPTreeNode(this, other.column);
-    }
+//    @Override
+//    protected AbstractFPTreeNode makeChild(AbstractFPTreeNode other) {
+//        return new FullFPTreeNode(this, other.column);
+//    }
 }

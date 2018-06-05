@@ -13,7 +13,7 @@ import java.util.TreeMap;
 public abstract class AbstractFPTreeNode{
 
     protected List<? extends IIndex> indices;
-    protected AbstractFPTreeNode parent;
+    private AbstractFPTreeNode parent;
     protected TreeMap<String, AbstractFPTreeNode> children;
     protected int frequency;
 
@@ -29,7 +29,7 @@ public abstract class AbstractFPTreeNode{
     }
 
     protected abstract AbstractFPTreeNode makeChild(String column);
-    protected abstract AbstractFPTreeNode makeChild(AbstractFPTreeNode other);
+//    protected abstract AbstractFPTreeNode makeChild(AbstractFPTreeNode other);
     public abstract List<? extends IIndex> extractIndexes(String tableName, List<String> columns, TableCount tc);
     public abstract List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns); // ToDo: Could probably be static
 
@@ -73,8 +73,15 @@ public abstract class AbstractFPTreeNode{
     public void addChild(AbstractFPTreeNode child) {
         if(!this.children.containsKey(child.column)) {
             this.children.put(child.column, child);
-            child.parent = this; // Redundant, already done in makeChild()
+            child.parent = this;
         }
+    }
+
+    final AbstractFPTreeNode getParent(){
+        return parent;
+    }
+    final void setParent(AbstractFPTreeNode parent){
+        this.parent = parent;
     }
 
     final void setFrequency(int freq){
@@ -84,9 +91,6 @@ public abstract class AbstractFPTreeNode{
         this.frequency += 1;
     }
 
-    final AbstractFPTreeNode getParent(){
-        return parent;
-    }
 
     final TreeMap<String, AbstractFPTreeNode> getChildren(){
         return this.children;

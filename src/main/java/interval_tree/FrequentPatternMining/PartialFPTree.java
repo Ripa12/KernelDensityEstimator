@@ -34,7 +34,7 @@ public class PartialFPTree extends AbstractFPTree{
 
                 // ToDo: Maybe better to pass MyData without having to wrap it in MyVector
                 node.updateMinMax(new MyVector(Arrays.copyOfRange(data, 0, i+1)));
-                node = (PartialFPTreeNode)node.parent;
+                node = (PartialFPTreeNode)node.getParent();
             }
         }
 
