@@ -1,7 +1,6 @@
 package interval_tree.FrequentPatternMining;
 
-import interval_tree.CandidateIndex.IIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 
 import java.util.*;
 
@@ -19,18 +18,18 @@ public abstract class AbstractFPTree {
     protected double minsup;
     protected double totalSupportCount;
     protected String tableName;
-    protected TableCount tableCount;
+    protected TableProperties tableProperties;
 
 
     /**
      * Constructor
      */
-    AbstractFPTree(TableCount tableCount, String tableName, AbstractFPTreeNode root) {
-        this.tableCount = tableCount;
-        this.totalSupportCount = tableCount.getTotalSupportCount();
+    AbstractFPTree(TableProperties tableProperties, String tableName, AbstractFPTreeNode root) {
+        this.tableProperties = tableProperties;
+        this.totalSupportCount = tableProperties.getTotalSupportCount();
         this.tableName = tableName;
         this.root = root;
-        header = tableCount.buildHeader(tableName);
+        header = tableProperties.buildHeader(tableName);
     }
 
     AbstractFPTreeNode getRoot() {

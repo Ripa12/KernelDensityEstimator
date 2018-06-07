@@ -1,7 +1,7 @@
 package interval_tree.FrequentPatternMining;
 
 import interval_tree.CandidateIndex.IIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public abstract class AbstractFPTreeNode{
 
     protected abstract AbstractFPTreeNode makeChild(String column);
 
-    public abstract void extractIndexes(String tableName, List<String> columns, TableCount tc);
+    public abstract void extractIndexes(String tableName, List<String> columns, TableProperties tc);
     public abstract List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns); // ToDo: Could probably be static
 
     final AbstractFPTreeNode incrementFrequencyOfChild(String name){

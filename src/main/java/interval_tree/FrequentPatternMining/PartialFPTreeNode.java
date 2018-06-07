@@ -3,11 +3,10 @@ package interval_tree.FrequentPatternMining;
 import interval_tree.CandidateIndex.CompoundPartialIndex;
 import interval_tree.CandidateIndex.FullIndex;
 import interval_tree.CandidateIndex.IIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 import interval_tree.SubspaceClustering.Clique;
 import interval_tree.SubspaceClustering.MyVector;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -63,7 +62,7 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
-    public void extractIndexes(String tableName, List<String> columns, TableCount tc){
+    public void extractIndexes(String tableName, List<String> columns, TableProperties tc){
         double[] negativeInfinity = new double[columns.size()];
         double[] positiveInfinity = new double[columns.size()];
         for (int i = 0; i < columns.size(); i++) {

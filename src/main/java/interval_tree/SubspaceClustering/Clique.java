@@ -24,27 +24,19 @@ package interval_tree.SubspaceClustering;
  */
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 import de.lmu.ifi.dbs.elki.algorithm.AbstractAlgorithm;
 import de.lmu.ifi.dbs.elki.algorithm.clustering.subspace.CLIQUE;
 import de.lmu.ifi.dbs.elki.algorithm.clustering.subspace.SubspaceClusteringAlgorithm;
 import de.lmu.ifi.dbs.elki.algorithm.clustering.subspace.clique.CLIQUEInterval;
-import de.lmu.ifi.dbs.elki.data.Cluster;
 import de.lmu.ifi.dbs.elki.data.Clustering;
 import de.lmu.ifi.dbs.elki.data.NumberVector;
 import de.lmu.ifi.dbs.elki.data.Subspace;
 import de.lmu.ifi.dbs.elki.data.model.SubspaceModel;
 import de.lmu.ifi.dbs.elki.data.type.TypeInformation;
 import de.lmu.ifi.dbs.elki.data.type.TypeUtil;
-import de.lmu.ifi.dbs.elki.database.ids.DBIDIter;
 import de.lmu.ifi.dbs.elki.database.ids.ModifiableDBIDs;
-import de.lmu.ifi.dbs.elki.database.relation.Relation;
-import de.lmu.ifi.dbs.elki.database.relation.RelationUtil;
 import de.lmu.ifi.dbs.elki.logging.Logging;
-import de.lmu.ifi.dbs.elki.math.linearalgebra.Centroid;
-import de.lmu.ifi.dbs.elki.math.linearalgebra.Matrix;
-import de.lmu.ifi.dbs.elki.utilities.FormatUtil;
 import de.lmu.ifi.dbs.elki.utilities.documentation.Description;
 import de.lmu.ifi.dbs.elki.utilities.documentation.Reference;
 import de.lmu.ifi.dbs.elki.utilities.documentation.Title;
@@ -57,11 +49,7 @@ import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameters.Flag;
 import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameters.IntParameter;
 import de.lmu.ifi.dbs.elki.utilities.pairs.Pair;
 import interval_tree.CandidateIndex.CompoundPartialIndex;
-import interval_tree.CandidateIndex.FullIndex;
-import interval_tree.CandidateIndex.IIndex;
-import interval_tree.CandidateIndex.PartialIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
-import interval_tree.SubspaceClustering.MyVector;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 
 /**
  * <p/>
@@ -305,7 +293,7 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
     }
 
     public List<CompoundPartialIndex> getClusters(String tableName, List<String> columns,
-                                    double[] negativeInfinity, double[] positiveInfinity, TableCount tc){
+                                    double[] negativeInfinity, double[] positiveInfinity, TableProperties tc){
         if(modelsAndClusters == null)
             return null;
 

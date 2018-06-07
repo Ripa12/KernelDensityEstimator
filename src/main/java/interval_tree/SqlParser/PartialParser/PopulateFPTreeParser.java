@@ -1,7 +1,7 @@
 package interval_tree.SqlParser.PartialParser;
 
 import interval_tree.FrequentPatternMining.PartialFPTree;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 import interval_tree.SqlParser.AbstractParser;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyInterval;
@@ -17,14 +17,14 @@ public class PopulateFPTreeParser extends AbstractParser {
     private Map<String, PartialFPTree> fpTree;
     private TreeMap<String, MyData> list;
 
-    PopulateFPTreeParser(TableCount tc, Map<String, PartialFPTree> fpTree, TreeMap<String, MyData> list){
+    PopulateFPTreeParser(TableProperties tc, Map<String, PartialFPTree> fpTree, TreeMap<String, MyData> list){
         super(tc);
         this.fpTree = fpTree;
         this.list = list;
     }
 
     public ValidateFPTreeParser buildValidateFPTreeParser(){
-        return new ValidateFPTreeParser(tableCount, fpTree, list);
+        return new ValidateFPTreeParser(tableProperties, fpTree, list);
     }
 
     @Override
@@ -40,12 +40,12 @@ public class PopulateFPTreeParser extends AbstractParser {
     @Override
     protected void greaterThan(String col, double point) {
         list.put(col, new MyInterval(point,
-                tableCount.getPositiveInfinityLimit(getCurrentTable(), col)));
+                tableProperties.getPositiveInfinityLimit(getCurrentTable(), col)));
     }
 
     @Override
     protected void MinorThan(String col, double point) {
-        list.put(col, new MyInterval(tableCount.getNegativeInfinityLimit(getCurrentTable(), col),
+        list.put(col, new MyInterval(tableProperties.getNegativeInfinityLimit(getCurrentTable(), col),
                 point));
     }
 

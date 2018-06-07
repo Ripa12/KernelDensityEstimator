@@ -1,9 +1,7 @@
 package interval_tree.FrequentPatternMining;
 
-import interval_tree.CandidateIndex.CompoundPartialIndex;
 import interval_tree.CandidateIndex.IIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
-import interval_tree.Logger;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyVector;
 
@@ -19,11 +17,11 @@ public class PartialFPTree extends AbstractFPTree{
 
         private Map<String, PartialFPTree> fpTree;
 
-        public PartialFPTreeBuilder(TableCount tableCount){
+        public PartialFPTreeBuilder(TableProperties tableProperties){
             this.fpTree = new HashMap<>();
 
-            for (String tableName : tableCount.getTableNames()) {
-                fpTree.put(tableName, new PartialFPTree(tableCount, tableName));
+            for (String tableName : tableProperties.getTableNames()) {
+                fpTree.put(tableName, new PartialFPTree(tableProperties, tableName));
             }
         }
 
@@ -50,8 +48,8 @@ public class PartialFPTree extends AbstractFPTree{
     private List<IIndex> fullIndexes;
     private List<IIndex> partialIndexs;
 
-    private PartialFPTree(TableCount tableCount, String tableName){
-        super(tableCount, tableName, new PartialFPTreeNode(null,"", 0));
+    private PartialFPTree(TableProperties tableProperties, String tableName){
+        super(tableProperties, tableName, new PartialFPTreeNode(null,"", 0));
         fullIndexes = new LinkedList<>();
         partialIndexs = new LinkedList<>();
     }
@@ -143,7 +141,7 @@ public class PartialFPTree extends AbstractFPTree{
         if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
 
             if (node instanceof PartialFPTreeNode) {
-                node.extractIndexes(tableName, columns, tableCount);
+                node.extractIndexes(tableName, columns, tableProperties);
             }
         }
     }

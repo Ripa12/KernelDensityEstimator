@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by Richard on 2018-05-23.
  */
-public class TableCount {
+public class TableProperties {
 
     private class ColumnProperties{
         Double[] info;
@@ -23,7 +23,7 @@ public class TableCount {
     private double totalSupportCount;
     private double minsup;
 
-    public TableCount(double minsup, String[] tableNames){
+    public TableProperties(double minsup, String[] tableNames){
         this.minsup = minsup;
         this.totalSupportCount = 0;
         this.tables = new LinkedHashMap<>();

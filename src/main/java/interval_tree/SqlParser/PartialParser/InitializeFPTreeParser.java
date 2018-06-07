@@ -1,7 +1,7 @@
 package interval_tree.SqlParser.PartialParser;
 
 import interval_tree.FrequentPatternMining.PartialFPTree;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 import interval_tree.SqlParser.AbstractParser;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyInterval;
@@ -18,15 +18,15 @@ public class InitializeFPTreeParser extends AbstractParser {
 
     private TreeMap<String, MyData> list;
 
-    public InitializeFPTreeParser(TableCount tableCount){
-        super(tableCount);
+    public InitializeFPTreeParser(TableProperties tableProperties){
+        super(tableProperties);
 
-        this.fpTreeBuilder = new PartialFPTree.PartialFPTreeBuilder(tableCount);
-        this.list = new TreeMap<>(Comparator.comparingDouble(o -> this.tableCount.getSupport(getCurrentTable(), o)));
+        this.fpTreeBuilder = new PartialFPTree.PartialFPTreeBuilder(tableProperties);
+        this.list = new TreeMap<>(Comparator.comparingDouble(o -> this.tableProperties.getSupport(getCurrentTable(), o)));
     }
 
     public PopulateFPTreeParser buildFPTreeParser(){
-        return new PopulateFPTreeParser(tableCount, this.fpTreeBuilder.getFPTree(), list);
+        return new PopulateFPTreeParser(tableProperties, this.fpTreeBuilder.getFPTree(), list);
     }
 
     @Override
@@ -41,34 +41,34 @@ public class InitializeFPTreeParser extends AbstractParser {
 
     @Override
     protected void equalsTo(String col, double point) {
-        if(tableCount.isSufficient(getCurrentTable(), col)) {
+        if(tableProperties.isSufficient(getCurrentTable(), col)) {
             // ToDo: Instead of clamping, ignore if point is outside constrained range!
-            list.put(col, new MyPoint(tableCount.constrainToRange(getCurrentTable(), col, point)));
+            list.put(col, new MyPoint(tableProperties.constrainToRange(getCurrentTable(), col, point)));
 //            list.put(col, new MyPoint(point));
         }
     }
 
     @Override
     protected void greaterThan(String col, double point) {
-        if(tableCount.isSufficient(getCurrentTable(), col)) {
-            list.put(col, new MyInterval(tableCount.constrainToRange(getCurrentTable(), col, point),
-                        tableCount.getPositiveInfinityLimit(getCurrentTable(), col)));
+        if(tableProperties.isSufficient(getCurrentTable(), col)) {
+            list.put(col, new MyInterval(tableProperties.constrainToRange(getCurrentTable(), col, point),
+                        tableProperties.getPositiveInfinityLimit(getCurrentTable(), col)));
         }
     }
 
     @Override
     protected void MinorThan(String col, double point) {
-        if(tableCount.isSufficient(getCurrentTable(), col)) {
-            list.put(col, new MyInterval(tableCount.getNegativeInfinityLimit(getCurrentTable(), col),
-                    tableCount.constrainToRange(getCurrentTable(), col, point)));
+        if(tableProperties.isSufficient(getCurrentTable(), col)) {
+            list.put(col, new MyInterval(tableProperties.getNegativeInfinityLimit(getCurrentTable(), col),
+                    tableProperties.constrainToRange(getCurrentTable(), col, point)));
         }
     }
 
     @Override
     protected void finiteInterval(String column, double start, double end) {
-        if(tableCount.isSufficient(getCurrentTable(), column)) {
-            list.put(column, new MyInterval(tableCount.constrainToRange(getCurrentTable(), column, start),
-                    tableCount.constrainToRange(getCurrentTable(), column, end)));
+        if(tableProperties.isSufficient(getCurrentTable(), column)) {
+            list.put(column, new MyInterval(tableProperties.constrainToRange(getCurrentTable(), column, start),
+                    tableProperties.constrainToRange(getCurrentTable(), column, end)));
 //            list.put(column, new MyInterval(start, end));
         }
     }

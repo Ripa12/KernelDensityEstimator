@@ -1,5 +1,6 @@
 package interval_tree.Factory;
 
+import de.lmu.ifi.dbs.elki.math.statistics.distribution.ExponentialDistribution;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
@@ -19,7 +20,7 @@ public class TablePropertiesBuilder {
 
     String columnLabels[];
     double columnMinMax[][];
-    double column_dense_intervals[][][];
+    double columnDenseClusters[][][];
 
     public TablePropertiesBuilder(String source){
         String sourcePath = "data/testdata/unittests/TableProperties" + source;
@@ -63,8 +64,17 @@ public class TablePropertiesBuilder {
         }
     }
 
-    public void build(double avgDenseClusters ){
-        column_dense_intervals = null;
+    public void build(double avgDenseClusters, double avgDenseColumns){
+        columnDenseClusters = new double[columnMinMax.length][][];
+
+//        {{{300, 1000, 60}, {50000, 70000, 90}}}
+
+        ExponentialDistribution clustersDistr = new ExponentialDistribution(avgDenseClusters);
+
+        for (int i = 0; i < columnMinMax.length; i++) {
+
+            columnDenseClusters[i]=new double[][];
+        }
 
 
 

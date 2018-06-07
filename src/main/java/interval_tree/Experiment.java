@@ -4,7 +4,7 @@ import interval_tree.CandidateIndex.*;
 import interval_tree.DBMS.PostgreSql;
 import interval_tree.FrequentPatternMining.FullFPTree;
 import interval_tree.FrequentPatternMining.PartialFPTree;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 import interval_tree.KnapsackProblem.DynamicProgramming;
 import interval_tree.SqlParser.*;
 import interval_tree.SqlParser.FullParser.FullParser;
@@ -24,7 +24,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static interval_tree.Factory.QueryGenerator.COLUMN_LABELS;
 import static interval_tree.Factory.QueryGenerator.COLUMN_MIN_MAX;
@@ -67,23 +66,23 @@ public class Experiment {
         }
     }
 
-    private TableCount initiateTables(){
-        TableCount tableCount = new TableCount(MINSUP, new String[]{TABLE_NAME});
-        tableCount.addColumns(TABLE_NAME, COLUMN_LABELS, COLUMN_MIN_MAX);
-        return tableCount;
+    private TableProperties initiateTables(){
+        TableProperties tableProperties = new TableProperties(MINSUP, new String[]{TABLE_NAME});
+        tableProperties.addColumns(TABLE_NAME, COLUMN_LABELS, COLUMN_MIN_MAX);
+        return tableProperties;
     }
 
 
     public void testFullFPGrowth(){
-        TableCount tableCount = initiateTables();
+        TableProperties tableProperties = initiateTables();
 
         Logger.getInstance().setTimer();
-        parseQueries(new SupportCountParser(tableCount));
+        parseQueries(new SupportCountParser(tableProperties));
         Logger.getInstance().stopTimer("SupportCountParser");
 
 
         Logger.getInstance().setTimer();
-        FullParser fullParser = new FullParser(tableCount);
+        FullParser fullParser = new FullParser(tableProperties);
         parseQueries(fullParser);
         Logger.getInstance().stopTimer("FullParser");
 
@@ -109,15 +108,15 @@ public class Experiment {
 
     public void testPartialFPGrowth(){
 
-        TableCount tableCount = initiateTables();
+        TableProperties tableProperties = initiateTables();
 
         Logger.getInstance().setTimer();
-        parseQueries(new SupportCountParser(tableCount));
+        parseQueries(new SupportCountParser(tableProperties));
         Logger.getInstance().stopTimer("SupportCountParser");
 
 
         Logger.getInstance().setTimer();
-        InitializeFPTreeParser initialFPTreeParser = new InitializeFPTreeParser(tableCount);
+        InitializeFPTreeParser initialFPTreeParser = new InitializeFPTreeParser(tableProperties);
         parseQueries(initialFPTreeParser);
         Logger.getInstance().stopTimer("InitializePartialFPTreeParser");
 

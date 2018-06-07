@@ -2,7 +2,7 @@ package interval_tree.FrequentPatternMining;
 
 import interval_tree.CandidateIndex.FullIndex;
 import interval_tree.CandidateIndex.IIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +17,7 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
-    public void extractIndexes(String tableName, List<String> columns, TableCount tc){
+    public void extractIndexes(String tableName, List<String> columns, TableProperties tc){
         // ToDo: Only ever used in partialFPTreeNode
     }
 

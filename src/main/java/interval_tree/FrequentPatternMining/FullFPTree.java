@@ -1,7 +1,7 @@
 package interval_tree.FrequentPatternMining;
 
 import interval_tree.CandidateIndex.IIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 
 import java.util.*;
 
@@ -14,11 +14,11 @@ public class FullFPTree extends AbstractFPTree{
 
         private Map<String, FullFPTree> fpTree;
 
-        public FullFPTreeBuilder(TableCount tableCount){
+        public FullFPTreeBuilder(TableProperties tableProperties){
             this.fpTree = new HashMap<>();
 
-            for (String tableName : tableCount.getTableNames()) {
-                fpTree.put(tableName, new FullFPTree(tableCount, tableName));
+            for (String tableName : tableProperties.getTableNames()) {
+                fpTree.put(tableName, new FullFPTree(tableProperties, tableName));
             }
         }
 
@@ -34,8 +34,8 @@ public class FullFPTree extends AbstractFPTree{
 
     private Set<IIndex> fullIndexes;
 
-    private FullFPTree(TableCount tableCount, String tableName){
-        super(tableCount, tableName, new FullFPTreeNode(null, ""));
+    private FullFPTree(TableProperties tableProperties, String tableName){
+        super(tableProperties, tableName, new FullFPTreeNode(null, ""));
 
         fullIndexes = new HashSet<>();
     }

@@ -29,7 +29,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import de.lmu.ifi.dbs.elki.algorithm.clustering.subspace.clique.CLIQUEInterval;
-import de.lmu.ifi.dbs.elki.data.NumberVector;
 import de.lmu.ifi.dbs.elki.data.Subspace;
 import de.lmu.ifi.dbs.elki.database.ids.DBIDUtil;
 import de.lmu.ifi.dbs.elki.database.ids.ModifiableDBIDs;
@@ -37,7 +36,7 @@ import de.lmu.ifi.dbs.elki.utilities.BitsUtil;
 import de.lmu.ifi.dbs.elki.utilities.pairs.Pair;
 import interval_tree.CandidateIndex.CompoundPartialIndex;
 import interval_tree.CandidateIndex.PartialIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 
 /**
  * Represents a subspace of the original data space in the CLIQUE algorithm.
@@ -126,7 +125,7 @@ public class CliqueSubspace<V extends MyVector> extends Subspace {
     }
 
     public CompoundPartialIndex makePartialIndex(String table, List<String> columns,
-                                                 double[] negativeInfinity, double[] positiveInfinity, TableCount tc) {
+                                                 double[] negativeInfinity, double[] positiveInfinity, TableProperties tc) {
         // ToDo: Coverage should be in Composite class or Full index instead
         CompoundPartialIndex compoundPartialIndex = new CompoundPartialIndex(table);
 
