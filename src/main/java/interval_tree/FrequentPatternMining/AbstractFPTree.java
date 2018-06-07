@@ -33,33 +33,12 @@ public abstract class AbstractFPTree {
         header = tableCount.buildHeader(tableName);
     }
 
-    protected AbstractFPTreeNode getRoot() {
+    AbstractFPTreeNode getRoot() {
         return this.root;
     }
 
+    abstract void extractItemSet(double frequency, List<String> columns, List<AbstractFPTreeNode> treeNodes);
 
-    public void extractItemSets(double minsup) {
-        this.minsup = minsup;
-
-        LinkedList<String> cols = new LinkedList<>();
-
-        extractItemSets(root, cols);
-    }
-
-    private void extractItemSets(AbstractFPTreeNode node, LinkedList<String> cols) {
-
-        for (String col : node.children.keySet()) {
-            cols.add(col);
-            extractItemSets(node.children.get(col), cols);
-            cols.removeLast();
-        }
-
-        extractItemSet(node, cols);
-    }
-
-    abstract void extractItemSet(AbstractFPTreeNode node, List<String> columns);
-
-    // ToDo: FPTreeNode = template
     AbstractFPTreeNode insertTree(Iterator<String> it) {
         AbstractFPTreeNode node = root;
 
@@ -67,9 +46,9 @@ public abstract class AbstractFPTree {
             String entry = it.next();
 
             if (node.hasChild(entry)) {
-                node = node.getOrCreateChild(entry);
+                node = node.incrementFrequencyOfChild(entry);
             } else {
-                header.get(entry).add(node = node.getOrCreateChild(entry));
+                header.get(entry).add(node = node.incrementFrequencyOfChild(entry));
             }
         }
         return node;
@@ -130,16 +109,14 @@ public abstract class AbstractFPTree {
 
     }
 
-    public Set<IIndex> findFrequentPatterns(double minsup){
+    public void findFrequentPatterns(double minsup){
         this.minsup = minsup * totalSupportCount;
 
-        Set<IIndex> frequentPatterns = new HashSet<>();
+//        Set<IIndex> frequentPatterns = new HashSet<>();
         Set<String> test = new HashSet<>();
-        fpGrowthStep(header, frequentPatterns, test, "");
+        fpGrowthStep(header, test, "");
 
         System.out.println(test);
-
-        return frequentPatterns;
     }
 
     private class FPGrowthPair {
@@ -155,8 +132,7 @@ public abstract class AbstractFPTree {
     // ToDo: would it be possible to create partial indexes for all possible combinations after FP-Growth, or would that be too many?
     // MIT license
     // https://github.com/PySualk/fp-growth-java/blob/master/src/main/java/org/sualk/fpgrowth/FPgrowth.java
-    private void fpGrowthStep(HashMap<String, LinkedList<AbstractFPTreeNode>> headerTable,
-                              Set<IIndex> frequentPatterns, Set<String> test,  String base) {
+    private void fpGrowthStep(HashMap<String, LinkedList<AbstractFPTreeNode>> headerTable, Set<String> test,  String base) {
 
         for (String item : headerTable.keySet()) {
             List<AbstractFPTreeNode> treeNodes = headerTable.get(item);
@@ -209,10 +185,12 @@ public abstract class AbstractFPTree {
                 test.add(currentPattern);
 
                 // ToDo: FullIndexes would create duplicates if not for SetList
-                for (AbstractFPTreeNode treeNode : treeNodes) {
-                    frequentPatterns.addAll(treeNode.extractIndexes(frequentItemsetCount, tableName,
-                            Arrays.asList(currentPattern.split(PATTERN_DELIMITER))));
-                }
+//                for (AbstractFPTreeNode treeNode : treeNodes) {
+//                    treeNode.extractIndexes(frequentItemsetCount, tableName,
+//                            Arrays.asList(currentPattern.split(PATTERN_DELIMITER)));
+//                }
+                extractItemSet(frequentItemsetCount, Arrays.asList(currentPattern.split(PATTERN_DELIMITER)),
+                        treeNodes);
 
             }
 
@@ -254,7 +232,6 @@ public abstract class AbstractFPTree {
                 List<AbstractFPTreeNode> path = new ArrayList<>();
                 List<Double> pathValues = new ArrayList<>();
 
-//                while (tokenizer.hasMoreTokens()) {
                 for (AbstractFPTreeNode treeNode : conditionalPatternBase
                         .get(conditionalPattern).treeNodes) {
 
@@ -276,8 +253,7 @@ public abstract class AbstractFPTree {
             }
 
             if (conditionalTree.getChildCount() > 0)
-                fpGrowthStep(conditionalHeaderTable,
-                        frequentPatterns, test, currentPattern);
+                fpGrowthStep(conditionalHeaderTable, test, currentPattern);
         }
     }
 }

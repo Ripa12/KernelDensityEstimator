@@ -47,8 +47,13 @@ public class PartialFPTree extends AbstractFPTree{
 
     }
 
+    private List<IIndex> fullIndexes;
+    private List<IIndex> partialIndexs;
+
     private PartialFPTree(TableCount tableCount, String tableName){
         super(tableCount, tableName, new PartialFPTreeNode(null,"", 0));
+        fullIndexes = new LinkedList<>();
+        partialIndexs = new LinkedList<>();
     }
 
     public void addData(Set<String> transactions, MyData[] data){
@@ -80,6 +85,14 @@ public class PartialFPTree extends AbstractFPTree{
         }
     }
 
+    public List<IIndex> getFullIndexes(){
+        return fullIndexes;
+    }
+
+    public List<IIndex> getPartialIndexes(){
+        return partialIndexs;
+    }
+
     // ToDo: Maybe closed item-sets would be better memory-wise for CLIQUE (maybe not)
     private void addData(AbstractFPTreeNode node, int dim, MyData[] data){
         if(node != null && node instanceof PartialFPTreeNode){
@@ -109,13 +122,44 @@ public class PartialFPTree extends AbstractFPTree{
         }
     }
 
-    void extractItemSet(AbstractFPTreeNode node, List<String> columns){
+    public void extractItemSets(double minsup) {
+        this.minsup = minsup;
+        LinkedList<String> cols = new LinkedList<>();
+        extractItemSets(getRoot(), cols);
+    }
+
+    private void extractItemSets(AbstractFPTreeNode node, LinkedList<String> cols) {
+
+        for (String col : node.children.keySet()) {
+            cols.add(col);
+            extractItemSets(node.children.get(col), cols);
+            cols.removeLast();
+        }
+
+        extractItemSet(node, cols);
+    }
+
+    private void extractItemSet(AbstractFPTreeNode node, List<String> columns){
         if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
 
             if (node instanceof PartialFPTreeNode) {
-//                indices.addAll(node.extractIndexes(tableName, columns, tableCount));
                 node.extractIndexes(tableName, columns, tableCount);
             }
+        }
+    }
+
+    @Override
+    void extractItemSet(double frequency, List<String> columns, List<AbstractFPTreeNode> treeNodes) {
+        if(treeNodes.size() == 0)
+            return;
+
+        List<IIndex> tempList = treeNodes.get(0).extractIndexes(frequency, tableName, columns);
+        fullIndexes.add(tempList.remove(0));
+        partialIndexs.addAll(tempList);
+        for (int i = 1; i < treeNodes.size(); i++) {
+            tempList = treeNodes.get(i).extractIndexes(frequency, tableName, columns);
+            tempList.remove(0);
+            partialIndexs.addAll(tempList);
         }
     }
 

@@ -29,11 +29,11 @@ public abstract class AbstractFPTreeNode{
     }
 
     protected abstract AbstractFPTreeNode makeChild(String column);
-//    protected abstract AbstractFPTreeNode makeChild(AbstractFPTreeNode other);
-    public abstract List<? extends IIndex> extractIndexes(String tableName, List<String> columns, TableCount tc);
+
+    public abstract void extractIndexes(String tableName, List<String> columns, TableCount tc);
     public abstract List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns); // ToDo: Could probably be static
 
-    final AbstractFPTreeNode getOrCreateChild(String name){ // ToDo: Is this a good name? Maybe increment frequency in an package private function instead; easier to understand that way.
+    final AbstractFPTreeNode incrementFrequencyOfChild(String name){
         AbstractFPTreeNode temp;
         if (children.containsKey(name)) {
             temp = children.get(name);

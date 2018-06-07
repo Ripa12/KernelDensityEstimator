@@ -7,7 +7,6 @@ import interval_tree.FrequentPatternMining.SupportCount.TableCount;
 import interval_tree.SubspaceClustering.Clique;
 import interval_tree.SubspaceClustering.MyVector;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,9 +15,6 @@ import static interval_tree.Experiment.IDEAL_COVERAGE;
 import static interval_tree.Experiment.MINSUP;
 
 public class PartialFPTreeNode extends AbstractFPTreeNode {
-
-//    private List<CompoundPartialIndex> indices;
-
 
     private Clique<MyVector> clique;
     private int dimensions;
@@ -66,30 +62,22 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
         return new PartialFPTreeNode(this, column, dimensions + 1);
     }
 
-//    @Override
-//    protected AbstractFPTreeNode makeChild(AbstractFPTreeNode other) {
-//        PartialFPTreeNode newChild =  new PartialFPTreeNode(this, other.column);
-//        newChild.clique = null;
-//        newChild.indices = other.indices;
-//        return newChild;
-//    }
-
     @Override
-    public List<? extends IIndex> extractIndexes(String tableName, List<String> columns, TableCount tc){
+    public void extractIndexes(String tableName, List<String> columns, TableCount tc){
         double[] negativeInfinity = new double[columns.size()];
         double[] positiveInfinity = new double[columns.size()];
         for (int i = 0; i < columns.size(); i++) {
             negativeInfinity[i] = tc.getNegativeInfinityLimit(tableName, column);
             positiveInfinity[i] = tc.getPositiveInfinityLimit(tableName, column);
         }
-        return indices = clique.getClusters(tableName, columns, negativeInfinity, positiveInfinity, tc);
+        indices = clique.getClusters(tableName, columns, negativeInfinity, positiveInfinity, tc);
     }
 
     @Override
     public List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns) {
-//        return Collections
-//                .singletonList(new FullIndex(frequency, 0, tableName, String.join(",", columns)));
+
         List<IIndex> result = new LinkedList<>();
+        result.add(new FullIndex(frequency, 0, tableName, String.join(",", columns)));
         for (IIndex index : indices) {
             CompoundPartialIndex tempComp = new CompoundPartialIndex(tableName);
             if(index instanceof CompoundPartialIndex){

@@ -17,9 +17,8 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
-    public List<? extends IIndex> extractIndexes(String tableName, List<String> columns, TableCount tc){
-        return Collections
-                .singletonList(new FullIndex(frequency, 0, tableName, String.join(",", columns)));
+    public void extractIndexes(String tableName, List<String> columns, TableCount tc){
+        // ToDo: Only ever used in partialFPTreeNode
     }
 
     @Override
@@ -30,7 +29,6 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
 
     @Override
     AbstractFPTreeNode clone(AbstractFPTreeNode other) {
-//        this.frequency += other.frequency;
         return new FullFPTreeNode(null, column);
     }
 
@@ -38,9 +36,4 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
     protected AbstractFPTreeNode makeChild(String col) {
         return new FullFPTreeNode(this, col);
     }
-
-//    @Override
-//    protected AbstractFPTreeNode makeChild(AbstractFPTreeNode other) {
-//        return new FullFPTreeNode(this, other.column);
-//    }
 }

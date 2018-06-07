@@ -92,10 +92,8 @@ public class Experiment {
         List<FullFPTree> fpTree = fullParser.getFpTree(); // ToDo: Should probably run more tests to see if multiple tables are handled properly.
         List<IIndex> indexList = new LinkedList<>();
         for (FullFPTree fullFPTree : fpTree) {
-//            fullFPTree.extractItemSets(MINSUP);
-//            indexList.addAll(fullFPTree.getIndices());
-
-            indexList.addAll(fullFPTree.findFrequentPatterns(MINSUP));
+            fullFPTree.findFrequentPatterns(MINSUP);
+            indexList.addAll(fullFPTree.getFullIndexes());
         }
         Logger.getInstance().stopTimer("ExtractItem-sets");
 
@@ -137,14 +135,14 @@ public class Experiment {
 
         Logger.getInstance().setTimer();
         List<PartialFPTree> fpTree = validator.getFpTree();
-//        List<IIndex> indexList = new LinkedList<>();
         List<IIndex> partialIndices = new LinkedList<>();
         List<IIndex> fullIndices = new LinkedList<>();
 
         for (PartialFPTree partialFPTree : fpTree) {
             partialFPTree.extractItemSets(MINSUP);
-//            partialIndices.addAll(partialFPTree.getIndices());
-            fullIndices.addAll(partialFPTree.findFrequentPatterns(MINSUP));
+            partialFPTree.findFrequentPatterns(MINSUP);
+            partialIndices.addAll(partialFPTree.getPartialIndexes());
+            fullIndices.addAll(partialFPTree.getFullIndexes());
         }
         Logger.getInstance().stopTimer("ExtractItem-sets");
 
@@ -160,16 +158,6 @@ public class Experiment {
             indexIDs++;
             System.out.println(idx.createIdxStatementWithId(indexIDs));
         }
-
-//        for (IIndex iIndex : indexList) {
-//            if(iIndex instanceof CompoundPartialIndex){
-//                partialIndices.add((CompoundPartialIndex) iIndex);
-//            }
-//            else
-//            {
-//                fullIndices.add((FullIndex) iIndex);
-//            }
-//        }
 
 
 //        testIndexes(partialIndices, fullIndices);
