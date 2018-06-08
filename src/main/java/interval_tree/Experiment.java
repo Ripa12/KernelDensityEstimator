@@ -5,7 +5,7 @@ import interval_tree.DBMS.PostgreSql;
 import interval_tree.Factory.TablePropertiesBuilder;
 import interval_tree.FrequentPatternMining.FullFPTree;
 import interval_tree.FrequentPatternMining.PartialFPTree;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 import interval_tree.KnapsackProblem.DynamicProgramming;
 import interval_tree.SqlParser.*;
 import interval_tree.SqlParser.FullParser.FullParser;
@@ -63,7 +63,7 @@ public class Experiment {
     }
 
 
-    public void testFullFPGrowth(TableCount tableCount){
+    public void testFullFPGrowth(TableProperties tableCount){
 
         Logger.getInstance().setTimer();
         parseQueries(new SupportCountParser(tableCount));
@@ -89,13 +89,13 @@ public class Experiment {
         int indexIDs = 0;
         for(IIndex idx : indexList) {
             indexIDs++;
-            System.out.println(idx.createIdxStatementWithId(indexIDs));
+            System.out.println(idx.createIdxStatementWithId(indexIDs) + " val " + idx.getValue());
         }
 
-//        testIndexes(indexList);
+        testIndexes(indexList);
     }
 
-    public void testPartialFPGrowth(TableCount tableCount){
+    public void testPartialFPGrowth(TableProperties tableCount){
 
         Logger.getInstance().setTimer();
         parseQueries(new SupportCountParser(tableCount));
@@ -136,17 +136,17 @@ public class Experiment {
         int indexIDs = 0;
         for(IIndex idx : partialIndices) {
             indexIDs++;
-            System.out.println(idx.createIdxStatementWithId(indexIDs));
+            System.out.println(idx.createIdxStatementWithId(indexIDs) + " val " + idx.getValue());
         }
 
         System.out.println("-- All generated Full Indexes --");
         for(IIndex idx : fullIndices) {
             indexIDs++;
-            System.out.println(idx.createIdxStatementWithId(indexIDs));
+            System.out.println(idx.createIdxStatementWithId(indexIDs) + " val " + idx.getValue());
         }
 
 
-//        testIndexes(partialIndices, fullIndices);
+        testIndexes(partialIndices, fullIndices);
     }
 
     private void parseQueries(IExpressionVisitor visitor){
@@ -210,6 +210,7 @@ public class Experiment {
 
             postSql.buildCandidateIndexes(fullIndices);
 
+            // ToDo: Is the time for index pruning recorded?
             for (IIndex fullIndex : fullIndices) {
                 for(int i = partialIndices.size()-1; i >= 0; i--){
                     if(fullIndex.isAPrefix(partialIndices.get(i).getColumnName())){

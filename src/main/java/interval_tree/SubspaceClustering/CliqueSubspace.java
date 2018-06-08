@@ -130,25 +130,26 @@ public class CliqueSubspace<V extends MyVector> extends Subspace {
         CompoundPartialIndex compoundPartialIndex = new CompoundPartialIndex(table);
 
         for (int i = 0; i < lowerBounds.length; i++) {
-            if (negativeInfinity[i] <= lowerBounds[i] && positiveInfinity[i] >= maximumBounds[i]) {
-//                PartialIndex tempPredicate;
-
-                if(negativeInfinity[i] >= lowerBounds[i]){
-                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
-                            tc.getCorrectType(table, columns.get(i), maximumBounds[i]),
-                            PartialIndex.ConditionType.LESS_THAN));
-                }
-                else if(positiveInfinity[i] <= maximumBounds[i]){
-                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
-                            tc.getCorrectType(table, columns.get(i), lowerBounds[i]), PartialIndex.ConditionType.GREATER_THAN));
-                }
-                else {
-                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
-                            tc.getCorrectType(table, columns.get(i), lowerBounds[i]),
-                            tc.getCorrectType(table, columns.get(i), maximumBounds[i])));
-                }
-//                compoundPartialIndex.addCompoundPredicate(tempPredicate);
-            }
+//            if (negativeInfinity[i] <= lowerBounds[i] && positiveInfinity[i] >= maximumBounds[i]) { // ToDo: maximumBounds[i] is sometimes larger than positiveInfinity[i] due to rounding errors!
+//
+//                if(negativeInfinity[i] >= lowerBounds[i]){
+//                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
+//                            tc.getCorrectType(table, columns.get(i), maximumBounds[i]),
+//                            PartialIndex.ConditionType.LESS_THAN));
+//                }
+//                else if(positiveInfinity[i] <= maximumBounds[i]){
+//                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
+//                            tc.getCorrectType(table, columns.get(i), lowerBounds[i]), PartialIndex.ConditionType.GREATER_THAN));
+//                }
+//                else {
+//                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
+//                            tc.getCorrectType(table, columns.get(i), lowerBounds[i]),
+//                            tc.getCorrectType(table, columns.get(i), maximumBounds[i])));
+//                }
+//            }
+            compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
+                    tc.getCorrectType(table, columns.get(i), lowerBounds[i]),
+                    tc.getCorrectType(table, columns.get(i), maximumBounds[i])));
         }
 
         return compoundPartialIndex;

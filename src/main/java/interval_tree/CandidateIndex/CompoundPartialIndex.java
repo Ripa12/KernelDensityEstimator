@@ -83,7 +83,7 @@ public class CompoundPartialIndex implements IIndex {
             f.append(" AND ");
             f.append(((PartialIndex)pair.getValue()).getPredicate());
         }
-        f.append(");");
+        f.append(");'");
 
         return "'CREATE INDEX ON "+tableName+"("+ getColumnName() +") where " + f.toString(); // ToDo: what table-name to use?;
     }

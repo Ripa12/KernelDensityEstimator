@@ -3,7 +3,8 @@ package interval_tree;
 
 import interval_tree.Factory.QueryGenerator;
 import interval_tree.Factory.TablePropertiesBuilder;
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
+import org.apache.commons.math3.random.RandomDataGenerator;
 import sun.rmi.runtime.Log;
 
 import static interval_tree.Globals.MINSUP;
@@ -18,19 +19,21 @@ public class App
 {
     public static void main( String[] args )
     {
+
         /**
-         * Initiate tables
+         * Initiate tables for partial-index
          **/
-        TableCount tableCount = new TableCount(MINSUP, new String[]{"test"});
+        TableProperties tableCount = new TableProperties(MINSUP, new String[]{"kegg"});
         TablePropertiesBuilder tpb = new TablePropertiesBuilder(tableCount);
         tpb.setAvgDenseClustes(1).setDenseColumnProb(70);
-        QueryGenerator qg = tpb.build("test_data.csv", "test");
+        QueryGenerator qg = tpb.build("table_data/test_data.csv", "kegg");
 
 
 
         long generatorStartTime = System.nanoTime();
-        qg.setNrOfQueries(50);
-        qg.setMaxDuplicates(10);
+        qg.setNrOfQueries(2000);
+        qg.setAverageNrOfCompositeColumns(2);
+        qg.setAverageNrOfDuplicates(200);
         qg.generateBatchOfQueries(QUERY_BATCH_FILE);
         long generatorEstimatedTime = System.nanoTime() - generatorStartTime;
 
@@ -49,12 +52,22 @@ public class App
         runtime.gc();
         long partialIndexMemory = (runtime.totalMemory() - runtime.freeMemory());// / (1024L * 1024L);
 
+        runtime = Runtime.getRuntime();
+
+        /**
+         * Initiate tables for full-index
+         **/
+        tableCount = new TableProperties(MINSUP, new String[]{"kegg"});
+        tpb = new TablePropertiesBuilder(tableCount);
+        tpb.setAvgDenseClustes(1).setDenseColumnProb(70);
+        tpb.build("table_data/test_data.csv", "kegg");
+
         Logger.getInstance().reset();
         System.out.println("-- Full Index --");
         exp.testFullFPGrowth(tableCount);
         String fullIndexInfo = Logger.getInstance().toString();
 
-        runtime = Runtime.getRuntime();
+
         runtime.gc();
         long fullIndexMemory = (runtime.totalMemory() - runtime.freeMemory());// / (1024L * 1024L);
 

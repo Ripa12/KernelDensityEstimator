@@ -1,6 +1,6 @@
 package interval_tree.Factory;
 
-import interval_tree.FrequentPatternMining.SupportCount.TableCount;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.math3.random.RandomDataGenerator;
@@ -22,11 +22,11 @@ public class TablePropertiesBuilder {
     private double avgDenseClusters;
     private int denseColumnProb;
 
-    private TableCount tb;
+    private TableProperties tb;
 
     private TreeSet<Integer> removeItems;
 
-    public TablePropertiesBuilder(TableCount tb) {
+    public TablePropertiesBuilder(TableProperties tb) {
         this.tb = tb;
 
         this.avgDenseClusters = 0.0;
@@ -47,9 +47,15 @@ public class TablePropertiesBuilder {
         if (tb == null)
             return null;
 
+        /**
+         * initialize columnMinMax and columnLabels
+         */
         removeItems = new TreeSet<>();
         initialize(source);
 
+        /**
+         * generate columnDenseIntervals
+         */
         columnDenseIntervals = new double[columnMinMax.length][][];
 
         RandomDataGenerator rand = new RandomDataGenerator();
@@ -57,13 +63,13 @@ public class TablePropertiesBuilder {
         for (int i = 0; i < columnMinMax.length; i++) {
             int percentage = rand.nextInt(0, 100);
             if (denseColumnProb > percentage) {
-                int denseClusters = (int) rand.nextExponential(avgDenseClusters);
+                int denseClusters = (int) rand.nextPoisson(avgDenseClusters);
                 columnDenseIntervals[i] = new double[denseClusters][3];
 
                 int[] distribution = new int[denseClusters];
-                int start = 0;
+                int start = 50;
                 for (int j = 0; j < denseClusters; j++) {
-                    distribution[j] = rand.nextInt(start, 90);
+                    distribution[j] = rand.nextInt(start, 95);
                     start = distribution[j];
                 }
                 Arrays.sort(distribution);
@@ -94,6 +100,9 @@ public class TablePropertiesBuilder {
             }
         }
 
+        /**
+         * remove non-numeric column data
+         */
         Iterator it = removeItems.descendingIterator();
         while(it.hasNext()){
             Integer index = (int)it.next();
@@ -104,6 +113,9 @@ public class TablePropertiesBuilder {
         }
 
 
+        /**
+         * add column data to table
+         */
         tb.addColumns(tableName, columnLabels, columnMinMax);
 
         return new QueryGenerator(columnDenseIntervals, columnMinMax, columnLabels, tableName);
