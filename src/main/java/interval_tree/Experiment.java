@@ -2,6 +2,7 @@ package interval_tree;
 
 import interval_tree.CandidateIndex.*;
 import interval_tree.DBMS.PostgreSql;
+import interval_tree.Factory.TablePropertiesBuilder;
 import interval_tree.FrequentPatternMining.FullFPTree;
 import interval_tree.FrequentPatternMining.PartialFPTree;
 import interval_tree.FrequentPatternMining.SupportCount.TableCount;
@@ -26,20 +27,14 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static interval_tree.Factory.QueryGenerator.COLUMN_LABELS;
-import static interval_tree.Factory.QueryGenerator.COLUMN_MIN_MAX;
-import static interval_tree.Factory.QueryGenerator.TABLE_NAME;
+import static interval_tree.Globals.MINSUP;
+import static interval_tree.Globals.STORAGE_CAPACITY;
 
 public class Experiment {
     //https://github.com/lodborg/interval-tree/tree/master/src/main/java/com/lodborg/intervaltree
 
     // https://github.com/bnjmn/weka/blob/master/weka/src/main/java/weka/estimators/KernelEstimator.java
     // https://www.programcreek.com/java-api-examples/index.php?source_dir=Weka-for-Android-master/src/weka/classifiers/meta/RegressionByDiscretization.java#
-
-
-    public static int STORAGE_CPACITY = 20000;
-    public static double MINSUP = .02;
-    public static double IDEAL_COVERAGE = 0.8;
 
     /**
      * Batch of queries
@@ -67,15 +62,8 @@ public class Experiment {
         }
     }
 
-    private TableCount initiateTables(){
-        TableCount tableCount = new TableCount(MINSUP, new String[]{TABLE_NAME});
-        tableCount.addColumns(TABLE_NAME, COLUMN_LABELS, COLUMN_MIN_MAX);
-        return tableCount;
-    }
 
-
-    public void testFullFPGrowth(){
-        TableCount tableCount = initiateTables();
+    public void testFullFPGrowth(TableCount tableCount){
 
         Logger.getInstance().setTimer();
         parseQueries(new SupportCountParser(tableCount));
@@ -107,9 +95,7 @@ public class Experiment {
 //        testIndexes(indexList);
     }
 
-    public void testPartialFPGrowth(){
-
-        TableCount tableCount = initiateTables();
+    public void testPartialFPGrowth(TableCount tableCount){
 
         Logger.getInstance().setTimer();
         parseQueries(new SupportCountParser(tableCount));
@@ -195,7 +181,7 @@ public class Experiment {
             postSql = new PostgreSql();
             postSql.estimateWeights(indexList);
 
-            DynamicProgramming.solveKP(indexList, STORAGE_CPACITY);
+            DynamicProgramming.solveKP(indexList, STORAGE_CAPACITY);
 
             postSql.buildCandidateIndexes(indexList);
             postSql.testIndexes(sourcePath);
@@ -220,7 +206,7 @@ public class Experiment {
             postSql = new PostgreSql();
             postSql.estimateWeights(fullIndices);
 
-            int leftover = DynamicProgramming.solveKP(fullIndices, STORAGE_CPACITY);
+            int leftover = DynamicProgramming.solveKP(fullIndices, STORAGE_CAPACITY);
 
             postSql.buildCandidateIndexes(fullIndices);
 
@@ -236,7 +222,7 @@ public class Experiment {
 
             System.out.println(leftover);
 
-            DynamicProgramming.solveKP(partialIndices, STORAGE_CPACITY - leftover);
+            DynamicProgramming.solveKP(partialIndices, STORAGE_CAPACITY - leftover);
 
             postSql.buildCandidateIndexes(partialIndices);
 

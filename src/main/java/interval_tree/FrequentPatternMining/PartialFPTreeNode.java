@@ -11,8 +11,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import static interval_tree.Experiment.IDEAL_COVERAGE;
-import static interval_tree.Experiment.MINSUP;
+import static interval_tree.Globals.IDEAL_COVERAGE;
+import static interval_tree.Globals.MINSUP;
+
 
 public class PartialFPTreeNode extends AbstractFPTreeNode {
 
