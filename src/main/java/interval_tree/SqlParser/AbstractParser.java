@@ -233,6 +233,7 @@ public abstract class AbstractParser implements IExpressionVisitor{
     @Override
     public void visit(Column column) {
         extractedColumn = column.getColumnName();
+        return;
     }
 
     @Override
