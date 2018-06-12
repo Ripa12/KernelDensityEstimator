@@ -92,7 +92,7 @@ public class Experiment {
             System.out.println(idx.createIdxStatementWithId(indexIDs) + " val " + idx.getValue());
         }
 
-        testIndexes(indexList);
+//        testIndexes(indexList);
     }
 
     public void testPartialFPGrowth(TableProperties tableCount){
@@ -146,7 +146,7 @@ public class Experiment {
         }
 
 
-        testIndexes(partialIndices, fullIndices);
+//        testIndexes(partialIndices, fullIndices);
     }
 
     private void parseQueries(IExpressionVisitor visitor){

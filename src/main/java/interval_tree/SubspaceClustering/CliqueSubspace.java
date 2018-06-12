@@ -147,9 +147,21 @@ public class CliqueSubspace<V extends MyVector> extends Subspace {
 //                            tc.getCorrectType(table, columns.get(i), maximumBounds[i])));
 //                }
 //            }
-            compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
-                    tc.getCorrectType(table, columns.get(i), lowerBounds[i]),
-                    tc.getCorrectType(table, columns.get(i), maximumBounds[i])));
+
+                if(Double.isInfinite(lowerBounds[i])){
+                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
+                            tc.getCorrectType(table, columns.get(i), maximumBounds[i]),
+                            PartialIndex.ConditionType.LESS_THAN));
+                }
+                else if(Double.isInfinite(maximumBounds[i])){
+                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
+                            tc.getCorrectType(table, columns.get(i), lowerBounds[i]), PartialIndex.ConditionType.GREATER_THAN));
+                }
+                else {
+                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
+                            tc.getCorrectType(table, columns.get(i), lowerBounds[i]),
+                            tc.getCorrectType(table, columns.get(i), maximumBounds[i])));
+                }
         }
 
         return compoundPartialIndex;
@@ -210,19 +222,16 @@ public class CliqueSubspace<V extends MyVector> extends Subspace {
      * @param model   the model of the cluster
      */
     public void dfs(CliqueUnit<V> unit, ModifiableDBIDs cluster, CliqueSubspace<V> model) {
-//        cluster.addDBIDs(unit.getIds());
         unit.markAsAssigned();
-        model.addDenseUnit(unit); // 17.50 && 103
+        model.addDenseUnit(unit);
 
         final long[] dims = getDimensions();
         for (int dim = BitsUtil.nextSetBit(dims, 0); dim >= 0; dim = BitsUtil.nextSetBit(dims, dim + 1)) {
-//            ExtendedCliqueUnit<V> left = leftNeighbor(unit, dim);
             CliqueUnit<V> left = leftAdjacentNeighbor(unit, dim);
             if (left != null) {// && !left.isAssigned()) {
                 dfs(left, cluster, model);
             }
 
-//            ExtendedCliqueUnit<V> right = rightNeighbor(unit, dim);
             CliqueUnit<V> right = rightAdjacentNeighbor(unit, dim);
             if (right != null) {// && !right.isAssigned()) {
                 dfs(right, cluster, model);

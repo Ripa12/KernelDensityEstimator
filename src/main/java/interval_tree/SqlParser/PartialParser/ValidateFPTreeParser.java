@@ -43,13 +43,15 @@ public class ValidateFPTreeParser extends AbstractParser {
 
     @Override
     protected void greaterThan(String col, double point) {
+//        list.put(col, new MyInterval(point,
+//                tableProperties.getPositiveInfinityLimit(getCurrentTable(), col)));
         list.put(col, new MyInterval(point,
-                tableProperties.getPositiveInfinityLimit(getCurrentTable(), col)));
+                Double.POSITIVE_INFINITY));
     }
 
     @Override
     protected void MinorThan(String col, double point) {
-        list.put(col, new MyInterval(tableProperties.getNegativeInfinityLimit(getCurrentTable(), col),
+        list.put(col, new MyInterval(Double.NEGATIVE_INFINITY,
                 point));
     }
 

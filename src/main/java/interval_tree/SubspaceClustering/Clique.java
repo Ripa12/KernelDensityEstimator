@@ -209,7 +209,7 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
     public void initOneDimensionalUnits() {
 
         for (int i = 0; i < maxima.length; i++) {
-            maxima[i] += 0.0001;
+            maxima[i] += 0.0001; // ToDo: This is the reason why infinity did not work
         }
 
         // determine the unit length in each dimension
@@ -219,21 +219,25 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
         }
 
         // determine the boundaries of the units
-        double[][] unit_bounds = new double[xsi + 1][dimensionality];
-        for (int x = 0; x <= xsi; x++) {
+        double[][] unit_bounds = new double[xsi + 2][dimensionality];
+        for (int x = 1; x <= (xsi); x++) {
             for (int d = 0; d < dimensionality; d++) {
                 if (x < xsi) {
-                    unit_bounds[x][d] = minima[d] + x * unit_lengths[d];
+                    unit_bounds[x][d] = minima[d] + (x - 1) * unit_lengths[d];
                 } else {
                     unit_bounds[x][d] = maxima[d];
                 }
             }
         }
+        for (int d = 0; d < dimensionality; d++) {
+            unit_bounds[0][d] = Double.NEGATIVE_INFINITY;
+            unit_bounds[xsi+1][d] = Double.POSITIVE_INFINITY;
+        }
 
         // build the 1 dimensional units
-        units = new ArrayList<>((xsi * dimensionality));
+        units = new ArrayList<>(((xsi + 1) * dimensionality));
         for (int d = 0; d < dimensionality; d++) {
-            for (int x = 0; x < xsi; x++) {
+            for (int x = 0; x <= xsi; x++) {
 //            for (int d = 0; d < dimensionality; d++) {
                 units.add(new CliqueUnit<>(new CLIQUEInterval(d, unit_bounds[x][d], unit_bounds[x + 1][d])));
             }
@@ -243,7 +247,7 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
 
     public void insertData(V featureVector){
         for (int i = 0; i < featureVector.getDimensionality(); i++) {
-            binaryInsert(units, i * xsi, ((i + 1) * xsi) - 1, featureVector);
+            binaryInsert(units, i * (xsi + 1), ((i + 1) * (xsi + 1)) - 1, featureVector);
         }
 
         total++; // ToDo: Only increment if featureVector is inserted successively!

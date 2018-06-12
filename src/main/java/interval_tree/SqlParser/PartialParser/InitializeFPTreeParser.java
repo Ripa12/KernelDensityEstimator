@@ -43,33 +43,37 @@ public class InitializeFPTreeParser extends AbstractParser {
     protected void equalsTo(String col, double point) {
         if(tableProperties.isSufficient(getCurrentTable(), col)) {
             // ToDo: Instead of clamping, ignore if point is outside constrained range!
-            list.put(col, new MyPoint(tableProperties.constrainToRange(getCurrentTable(), col, point)));
-//            list.put(col, new MyPoint(point));
+//            list.put(col, new MyPoint(tableProperties.constrainToRange(getCurrentTable(), col, point)));
+            list.put(col, new MyPoint(point));
         }
     }
 
     @Override
     protected void greaterThan(String col, double point) {
         if(tableProperties.isSufficient(getCurrentTable(), col)) {
-            list.put(col, new MyInterval(tableProperties.constrainToRange(getCurrentTable(), col, point),
-                        tableProperties.getPositiveInfinityLimit(getCurrentTable(), col)));
+//            list.put(col, new MyInterval(tableProperties.constrainToRange(getCurrentTable(), col, point),
+//                        tableProperties.getPositiveInfinityLimit(getCurrentTable(), col)));
+//            list.put(col, new MyInterval(point, Double.POSITIVE_INFINITY));
+            list.put(col, new MyPoint(point));
         }
     }
 
     @Override
     protected void MinorThan(String col, double point) {
         if(tableProperties.isSufficient(getCurrentTable(), col)) {
-            list.put(col, new MyInterval(tableProperties.getNegativeInfinityLimit(getCurrentTable(), col),
-                    tableProperties.constrainToRange(getCurrentTable(), col, point)));
+//            list.put(col, new MyInterval(tableProperties.getNegativeInfinityLimit(getCurrentTable(), col),
+//                    tableProperties.constrainToRange(getCurrentTable(), col, point)));
+//            list.put(col, new MyInterval(Double.NEGATIVE_INFINITY, point));
+            list.put(col, new MyPoint(point));
         }
     }
 
     @Override
     protected void finiteInterval(String column, double start, double end) {
         if(tableProperties.isSufficient(getCurrentTable(), column)) {
-            list.put(column, new MyInterval(tableProperties.constrainToRange(getCurrentTable(), column, start),
-                    tableProperties.constrainToRange(getCurrentTable(), column, end)));
-//            list.put(column, new MyInterval(start, end));
+//            list.put(column, new MyInterval(tableProperties.constrainToRange(getCurrentTable(), column, start),
+//                    tableProperties.constrainToRange(getCurrentTable(), column, end)));
+            list.put(column, new MyInterval(start, end));
         }
     }
 }

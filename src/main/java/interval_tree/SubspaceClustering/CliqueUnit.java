@@ -244,6 +244,7 @@ public class CliqueUnit<V extends MyVector> {
 //            return new ExtendedCliqueUnit<>(resultIntervals, (this.coverage + other.coverage));
 //        }
 
+        // ToDo: Is the coverage even needed at this point, considering that it is reset? And should it not be equal to the minimum of the two?
         return new CliqueUnit<>(resultIntervals, (this.coverage + other.coverage));
 //        return null;
     }

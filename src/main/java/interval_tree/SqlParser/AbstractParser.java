@@ -14,15 +14,15 @@ public abstract class AbstractParser implements IExpressionVisitor{
     protected TableProperties tableProperties;
     private double extractedValue; // ToDo: Only integers are considered as of now
     private String extractedColumn;
-//    private boolean isInterval;
     private String currentTable;
+
+//    boolean isDecimal = false;
 
     public AbstractParser(TableProperties tableProperties){
         this.tableProperties = tableProperties;
         this.extractedValue = 0.0;
         this.currentTable = "";
         this.extractedColumn = "";
-//        this.isInterval = false;
     }
 
     @Override
@@ -123,8 +123,6 @@ public abstract class AbstractParser implements IExpressionVisitor{
         double start, end;
         String leftCol, rightCol;
 
-//        isInterval = true;
-
         andExpression.getLeftExpression().accept(this);
         start = extractedValue;
         leftCol = extractedColumn;
@@ -141,8 +139,6 @@ public abstract class AbstractParser implements IExpressionVisitor{
         else{
             // ToDo: no support for infinity yet...
         }
-
-//        isInterval = false;
 
         // ToDo: might need to reset extractedValues here.
     }
@@ -174,9 +170,8 @@ public abstract class AbstractParser implements IExpressionVisitor{
         greaterThan.getRightExpression().accept(this);
 
         // ToDo: what if decimal?
-        extractedValue -= 1;
+//        extractedValue -= 1;
 
-//        if(!isInterval)
         greaterThan(extractedColumn, extractedValue);
     }
 
@@ -185,7 +180,6 @@ public abstract class AbstractParser implements IExpressionVisitor{
         greaterThanEquals.getLeftExpression().accept(this);
         greaterThanEquals.getRightExpression().accept(this);
 
-//        if(!isInterval)
         greaterThan(extractedColumn, extractedValue);
     }
 
@@ -210,9 +204,8 @@ public abstract class AbstractParser implements IExpressionVisitor{
         minorThan.getLeftExpression().accept(this);
         minorThan.getRightExpression().accept(this);
 
-        extractedValue += 1;
+//        extractedValue += 1;
 
-//        if(!isInterval)
         greaterThan(extractedColumn, extractedValue);
     }
 
@@ -221,7 +214,6 @@ public abstract class AbstractParser implements IExpressionVisitor{
         minorThanEquals.getLeftExpression().accept(this);
         minorThanEquals.getRightExpression().accept(this);
 
-//        if(!isInterval)
         greaterThan(extractedColumn, extractedValue);
     }
 

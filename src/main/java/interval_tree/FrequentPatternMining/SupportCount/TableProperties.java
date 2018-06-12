@@ -89,6 +89,7 @@ public class TableProperties {
         return (((double)tables.get(table).get(col).info[0]) / totalSupportCount) >= minsup;
     }
 
+    // ToDo: getPositiveInfinityLimit might not be needed any more because of Double.Positive_Infinity
     public double getPositiveInfinityLimit(String table, String col){
         return this.tables.get(table).get(col).info[4];
     }

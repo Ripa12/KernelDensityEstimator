@@ -128,7 +128,6 @@ public abstract class AbstractFPTree {
         }
     }
 
-    // ToDo: would it be possible to create partial indexes for all possible combinations after FP-Growth, or would that be too many?
     // MIT license
     // https://github.com/PySualk/fp-growth-java/blob/master/src/main/java/org/sualk/fpgrowth/FPgrowth.java
     private void fpGrowthStep(HashMap<String, LinkedList<AbstractFPTreeNode>> headerTable, Set<String> test,  String base) {

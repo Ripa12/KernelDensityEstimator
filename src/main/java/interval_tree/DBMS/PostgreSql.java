@@ -116,25 +116,15 @@ public class PostgreSql {
 
             long queryStartTime = System.nanoTime();
 
-//            String[] arr = queries.split(";");
-
             try(BufferedReader br = new BufferedReader(new FileReader(sourcePath))) {
 
                 int c = 0;
                 for (String line; (line = br.readLine()) != null; ) {
-//                    c++;
-//                    System.out.println("Current query: " + c);
-//                    outputResult(stmt.executeQuery("explain analyze " + line));
                     stmt.executeQuery(line);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-//            for(int c = 0; c < arr.length - 1; c++){
-//                stmt.executeQuery(arr[c]);
-//                //System.out.println("Current query: " + c);
-//            }
 
             long queryEndTime = System.nanoTime() - queryStartTime;
 

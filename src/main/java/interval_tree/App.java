@@ -31,10 +31,11 @@ public class App
 
 
         long generatorStartTime = System.nanoTime();
-        qg.setNrOfQueries(2000);
-        qg.setAverageNrOfCompositeColumns(2);
-        qg.setAverageNrOfDuplicates(200);
-        qg.generateBatchOfQueries(QUERY_BATCH_FILE);
+        qg.setNrOfQueries(2000)
+        .setRelativeSizeOfInterval(3)
+        .setAverageNrOfCompositeColumns(2)
+        .setAverageNrOfDuplicates(100)
+        .generateBatchOfQueries(QUERY_BATCH_FILE);
         long generatorEstimatedTime = System.nanoTime() - generatorStartTime;
 
         Experiment exp = new Experiment(QUERY_BATCH_FILE);

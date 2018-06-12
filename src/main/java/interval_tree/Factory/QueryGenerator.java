@@ -20,6 +20,7 @@ public class QueryGenerator {
     private int nrOfQueries; // ToDo: Null-pointer exception if very small
     private double avgNrOfDuplicates;
     private double avgNrOfColumns;
+    private double intervalFraction;
 
     private Random rand;
     private RandomDataGenerator randMean; // ToDo: Combine Random and RandomDataGenerator
@@ -42,6 +43,16 @@ public class QueryGenerator {
         randMean = new RandomDataGenerator();
         rand = new Random();
 
+    }
+
+
+    /**
+     * Set size of an interval relative to cluster size
+     * @return this
+     */
+    public QueryGenerator setRelativeSizeOfInterval(double val){
+        intervalFraction = val;
+        return this;
     }
 
     public QueryGenerator setNrOfQueries(int n){
@@ -69,12 +80,13 @@ public class QueryGenerator {
         String sqlPrefix = "SELECT * FROM "+tableName+" WHERE ";
 
         PrintWriter out = null;
+        int k = 0;
         try {
             out = new PrintWriter(new OutputStreamWriter(
                     new BufferedOutputStream(new FileOutputStream(targetPath)), "UTF-8"));
 
             StringBuilder tempStmt = new StringBuilder();
-            for (int k = 0; k <= nrOfQueries;) {
+            for (; k <= nrOfQueries;) {
 
                 tempStmt.setLength(0);
                 tempStmt.append(sqlPrefix);
@@ -117,7 +129,7 @@ public class QueryGenerator {
         }
     }
 
-        System.out.println("NrOfQueries: " + nrOfQueries);
+        System.out.println("NrOfQueries: " + k);
     }
 
     private static final double INTERVAL_PROBABILITY = 0.5;
@@ -134,20 +146,28 @@ public class QueryGenerator {
                 if (!success && random <= denseInterval[2]){
                     success = true;
                     if(columnMinMax[selectedColumn][2] == 1) {
-                        start = ThreadLocalRandom.current().nextDouble(denseInterval[1] + 1.0 - denseInterval[0]) + denseInterval[0];
-                        end = ThreadLocalRandom.current().nextDouble(denseInterval[1] + 1.0 - start) + start;
+//                        start = ThreadLocalRandom.current().nextDouble(denseInterval[1] + 1.0 - denseInterval[0]) + denseInterval[0];
+//                        end = ThreadLocalRandom.current().nextDouble(denseInterval[1] + 1.0 - start) + start;
+                        start = denseInterval[0] + (denseInterval[1] - denseInterval[0]) * rand.nextDouble();
+                        end = (denseInterval[1] - denseInterval[0]) / intervalFraction;
+                        end = Math.min(end, denseInterval[1]);
                     }
                     else {
                         start = ThreadLocalRandom.current().nextInt((int) (denseInterval[1] + 1.0 - denseInterval[0])) + (int) denseInterval[0];
-                        end = ThreadLocalRandom.current().nextInt((int) (denseInterval[1] + 1.0 - start)) + start;
+//                        end = ThreadLocalRandom.current().nextInt((int) (denseInterval[1] + 1.0 - start)) + start;
+                        end = (denseInterval[1] - denseInterval[0]) / intervalFraction;
+                        end = (int) Math.min(end, denseInterval[1]);
                     }
                 }
             }
 
             if(!success) {
                 if (columnMinMax[selectedColumn][2] == 1) {
-                    start = ThreadLocalRandom.current().nextDouble((columnMinMax[selectedColumn][1] + 1.0 - columnMinMax[selectedColumn][0])) + columnMinMax[selectedColumn][0];
-                    end = ThreadLocalRandom.current().nextDouble((columnMinMax[selectedColumn][1] + 1.0 - start)) + start;
+//                    start = ThreadLocalRandom.current().nextDouble((columnMinMax[selectedColumn][1] + 1.0 - columnMinMax[selectedColumn][0])) + columnMinMax[selectedColumn][0];
+//                    end = ThreadLocalRandom.current().nextDouble((columnMinMax[selectedColumn][1] + 1.0 - start)) + start;
+                    start = columnMinMax[selectedColumn][0] + (columnMinMax[selectedColumn][1] - columnMinMax[selectedColumn][0]) * rand.nextDouble();
+                    end = start + (columnMinMax[selectedColumn][1] - start) * rand.nextDouble();
+
                 }
                 else {
                     start = ThreadLocalRandom.current().nextInt((int) (columnMinMax[selectedColumn][1] + 1.0 - columnMinMax[selectedColumn][0])) + (int) columnMinMax[selectedColumn][0];
@@ -173,7 +193,7 @@ public class QueryGenerator {
                 if (!success && random <= denseInterval[2]){
                     success = true;
                     if(columnMinMax[selectedColumn][2] == 1) {
-                        start = ThreadLocalRandom.current().nextDouble((denseInterval[1] + 1.0 - denseInterval[0])) + denseInterval[0];
+                        start = denseInterval[0] + (denseInterval[1] - denseInterval[0]) * rand.nextDouble();
                     }
                     else {
                         start = ThreadLocalRandom.current().nextInt((int) (denseInterval[1] + 1.0 - denseInterval[0])) + (int) denseInterval[0];
@@ -182,7 +202,7 @@ public class QueryGenerator {
             }
             if(!success) {
                 if(columnMinMax[selectedColumn][2] == 1) {
-                    start = ThreadLocalRandom.current().nextDouble((columnMinMax[selectedColumn][1] + 1.0 - columnMinMax[selectedColumn][0])) + columnMinMax[selectedColumn][0];
+                    start = columnMinMax[selectedColumn][0] + (columnMinMax[selectedColumn][1] - columnMinMax[selectedColumn][0]) * rand.nextDouble();
                 }
                 else {
                     start = ThreadLocalRandom.current().nextInt((int) (columnMinMax[selectedColumn][1] + 1.0 - columnMinMax[selectedColumn][0])) + (int) columnMinMax[selectedColumn][0];

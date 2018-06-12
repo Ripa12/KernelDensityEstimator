@@ -12,6 +12,7 @@ import java.util.List;
 
 import static interval_tree.Globals.IDEAL_COVERAGE;
 import static interval_tree.Globals.MINSUP;
+import static interval_tree.Globals.NR_OF_CELLS;
 
 
 public class PartialFPTreeNode extends AbstractFPTreeNode {
@@ -22,7 +23,7 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
         super(parent, name);
         this.dimensions = dim;
 
-        clique = new Clique<>(1000, MINSUP, IDEAL_COVERAGE, false, dim);
+        clique = new Clique<>(NR_OF_CELLS, MINSUP, IDEAL_COVERAGE, false, dim);
     }
     PartialFPTreeNode(PartialFPTreeNode parent, String name) {
         super(parent, name);
@@ -67,8 +68,8 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
         double[] negativeInfinity = new double[columns.size()];
         double[] positiveInfinity = new double[columns.size()];
         for (int i = 0; i < columns.size(); i++) {
-            negativeInfinity[i] = tc.getNegativeInfinityLimit(tableName, column);
-            positiveInfinity[i] = tc.getPositiveInfinityLimit(tableName, column);
+            negativeInfinity[i] = tc.getNegativeInfinityLimit(tableName, columns.get(i));
+            positiveInfinity[i] = tc.getPositiveInfinityLimit(tableName, columns.get(i));
         }
         indices = clique.getClusters(tableName, columns, negativeInfinity, positiveInfinity, tc);
     }
