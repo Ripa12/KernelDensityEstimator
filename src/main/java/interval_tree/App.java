@@ -34,7 +34,7 @@ public class App
         qg.setNrOfQueries(2000)
         .setRelativeSizeOfInterval(3)
         .setAverageNrOfCompositeColumns(2)
-        .setAverageNrOfDuplicates(100)
+        .setAverageNrOfDuplicates(200)
         .generateBatchOfQueries(QUERY_BATCH_FILE);
         long generatorEstimatedTime = System.nanoTime() - generatorStartTime;
 

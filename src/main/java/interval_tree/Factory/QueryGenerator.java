@@ -148,15 +148,21 @@ public class QueryGenerator {
                     if(columnMinMax[selectedColumn][2] == 1) {
 //                        start = ThreadLocalRandom.current().nextDouble(denseInterval[1] + 1.0 - denseInterval[0]) + denseInterval[0];
 //                        end = ThreadLocalRandom.current().nextDouble(denseInterval[1] + 1.0 - start) + start;
-                        start = denseInterval[0] + (denseInterval[1] - denseInterval[0]) * rand.nextDouble();
-                        end = (denseInterval[1] - denseInterval[0]) / intervalFraction;
-                        end = Math.min(end, denseInterval[1]);
+//                        start = denseInterval[0] + (denseInterval[1] - denseInterval[0]) * rand.nextDouble();
+//                        end = (denseInterval[1] - denseInterval[0]) / intervalFraction;
+//                        end = Math.min(end, denseInterval[1]);
+
+                        start = denseInterval[0];
+                        end = (denseInterval[1]);
                     }
                     else {
-                        start = ThreadLocalRandom.current().nextInt((int) (denseInterval[1] + 1.0 - denseInterval[0])) + (int) denseInterval[0];
-//                        end = ThreadLocalRandom.current().nextInt((int) (denseInterval[1] + 1.0 - start)) + start;
-                        end = (denseInterval[1] - denseInterval[0]) / intervalFraction;
-                        end = (int) Math.min(end, denseInterval[1]);
+//                        start = ThreadLocalRandom.current().nextInt((int) (denseInterval[1] + 1.0 - denseInterval[0])) + (int) denseInterval[0];
+////                        end = ThreadLocalRandom.current().nextInt((int) (denseInterval[1] + 1.0 - start)) + start;
+//                        end = (denseInterval[1] - denseInterval[0]) / intervalFraction;
+//                        end = (int) Math.min(end, denseInterval[1]);
+
+                        start = (int)denseInterval[0];
+                        end = (int)(denseInterval[1]);
                     }
                 }
             }

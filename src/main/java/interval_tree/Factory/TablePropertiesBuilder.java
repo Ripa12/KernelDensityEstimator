@@ -43,6 +43,7 @@ public class TablePropertiesBuilder {
         return this;
     }
 
+    public static double NOISE_PROBABILITY = 10.0;
     public QueryGenerator build(String source, String tableName) {
         if (tb == null)
             return null;
@@ -67,10 +68,9 @@ public class TablePropertiesBuilder {
                 columnDenseIntervals[i] = new double[denseClusters][3];
 
                 int[] distribution = new int[denseClusters];
-                int start = 50;
+                double p = (100.0 - NOISE_PROBABILITY) / denseClusters;
                 for (int j = 0; j < denseClusters; j++) {
-                    distribution[j] = rand.nextInt(start, 95);
-                    start = distribution[j];
+                    distribution[j] = (int)(p * (j + 1));
                 }
                 Arrays.sort(distribution);
 
