@@ -10,9 +10,7 @@ import interval_tree.SubspaceClustering.MyVector;
 import java.util.LinkedList;
 import java.util.List;
 
-import static interval_tree.Globals.IDEAL_COVERAGE;
-import static interval_tree.Globals.MINSUP;
-import static interval_tree.Globals.NR_OF_CELLS;
+import static interval_tree.Globals.*;
 
 
 public class PartialFPTreeNode extends AbstractFPTreeNode {
@@ -23,7 +21,7 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
         super(parent, name);
         this.dimensions = dim;
 
-        clique = new Clique<>(NR_OF_CELLS, MINSUP, IDEAL_COVERAGE, false, dim);
+        clique = new Clique<>(NR_OF_CELLS, CLUSER_MINSUP, IDEAL_COVERAGE, false, dim);
     }
     PartialFPTreeNode(PartialFPTreeNode parent, String name) {
         super(parent, name);

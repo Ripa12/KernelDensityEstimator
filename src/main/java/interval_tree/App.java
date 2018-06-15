@@ -7,8 +7,7 @@ import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 import org.apache.commons.math3.random.RandomDataGenerator;
 import sun.rmi.runtime.Log;
 
-import static interval_tree.Globals.MINSUP;
-import static interval_tree.Globals.QUERY_BATCH_FILE;
+import static interval_tree.Globals.*;
 
 
 /**
@@ -29,12 +28,10 @@ public class App
         QueryGenerator qg = tpb.build("table_data/test_data.csv", "kegg");
 
 
-
         long generatorStartTime = System.nanoTime();
-        qg.setNrOfQueries(2000)
-        .setRelativeSizeOfInterval(3)
-        .setAverageNrOfCompositeColumns(2)
-        .setAverageNrOfDuplicates(200)
+        qg.setNrOfQueries(NR_OF_QUERIES)
+        .setAverageNrOfCompositeColumns(NR_OF_COMPOSITE_COLUMNS)
+        .setAverageNrOfDuplicates(NR_OF_DUPLICATES)
         .generateBatchOfQueries(QUERY_BATCH_FILE);
         long generatorEstimatedTime = System.nanoTime() - generatorStartTime;
 

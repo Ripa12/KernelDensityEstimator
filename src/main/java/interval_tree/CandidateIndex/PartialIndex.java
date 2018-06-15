@@ -100,4 +100,13 @@ public class PartialIndex extends AbstractIndex {
                 return null;
         }
     }
+
+    // 1 2
+    //[3 8] x
+    //[2 4] y
+
+    boolean isOverlapping(PartialIndex other){
+        // x1 <= y2 && y1 <= x2
+        return other.start.doubleValue() <= end.doubleValue() && start.doubleValue() <= other.end.doubleValue();
+    }
 }

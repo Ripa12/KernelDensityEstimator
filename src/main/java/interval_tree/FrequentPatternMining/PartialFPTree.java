@@ -1,5 +1,6 @@
 package interval_tree.FrequentPatternMining;
 
+import interval_tree.CandidateIndex.CompoundPartialIndex;
 import interval_tree.CandidateIndex.IIndex;
 import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 import interval_tree.SubspaceClustering.MyData;
@@ -73,7 +74,8 @@ public class PartialFPTree extends AbstractFPTree{
             String entry = it.next();
 
             node = node.getChild(entry);
-            if(node != null && ((double)node.getFrequency() / totalSupportCount >= minsup)) {
+//            if(node != null && ((double)node.getFrequency() / totalSupportCount >= minsup)) {
+            if(node != null) {
                 proc.delegate(node, dim, data);
                 dim++;
             }
@@ -138,7 +140,8 @@ public class PartialFPTree extends AbstractFPTree{
     }
 
     private void extractItemSet(AbstractFPTreeNode node, List<String> columns){
-        if(((double)node.getFrequency() / totalSupportCount >= minsup)) {
+//        if(((double)node.getFrequency() / totalSupportCount >= minsup))
+        {
 
             if (node instanceof PartialFPTreeNode) {
                 node.extractIndexes(tableName, columns, tableProperties);
@@ -153,12 +156,29 @@ public class PartialFPTree extends AbstractFPTree{
 
         List<IIndex> tempList = treeNodes.get(0).extractIndexes(frequency, tableName, columns);
         fullIndexes.add(tempList.remove(0));
+
         partialIndexs.addAll(tempList);
         for (int i = 1; i < treeNodes.size(); i++) {
             tempList = treeNodes.get(i).extractIndexes(frequency, tableName, columns);
             tempList.remove(0);
             partialIndexs.addAll(tempList);
         }
+
+        List<IIndex> finalList = new ArrayList<>(tempList.size());
+
+        for (String column : columns) {
+            tempList.sort((o1, o2) -> ((CompoundPartialIndex) o1).isLeftOf(((CompoundPartialIndex) o2), column)); // ToDo: necessary to assert valid cast?
+
+            for (int j = tempList.size() - 1; j < 0; j--) {
+                CompoundPartialIndex rightIdx = ((CompoundPartialIndex) tempList.get(j));
+                CompoundPartialIndex leftIdx = ((CompoundPartialIndex) tempList.get(j - 1));
+
+                if(!rightIdx.isOverlapping(leftIdx, column)){
+                    finalList.add(tempList.remove(j));
+                }
+            }
+        }
+
     }
 
     @Override

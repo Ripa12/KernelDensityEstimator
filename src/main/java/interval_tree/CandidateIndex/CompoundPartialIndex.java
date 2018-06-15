@@ -140,4 +140,13 @@ public class CompoundPartialIndex implements IIndex {
     public void setWeight(double w){
         this.totalWeight = w;
     }
+
+
+    public int isLeftOf(CompoundPartialIndex other, String col){
+        return 0;
+    }
+
+    public boolean isOverlapping(CompoundPartialIndex other, String col){
+        return getPredicate(col).isOverlapping(other.getPredicate(col));
+    }
 }

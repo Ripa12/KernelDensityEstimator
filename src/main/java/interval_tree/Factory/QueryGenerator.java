@@ -20,7 +20,6 @@ public class QueryGenerator {
     private int nrOfQueries; // ToDo: Null-pointer exception if very small
     private double avgNrOfDuplicates;
     private double avgNrOfColumns;
-    private double intervalFraction;
 
     private Random rand;
     private RandomDataGenerator randMean; // ToDo: Combine Random and RandomDataGenerator
@@ -43,16 +42,6 @@ public class QueryGenerator {
         randMean = new RandomDataGenerator();
         rand = new Random();
 
-    }
-
-
-    /**
-     * Set size of an interval relative to cluster size
-     * @return this
-     */
-    public QueryGenerator setRelativeSizeOfInterval(double val){
-        intervalFraction = val;
-        return this;
     }
 
     public QueryGenerator setNrOfQueries(int n){
