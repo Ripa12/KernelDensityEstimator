@@ -121,6 +121,11 @@ public class PartialFPTree extends AbstractFPTree {
         }
     }
 
+    @Override
+    public AbstractFPTreeNode createRoot() {
+        return new PartialFPTreeNode(null, "");
+    }
+
     public void extractItemSets(double minsup) {
         this.minsup = minsup;
         LinkedList<String> cols = new LinkedList<>();
@@ -160,48 +165,46 @@ public class PartialFPTree extends AbstractFPTree {
             tempList.remove(0);
         }
 
-        CompoundPartialIndex rightIdx;
-        int i = tempList.size() - 1;
-        while (i > 0) {
-            rightIdx = ((CompoundPartialIndex) tempList.get(i));
-            for (int j = tempList.indexOf(rightIdx) - 1; j >= 0; j--) {
-                CompoundPartialIndex leftIdx = ((CompoundPartialIndex) tempList.get(j));
-
-                if (rightIdx.merge(leftIdx)) {
-                    tempList.remove(j);
-                }
-            }
-            i = tempList.indexOf(rightIdx) - 1;
-        }
-
-        for (int j = tempList.size() - 1; j >= 0; j--) {
-            if (((double)tempList.get(j).getValue()) < minsup) {
-                tempList.remove(j);
-            }
-        }
-
-        partialIndexs.addAll(tempList);
-
-//        List<IIndex> finalList = new ArrayList<>(tempList.size());
+//        CompoundPartialIndex rightIdx;
+//        int i = tempList.size() - 1;
+//        while (i > 0) {
+//            rightIdx = ((CompoundPartialIndex) tempList.get(i));
+//            for (int j = tempList.indexOf(rightIdx) - 1; j >= 0; j--) {
+//                CompoundPartialIndex leftIdx = ((CompoundPartialIndex) tempList.get(j));
 //
-//        for (String column : columns) {
-//            tempList.sort((o1, o2) -> ((CompoundPartialIndex) o1).isLeftOf(((CompoundPartialIndex) o2), column)); // ToDo: necessary to assert valid cast?
-//
-//            for (int j = tempList.size() - 1; j < 0; j--) {
-//                CompoundPartialIndex rightIdx = ((CompoundPartialIndex) tempList.get(j));
-//                CompoundPartialIndex leftIdx = ((CompoundPartialIndex) tempList.get(j - 1));
-//
-//                if(!rightIdx.isOverlapping(leftIdx, column)){
-//                    finalList.add(tempList.remove(j));
+//                if (rightIdx.merge(leftIdx)) {
+//                    tempList.remove(j);
 //                }
+//            }
+//            i = tempList.indexOf(rightIdx) - 1;
+//        }
+//
+//        for (int j = tempList.size() - 1; j >= 0; j--) {
+//            if (((double)tempList.get(j).getValue()) < minsup) {
+//                tempList.remove(j);
 //            }
 //        }
 
+        merge(columns, 0, tempList, partialIndexs);
+
+        //partialIndexs.addAll(tempList);
     }
 
-    @Override
-    public AbstractFPTreeNode createRoot() {
-        return new PartialFPTreeNode(null, "");
+    private void merge(List<String> columns, int dim, List<IIndex> indexes, List<IIndex> finalList){
+        if(dim >= columns.size()) {
+            for (int j = indexes.size() - 1; j > 0; j--) {
+                ((CompoundPartialIndex) indexes.get(j-1)).merge(((CompoundPartialIndex) indexes.get(j)));
+                indexes.remove(j);
+            }
+
+            finalList.addAll(indexes);
+            return;
+        }
+
+        List<List<IIndex>> idxsList = CompoundPartialIndex.merge(indexes, columns.get(dim));
+        for (List<IIndex> idxs : idxsList) {
+            merge(columns, dim + 1, idxs, finalList);
+        }
     }
 
 }

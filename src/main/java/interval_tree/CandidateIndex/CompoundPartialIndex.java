@@ -148,7 +148,7 @@ public class CompoundPartialIndex implements IIndex {
     }
 
     public int isLeftOf(CompoundPartialIndex other, String col){
-        return 0;
+        return Double.compare(predicateList.get(col).getStart(), other.predicateList.get(col).getStart());
     }
 
     public boolean merge(CompoundPartialIndex other){
@@ -164,5 +164,34 @@ public class CompoundPartialIndex implements IIndex {
         }
 
         return true;
+    }
+
+    public static List<List<IIndex>> merge(List<IIndex> intervals, String column) {
+        if(intervals.size() < 2)
+            return Collections.singletonList(intervals);
+
+
+        intervals.sort((o1, o2) -> ((CompoundPartialIndex) o1).isLeftOf(((CompoundPartialIndex) o2), column));
+
+
+        CompoundPartialIndex first = ((CompoundPartialIndex) intervals.get(0));
+        double end = first.predicateList.get(column).getEnd();
+        LinkedList<List<IIndex>> result = new LinkedList<>();
+        LinkedList<IIndex> temp = new LinkedList<>();
+        temp.add(first);
+        for(int i = 1; i < intervals.size(); i++){
+            CompoundPartialIndex current = ((CompoundPartialIndex) intervals.get(i));
+            if(current.predicateList.get(column).getStart() <= end){
+                end = Math.max(current.predicateList.get(column).getEnd(), end);
+                temp.add(current);
+            }else{
+                result.add(temp);
+                temp = new LinkedList<>();
+
+                end = current.predicateList.get(column).getEnd();
+            }
+        }
+        result.add(temp);
+        return result;
     }
 }

@@ -4,7 +4,7 @@ package interval_tree;
  * Created by Richard on 2018-06-08.
  */
 public class Globals {
-    public static int STORAGE_CAPACITY = 10000;
+    public static int STORAGE_CAPACITY = 60000;
     public static double MINSUP = .01;
 
     /**

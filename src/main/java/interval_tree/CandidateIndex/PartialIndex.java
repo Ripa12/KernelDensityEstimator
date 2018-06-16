@@ -139,4 +139,12 @@ public class PartialIndex extends AbstractIndex {
         this.start = Math.min(other.start, start);
         this.end = Math.max(other.end, end);
     }
+
+    double getStart(){
+        return start;
+    }
+
+    double getEnd(){
+        return end;
+    }
 }
