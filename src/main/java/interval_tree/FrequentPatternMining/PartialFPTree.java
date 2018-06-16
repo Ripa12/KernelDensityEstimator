@@ -8,17 +8,17 @@ import interval_tree.SubspaceClustering.MyVector;
 
 import java.util.*;
 
-public class PartialFPTree extends AbstractFPTree{
+public class PartialFPTree extends AbstractFPTree {
 
-    interface DataProcessor{
+    interface DataProcessor {
         void delegate(AbstractFPTreeNode node, int dim, MyData[] data);
     }
 
-    public static class PartialFPTreeBuilder{
+    public static class PartialFPTreeBuilder {
 
         private Map<String, PartialFPTree> fpTree;
 
-        public PartialFPTreeBuilder(TableProperties tableProperties){
+        public PartialFPTreeBuilder(TableProperties tableProperties) {
             this.fpTree = new HashMap<>();
 
             for (String tableName : tableProperties.getTableNames()) {
@@ -26,18 +26,18 @@ public class PartialFPTree extends AbstractFPTree{
             }
         }
 
-        public void insertTree(String tableName, Set<String> transactions, MyData[] data){
-            PartialFPTreeNode node = ((PartialFPTreeNode)fpTree.get(tableName).insertTree(transactions.iterator()));
+        public void insertTree(String tableName, Set<String> transactions, MyData[] data) {
+            PartialFPTreeNode node = ((PartialFPTreeNode) fpTree.get(tableName).insertTree(transactions.iterator()));
 
-            for(int i = data.length-1; i >= 0; i--) {
+            for (int i = data.length - 1; i >= 0; i--) {
 
                 // ToDo: Maybe better to pass MyData without having to wrap it in MyVector
-                node.updateMinMax(new MyVector(Arrays.copyOfRange(data, 0, i+1)));
-                node = (PartialFPTreeNode)node.getParent();
+                node.updateMinMax(new MyVector(Arrays.copyOfRange(data, 0, i + 1)));
+                node = (PartialFPTreeNode) node.getParent();
             }
         }
 
-        public Map<String, PartialFPTree> getFPTree(){
+        public Map<String, PartialFPTree> getFPTree() {
             for (PartialFPTree partialFPTree : fpTree.values()) {
                 partialFPTree.initializeAllUnits();
             }
@@ -49,21 +49,21 @@ public class PartialFPTree extends AbstractFPTree{
     private List<IIndex> fullIndexes;
     private List<IIndex> partialIndexs;
 
-    private PartialFPTree(TableProperties tableProperties, String tableName){
-        super(tableProperties, tableName, new PartialFPTreeNode(null,"", 0));
+    private PartialFPTree(TableProperties tableProperties, String tableName) {
+        super(tableProperties, tableName, new PartialFPTreeNode(null, "", 0));
         fullIndexes = new LinkedList<>();
         partialIndexs = new LinkedList<>();
     }
 
-    public void addData(Set<String> transactions, MyData[] data){
+    public void addData(Set<String> transactions, MyData[] data) {
         processTransaction(this::addData, transactions, data);
     }
 
-    public void validateData(Set<String> transactions, MyData[] data){
+    public void validateData(Set<String> transactions, MyData[] data) {
         processTransaction(this::validateData, transactions, data);
     }
 
-    private void processTransaction(DataProcessor proc, Set<String> transactions, MyData[] data){
+    private void processTransaction(DataProcessor proc, Set<String> transactions, MyData[] data) {
         Iterator<String> it = transactions.iterator();
 
         AbstractFPTreeNode node = getRoot();
@@ -75,48 +75,47 @@ public class PartialFPTree extends AbstractFPTree{
 
             node = node.getChild(entry);
 //            if(node != null && ((double)node.getFrequency() / totalSupportCount >= minsup)) {
-            if(node != null) {
+            if (node != null) {
                 proc.delegate(node, dim, data);
                 dim++;
-            }
-            else {
+            } else {
                 terminate = true;
             }
         }
     }
 
-    public List<IIndex> getFullIndexes(){
+    public List<IIndex> getFullIndexes() {
         return fullIndexes;
     }
 
-    public List<IIndex> getPartialIndexes(){
+    public List<IIndex> getPartialIndexes() {
         return partialIndexs;
     }
 
     // ToDo: Maybe closed item-sets would be better memory-wise for CLIQUE (maybe not)
-    private void addData(AbstractFPTreeNode node, int dim, MyData[] data){
-        if(node != null && node instanceof PartialFPTreeNode){
+    private void addData(AbstractFPTreeNode node, int dim, MyData[] data) {
+        if (node != null && node instanceof PartialFPTreeNode) {
             ((PartialFPTreeNode) node).addData(new MyVector(Arrays.copyOfRange(data, 0, dim)));
         }
     }
 
-    private void validateData(AbstractFPTreeNode node, int dim, MyData[] data){
-        if(node != null && node instanceof PartialFPTreeNode){
+    private void validateData(AbstractFPTreeNode node, int dim, MyData[] data) {
+        if (node != null && node instanceof PartialFPTreeNode) {
             ((PartialFPTreeNode) node).validateClusters(new MyVector(Arrays.copyOfRange(data, 0, dim)));
         }
     }
 
-    private void initializeAllUnits(){
-        for(LinkedList<AbstractFPTreeNode> list : header.values()){
-            for(AbstractFPTreeNode node : list){
+    private void initializeAllUnits() {
+        for (LinkedList<AbstractFPTreeNode> list : header.values()) {
+            for (AbstractFPTreeNode node : list) {
                 ((PartialFPTreeNode) node).initDimensions();
             }
         }
     }
 
-    public void generateAllClusters(){
-        for(LinkedList<AbstractFPTreeNode> list : header.values()){
-            for(AbstractFPTreeNode node : list){
+    public void generateAllClusters() {
+        for (LinkedList<AbstractFPTreeNode> list : header.values()) {
+            for (AbstractFPTreeNode node : list) {
                 ((PartialFPTreeNode) node).findClusters();
             }
         }
@@ -139,45 +138,64 @@ public class PartialFPTree extends AbstractFPTree{
         extractItemSet(node, cols);
     }
 
-    private void extractItemSet(AbstractFPTreeNode node, List<String> columns){
+    private void extractItemSet(AbstractFPTreeNode node, List<String> columns) {
 //        if(((double)node.getFrequency() / totalSupportCount >= minsup))
         {
-
             if (node instanceof PartialFPTreeNode) {
-                node.extractIndexes(tableName, columns, tableProperties);
+                ((PartialFPTreeNode) node).extractIndexes(tableName, columns);
             }
         }
     }
 
     @Override
     void extractItemSet(double frequency, List<String> columns, List<AbstractFPTreeNode> treeNodes) {
-        if(treeNodes.size() == 0)
+        if (treeNodes.size() == 0)
             return;
 
         List<IIndex> tempList = treeNodes.get(0).extractIndexes(frequency, tableName, columns);
         fullIndexes.add(tempList.remove(0));
 
-        partialIndexs.addAll(tempList);
         for (int i = 1; i < treeNodes.size(); i++) {
-            tempList = treeNodes.get(i).extractIndexes(frequency, tableName, columns);
+            tempList.addAll(0, treeNodes.get(i).extractIndexes(frequency, tableName, columns));
             tempList.remove(0);
-            partialIndexs.addAll(tempList);
         }
 
-        List<IIndex> finalList = new ArrayList<>(tempList.size());
+        CompoundPartialIndex rightIdx;
+        int i = tempList.size() - 1;
+        while (i > 0) {
+            rightIdx = ((CompoundPartialIndex) tempList.get(i));
+            for (int j = tempList.indexOf(rightIdx) - 1; j >= 0; j--) {
+                CompoundPartialIndex leftIdx = ((CompoundPartialIndex) tempList.get(j));
 
-        for (String column : columns) {
-            tempList.sort((o1, o2) -> ((CompoundPartialIndex) o1).isLeftOf(((CompoundPartialIndex) o2), column)); // ToDo: necessary to assert valid cast?
-
-            for (int j = tempList.size() - 1; j < 0; j--) {
-                CompoundPartialIndex rightIdx = ((CompoundPartialIndex) tempList.get(j));
-                CompoundPartialIndex leftIdx = ((CompoundPartialIndex) tempList.get(j - 1));
-
-                if(!rightIdx.isOverlapping(leftIdx, column)){
-                    finalList.add(tempList.remove(j));
+                if (rightIdx.merge(leftIdx)) {
+                    tempList.remove(j);
                 }
             }
+            i = tempList.indexOf(rightIdx) - 1;
         }
+
+        for (int j = tempList.size() - 1; j >= 0; j--) {
+            if (((double)tempList.get(j).getValue()) < minsup) {
+                tempList.remove(j);
+            }
+        }
+
+        partialIndexs.addAll(tempList);
+
+//        List<IIndex> finalList = new ArrayList<>(tempList.size());
+//
+//        for (String column : columns) {
+//            tempList.sort((o1, o2) -> ((CompoundPartialIndex) o1).isLeftOf(((CompoundPartialIndex) o2), column)); // ToDo: necessary to assert valid cast?
+//
+//            for (int j = tempList.size() - 1; j < 0; j--) {
+//                CompoundPartialIndex rightIdx = ((CompoundPartialIndex) tempList.get(j));
+//                CompoundPartialIndex leftIdx = ((CompoundPartialIndex) tempList.get(j - 1));
+//
+//                if(!rightIdx.isOverlapping(leftIdx, column)){
+//                    finalList.add(tempList.remove(j));
+//                }
+//            }
+//        }
 
     }
 

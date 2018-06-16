@@ -296,8 +296,7 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
         }
     }
 
-    public List<CompoundPartialIndex> getClusters(String tableName, List<String> columns,
-                                    double[] negativeInfinity, double[] positiveInfinity, TableProperties tc){
+    public List<CompoundPartialIndex> getClusters(String tableName, List<String> columns){
         if(modelsAndClusters == null)
             return null;
 
@@ -310,16 +309,15 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
 
             // ToDo: Are too many candidate clusters created before being pruned?
             if ((coverage / ((double) total)) >= tau) {
-                candidates.add(((CliqueSubspace) modelAndCluster.getFirst()).makePartialIndex(tableName, columns,
-                        negativeInfinity, positiveInfinity, tc));
+                candidates.add(((CliqueSubspace) modelAndCluster.getFirst()).makePartialIndex(tableName, columns));
                 accumulatedCoverage += coverage;
             }
         }
 
-        // ToDo: Macro here
-        if((accumulatedCoverage / ((double) total)) < idealCoverage){
-            candidates.clear();
-        }
+//        // ToDo: Macro here
+//        if((accumulatedCoverage / ((double) total)) < idealCoverage){
+//            candidates.clear();
+//        }
 
         return candidates;
     }

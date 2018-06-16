@@ -1,5 +1,7 @@
 package interval_tree.CandidateIndex;
 
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
+
 import java.util.*;
 
 public class CompoundPartialIndex implements IIndex {
@@ -69,19 +71,19 @@ public class CompoundPartialIndex implements IIndex {
     }
 
     @Override
-    public String createIdxStatement() {
+    public String createIdxStatement(TableProperties tp) {
         assert predicateList.size() > 0;
 
         StringBuilder f = new StringBuilder("(");
         Iterator it = predicateList.entrySet().iterator();
         Map.Entry pair = (Map.Entry)it.next();
 
-        f.append(((PartialIndex)pair.getValue()).getPredicate());
+        f.append(((PartialIndex)pair.getValue()).getPredicate(tp));
         while (it.hasNext()) {
             pair = (Map.Entry)it.next();
 
             f.append(" AND ");
-            f.append(((PartialIndex)pair.getValue()).getPredicate());
+            f.append(((PartialIndex)pair.getValue()).getPredicate(tp));
         }
         f.append(");'");
 
@@ -89,27 +91,31 @@ public class CompoundPartialIndex implements IIndex {
     }
 
     @Override
-    public String createIdxStatementWithId(int id) {
+    public String createIdxStatementWithId(int id, TableProperties tp) {
         assert predicateList.size() > 0;
 
         StringBuilder f = new StringBuilder("(");
         Iterator it = predicateList.entrySet().iterator();
         Map.Entry pair = (Map.Entry)it.next();
 
-        f.append(((PartialIndex)pair.getValue()).getPredicate());
+        f.append(((PartialIndex)pair.getValue()).getPredicate(tp));
         while (it.hasNext()) {
             pair = (Map.Entry)it.next();
 
             f.append(" AND ");
-            f.append(((PartialIndex)pair.getValue()).getPredicate());
+            f.append(((PartialIndex)pair.getValue()).getPredicate(tp));
         }
         f.append(");");
 
         return  "CREATE INDEX idx_" + id + " ON "+tableName+"("+ getColumnName() +") where " + f.toString(); // ToDo: what table-name to use?
     }
 
-    public PartialIndex getPredicate(String name){
+    private PartialIndex getPredicate(String name){
         return predicateList.get(name);
+    }
+
+    public PartialIndex getPredicateClone(String name){
+        return new PartialIndex(predicateList.get(name));
     }
 
     @Override
@@ -141,12 +147,22 @@ public class CompoundPartialIndex implements IIndex {
         this.totalWeight = w;
     }
 
-
     public int isLeftOf(CompoundPartialIndex other, String col){
         return 0;
     }
 
-    public boolean isOverlapping(CompoundPartialIndex other, String col){
-        return getPredicate(col).isOverlapping(other.getPredicate(col));
+    public boolean merge(CompoundPartialIndex other){
+        // ToDo: Assert that other is similar to this
+        for (String s : predicateList.keySet()) {
+            if(!getPredicate(s).isOverlapping(other.getPredicate(s)))
+                return false;
+        }
+
+        totalValue += other.getValue();
+        for (String s : predicateList.keySet()) {
+            getPredicate(s).merge(other.getPredicate(s));
+        }
+
+        return true;
     }
 }

@@ -1,8 +1,10 @@
 package interval_tree.CandidateIndex;
 
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
+
 public interface IIndex {
-    String createIdxStatement();
-    String createIdxStatementWithId(int id);
+    String createIdxStatement(TableProperties tp);
+    String createIdxStatementWithId(int id, TableProperties tp);
 
     String getColumnName();
     double getValue();

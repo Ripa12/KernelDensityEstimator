@@ -17,11 +17,6 @@ public class FullFPTreeNode extends AbstractFPTreeNode {
     }
 
     @Override
-    public void extractIndexes(String tableName, List<String> columns, TableProperties tc){
-        // ToDo: Only ever used in partialFPTreeNode
-    }
-
-    @Override
     public List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns) {
         return Collections
                 .singletonList(new FullIndex(frequency, 0, tableName, String.join(",", columns)));

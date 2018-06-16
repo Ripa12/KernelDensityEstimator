@@ -61,15 +61,8 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
         return new PartialFPTreeNode(this, column, dimensions + 1);
     }
 
-    @Override
-    public void extractIndexes(String tableName, List<String> columns, TableProperties tc){
-        double[] negativeInfinity = new double[columns.size()];
-        double[] positiveInfinity = new double[columns.size()];
-        for (int i = 0; i < columns.size(); i++) {
-            negativeInfinity[i] = tc.getNegativeInfinityLimit(tableName, columns.get(i));
-            positiveInfinity[i] = tc.getPositiveInfinityLimit(tableName, columns.get(i));
-        }
-        indices = clique.getClusters(tableName, columns, negativeInfinity, positiveInfinity, tc);
+    public void extractIndexes(String tableName, List<String> columns){
+        indices = clique.getClusters(tableName, columns);
     }
 
     @Override
@@ -81,7 +74,7 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
             CompoundPartialIndex tempComp = new CompoundPartialIndex(tableName);
             if(index instanceof CompoundPartialIndex){
                 for (String treeNode : columns) {
-                    tempComp.addCompoundPredicate(((CompoundPartialIndex) index).getPredicate(treeNode));
+                    tempComp.addCompoundPredicate(((CompoundPartialIndex) index).getPredicateClone(treeNode));
                 }
                 result.add(tempComp);
             }

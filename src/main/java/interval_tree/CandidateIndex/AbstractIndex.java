@@ -28,6 +28,9 @@ public abstract class AbstractIndex implements IIndex{
     public double getValue(){
         return value;
     }
+    void setValue(double v){
+        this.value = v;
+    }
 
     @Override
     public double getWeight(){

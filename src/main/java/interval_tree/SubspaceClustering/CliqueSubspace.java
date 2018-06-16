@@ -124,43 +124,25 @@ public class CliqueSubspace<V extends MyVector> extends Subspace {
         }
     }
 
-    public CompoundPartialIndex makePartialIndex(String table, List<String> columns,
-                                                 double[] negativeInfinity, double[] positiveInfinity, TableProperties tc) {
-        // ToDo: Coverage should be in Composite class or Full index instead
+    CompoundPartialIndex makePartialIndex(String table, List<String> columns) {
+
         CompoundPartialIndex compoundPartialIndex = new CompoundPartialIndex(table);
 
         for (int i = 0; i < lowerBounds.length; i++) {
-//            if (negativeInfinity[i] <= lowerBounds[i] && positiveInfinity[i] >= maximumBounds[i]) { // ToDo: maximumBounds[i] is sometimes larger than positiveInfinity[i] due to rounding errors!
-//
-//                if(negativeInfinity[i] >= lowerBounds[i]){
-//                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
-//                            tc.getCorrectType(table, columns.get(i), maximumBounds[i]),
-//                            PartialIndex.ConditionType.LESS_THAN));
-//                }
-//                else if(positiveInfinity[i] <= maximumBounds[i]){
-//                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
-//                            tc.getCorrectType(table, columns.get(i), lowerBounds[i]), PartialIndex.ConditionType.GREATER_THAN));
-//                }
-//                else {
-//                    compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
-//                            tc.getCorrectType(table, columns.get(i), lowerBounds[i]),
-//                            tc.getCorrectType(table, columns.get(i), maximumBounds[i])));
-//                }
-//            }
 
+
+                // ToDo: Call tc.getCorrectType in CompoundPartialIndex instead -> easier to merge indexes!
                 if(Double.isInfinite(lowerBounds[i])){
                     compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
-                            tc.getCorrectType(table, columns.get(i), maximumBounds[i]),
-                            PartialIndex.ConditionType.LESS_THAN));
+                            maximumBounds[i], PartialIndex.ConditionType.LESS_THAN));
                 }
                 else if(Double.isInfinite(maximumBounds[i])){
                     compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
-                            tc.getCorrectType(table, columns.get(i), lowerBounds[i]), PartialIndex.ConditionType.GREATER_THAN));
+                            lowerBounds[i], PartialIndex.ConditionType.GREATER_THAN));
                 }
                 else {
                     compoundPartialIndex.addCompoundPredicate(new PartialIndex(coverage, 0, table, columns.get(i),
-                            tc.getCorrectType(table, columns.get(i), lowerBounds[i]),
-                            tc.getCorrectType(table, columns.get(i), maximumBounds[i])));
+                            lowerBounds[i], maximumBounds[i]));
                 }
         }
 

@@ -1,5 +1,7 @@
 package interval_tree.CandidateIndex;
 
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
+
 public class PartialIndex extends AbstractIndex {
 
     public enum ConditionType{
@@ -9,10 +11,10 @@ public class PartialIndex extends AbstractIndex {
         POINT
     }
 
-    private Number start, end;
+    private double start, end;
     private ConditionType conditionType;
 
-    public PartialIndex(double v, double w, String t, String c, Number s, Number e){
+    public PartialIndex(double v, double w, String t, String c, double s, double e){
         super(v, w, t, c);
         start = s;
         end = e;
@@ -20,7 +22,7 @@ public class PartialIndex extends AbstractIndex {
         conditionType = ConditionType.INTERVAL;
     }
 
-    public PartialIndex(double v, double w, String t, String c, Number s, ConditionType conditionType){
+    public PartialIndex(double v, double w, String t, String c, double s, ConditionType conditionType){
         super(v, w, t, c);
         start = s;
         end = s;
@@ -28,11 +30,22 @@ public class PartialIndex extends AbstractIndex {
         this.conditionType = conditionType;
     }
 
+    public PartialIndex(PartialIndex other){
+        super(other.getValue(), other.getWeight(), other.tableName, other.columnNames);
+        start = other.start;
+        end = other.end;
+
+        this.conditionType = other.conditionType;
+    }
+
     @Override
-    public String createIdxStatement() {
+    public String createIdxStatement(TableProperties tp) {
+
+        Number start = tp.getCorrectType(tableName, columnNames, this.start);
+        Number end = tp.getCorrectType(tableName, columnNames, this.end);
+
         switch (conditionType) {
             case INTERVAL: {
-
                 String filter = "(" + columnNames + " >= " + start + " AND " + columnNames + " <= " + end + ");'";
                 return "'CREATE INDEX ON "+ tableName +"("+ columnNames +") where " + filter;
             }
@@ -54,7 +67,11 @@ public class PartialIndex extends AbstractIndex {
     }
 
     @Override
-    public String createIdxStatementWithId(int id) {
+    public String createIdxStatementWithId(int id, TableProperties tp) {
+
+        Number start = tp.getCorrectType(tableName, columnNames, this.start);
+        Number end = tp.getCorrectType(tableName, columnNames, this.end);
+
         switch (conditionType) {
             case INTERVAL: {
                 String filter = "(" + columnNames + " >= " + start + " AND " + columnNames + " <= " + end + ");";
@@ -81,7 +98,10 @@ public class PartialIndex extends AbstractIndex {
         }
     }
 
-    String getPredicate() {
+    String getPredicate(TableProperties tp) {
+
+        Number start = tp.getCorrectType(tableName, columnNames, this.start);
+        Number end = tp.getCorrectType(tableName, columnNames, this.end);
 
         switch (conditionType) {
             case INTERVAL: {
@@ -102,11 +122,21 @@ public class PartialIndex extends AbstractIndex {
     }
 
     // 1 2
-    //[3 8] x
+    //[1 8] x
     //[2 4] y
+
+    //[2 4] x
+    //[1 8] y
+
 
     boolean isOverlapping(PartialIndex other){
         // x1 <= y2 && y1 <= x2
-        return other.start.doubleValue() <= end.doubleValue() && start.doubleValue() <= other.end.doubleValue();
+        return other.start <= end && start <= other.end;
+    }
+
+    void merge(PartialIndex other){
+        this.setValue(getValue() + other.getValue());
+        this.start = Math.min(other.start, start);
+        this.end = Math.max(other.end, end);
     }
 }

@@ -48,7 +48,7 @@ public class SupportCountParser extends AbstractParser {
         // ToDo: constrain point to range
 //        tableProperties.updateMinMax(getCurrentTable(), col, point,
 //                (double)tableProperties.getPositiveInfinityLimit(getCurrentTable(), col));
-        list.put(col, new MyInterval(point, (double) tableProperties.getPositiveInfinityLimit(getCurrentTable(), col)));
+        list.put(col, new MyInterval(point, Double.POSITIVE_INFINITY));
     }
 
     @Override
@@ -56,6 +56,6 @@ public class SupportCountParser extends AbstractParser {
         // ToDo: constrain point to range. Change data-type to double
 //        tableProperties.updateMinMax(getCurrentTable(), col,
 //                (double)tableProperties.getNegativeInfinityLimit(getCurrentTable(), col), point);
-        list.put(col, new MyInterval((double) tableProperties.getNegativeInfinityLimit(getCurrentTable(), col), point));
+        list.put(col, new MyInterval(Double.NEGATIVE_INFINITY, point));
     }
 }

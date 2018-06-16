@@ -89,7 +89,7 @@ public class Experiment {
         int indexIDs = 0;
         for(IIndex idx : indexList) {
             indexIDs++;
-            System.out.println(idx.createIdxStatementWithId(indexIDs) + " val " + idx.getValue());
+            System.out.println(idx.createIdxStatementWithId(indexIDs, tableCount) + " val " + idx.getValue());
         }
 
 //        testIndexes(indexList);
@@ -136,13 +136,13 @@ public class Experiment {
         int indexIDs = 0;
         for(IIndex idx : partialIndices) {
             indexIDs++;
-            System.out.println(idx.createIdxStatementWithId(indexIDs) + " val " + idx.getValue());
+            System.out.println(idx.createIdxStatementWithId(indexIDs, tableCount) + " val " + idx.getValue());
         }
 
         System.out.println("-- All generated Full Indexes --");
         for(IIndex idx : fullIndices) {
             indexIDs++;
-            System.out.println(idx.createIdxStatementWithId(indexIDs) + " val " + idx.getValue());
+            System.out.println(idx.createIdxStatementWithId(indexIDs, tableCount) + " val " + idx.getValue());
         }
 
 
@@ -175,15 +175,15 @@ public class Experiment {
 
 
     // ToDo: Maybe pass a list of individual queries and not all queries in same string
-    private void testIndexes(List<? extends IIndex> indexList){
+    private void testIndexes(List<? extends IIndex> indexList, TableProperties tp){
         PostgreSql postSql = null;
         try {
             postSql = new PostgreSql();
-            postSql.estimateWeights(indexList);
+            postSql.estimateWeights(indexList, tp);
 
             DynamicProgramming.solveKP(indexList, STORAGE_CAPACITY);
 
-            postSql.buildCandidateIndexes(indexList);
+            postSql.buildCandidateIndexes(indexList, tp);
             postSql.testIndexes(sourcePath);
 
         } catch (Exception e) {
@@ -200,15 +200,15 @@ public class Experiment {
     }
 
     private void testIndexes(List<IIndex> partialIndices,
-                             List<IIndex> fullIndices){
+                             List<IIndex> fullIndices, TableProperties tp){
         PostgreSql postSql = null;
         try {
             postSql = new PostgreSql();
-            postSql.estimateWeights(fullIndices);
+            postSql.estimateWeights(fullIndices, tp);
 
             int leftover = DynamicProgramming.solveKP(fullIndices, STORAGE_CAPACITY);
 
-            postSql.buildCandidateIndexes(fullIndices);
+            postSql.buildCandidateIndexes(fullIndices, tp);
 
             // ToDo: Is the time for index pruning recorded?
             for (IIndex fullIndex : fullIndices) {
@@ -219,13 +219,13 @@ public class Experiment {
                 }
             }
 
-            postSql.estimateWeights(partialIndices);
+            postSql.estimateWeights(partialIndices, tp);
 
             System.out.println(leftover);
 
             DynamicProgramming.solveKP(partialIndices, STORAGE_CAPACITY - leftover);
 
-            postSql.buildCandidateIndexes(partialIndices);
+            postSql.buildCandidateIndexes(partialIndices, tp);
 
             postSql.testIndexes(sourcePath);
 

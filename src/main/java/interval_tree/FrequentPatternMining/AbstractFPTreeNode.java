@@ -30,8 +30,7 @@ public abstract class AbstractFPTreeNode{
 
     protected abstract AbstractFPTreeNode makeChild(String column);
 
-    public abstract void extractIndexes(String tableName, List<String> columns, TableProperties tc);
-    public abstract List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns); // ToDo: Could probably be static
+    public abstract List<IIndex> extractIndexes(double frequency, String tableName, List<String> columns);
 
     final AbstractFPTreeNode incrementFrequencyOfChild(String name){
         AbstractFPTreeNode temp;

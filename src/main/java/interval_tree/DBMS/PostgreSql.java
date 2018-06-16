@@ -2,6 +2,7 @@ package interval_tree.DBMS;
 
 import interval_tree.CandidateIndex.AbstractIndex;
 import interval_tree.CandidateIndex.IIndex;
+import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -64,13 +65,13 @@ public class PostgreSql {
         super.finalize();
     }
 
-        public void estimateWeights(List<? extends IIndex> items) throws SQLException {
+        public void estimateWeights(List<? extends IIndex> items, TableProperties tp) throws SQLException {
             System.out.println("-- Estimate Indexes --");
 
 //            outputResult(stmt.executeQuery("SELECT * FROM \"UCI_CBM\""));
 
             for(IIndex idx : items) {
-                String sql = "SELECT * from hypopg_create_index(" + idx.createIdxStatement() +");";
+                String sql = "SELECT * from hypopg_create_index(" + idx.createIdxStatement(tp) +");";
 
                 ResultSet rs = stmt.executeQuery(sql);
 
@@ -100,13 +101,13 @@ public class PostgreSql {
             reset();
         }
 
-        public void buildCandidateIndexes(List<? extends IIndex> items) throws SQLException {
+        public void buildCandidateIndexes(List<? extends IIndex> items, TableProperties tp) throws SQLException {
 
             System.out.println("-- Build Indexes --");
             for(IIndex idx : items) {
                 indexIDs++;
-                stmt.execute(idx.createIdxStatementWithId(indexIDs));
-                System.out.println(idx.createIdxStatementWithId(indexIDs));
+                stmt.execute(idx.createIdxStatementWithId(indexIDs, tp));
+                System.out.println(idx.createIdxStatementWithId(indexIDs, tp));
             }
 
         }
