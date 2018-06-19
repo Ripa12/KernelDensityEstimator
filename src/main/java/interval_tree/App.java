@@ -4,8 +4,6 @@ package interval_tree;
 import interval_tree.Factory.QueryGenerator;
 import interval_tree.Factory.TablePropertiesBuilder;
 import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
-import org.apache.commons.math3.random.RandomDataGenerator;
-import sun.rmi.runtime.Log;
 
 import static interval_tree.Globals.*;
 
@@ -22,10 +20,10 @@ public class App
         /**
          * Initiate tables for partial-index
          **/
-        TableProperties tableCount = new TableProperties(MINSUP, new String[]{"kegg"});
+        TableProperties tableCount = new TableProperties(MIN_SUP, new String[]{"kegg"});
         TablePropertiesBuilder tpb = new TablePropertiesBuilder(tableCount);
-        tpb.setAvgDenseClustes(1).setDenseColumnProb(70);
-        QueryGenerator qg = tpb.build("table_data/test_data.csv", "kegg");
+        tpb.setAvgDenseClustes(MEAN_NR_OF_CLUSTERS).setDenseColumnProb(DENSE_COLUMNS_PROBABILITY);
+        QueryGenerator qg = tpb.build(TABLE_FILENAME, "kegg");
 
 
         long generatorStartTime = System.nanoTime();
@@ -55,10 +53,10 @@ public class App
         /**
          * Initiate tables for full-index
          **/
-        tableCount = new TableProperties(MINSUP, new String[]{"kegg"});
+        tableCount = new TableProperties(MIN_SUP, new String[]{"kegg"});
         tpb = new TablePropertiesBuilder(tableCount);
-        tpb.setAvgDenseClustes(1).setDenseColumnProb(70);
-        tpb.build("table_data/test_data.csv", "kegg");
+        tpb.setAvgDenseClustes(MEAN_NR_OF_CLUSTERS).setDenseColumnProb(DENSE_COLUMNS_PROBABILITY);
+        tpb.build(TABLE_FILENAME, "kegg");
 
         Logger.getInstance().reset();
         System.out.println("-- Full Index --");

@@ -15,5 +15,9 @@ public interface IIndex {
         return other.startsWith(getColumnName());
     }
 
+    default boolean containsPrefix(IIndex other) {
+        return other.getColumnName().contains(getColumnName());
+    }
+
 //    boolean isAPrefix(String other);
 }

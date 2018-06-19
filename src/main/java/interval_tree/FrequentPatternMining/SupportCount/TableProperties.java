@@ -89,19 +89,6 @@ public class TableProperties {
         return (tables.get(table).get(col).info[0] / totalSupportCount) >= minsup;
     }
 
-    // ToDo: getPositiveInfinityLimit might not be needed any more because of Double.Positive_Infinity
-//    public double getPositiveInfinityLimit(String table, String col){
-//        return this.tables.get(table).get(col).info[4];
-//    }
-//
-//    public double getNegativeInfinityLimit(String table, String col){
-//        return this.tables.get(table).get(col).info[3];
-//    }
-//
-//    public double constrainToRange(String table, String col, double val){
-//        return Math.min(Math.max(val, this.tables.get(table).get(col).info[3]), this.tables.get(table).get(col).info[4]);
-//    }
-
     public HashMap<String, LinkedList<AbstractFPTreeNode>> buildHeader(String tableName){
         HashMap<String, LinkedList<AbstractFPTreeNode>> header = new HashMap<>();
 

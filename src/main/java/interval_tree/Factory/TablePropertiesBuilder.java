@@ -63,8 +63,8 @@ public class TablePropertiesBuilder {
 
         for (int i = 0; i < columnMinMax.length; i++) {
             int percentage = rand.nextInt(0, 100);
-            if (denseColumnProb > percentage) {
-                int denseClusters = (int) rand.nextPoisson(avgDenseClusters);
+            int denseClusters = (int) rand.nextPoisson(avgDenseClusters);
+            if (denseColumnProb > percentage && denseClusters > 0) {
                 columnDenseIntervals[i] = new double[denseClusters][3];
 
                 int[] distribution = new int[denseClusters];

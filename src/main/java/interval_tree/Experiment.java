@@ -2,7 +2,6 @@ package interval_tree;
 
 import interval_tree.CandidateIndex.*;
 import interval_tree.DBMS.PostgreSql;
-import interval_tree.Factory.TablePropertiesBuilder;
 import interval_tree.FrequentPatternMining.FullFPTree;
 import interval_tree.FrequentPatternMining.PartialFPTree;
 import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
@@ -25,9 +24,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static interval_tree.Globals.MINSUP;
+import static interval_tree.Globals.MIN_SUP;
 import static interval_tree.Globals.STORAGE_CAPACITY;
 
 public class Experiment {
@@ -54,7 +52,8 @@ public class Experiment {
                 .addTimer("FullParser")
                 .addTimer("InitializePartialFPTreeParser")
                 .addTimer("ValidatePartialFPTreeParser")
-                .addTimer("PopulatePartialFPTreeParser");
+                .addTimer("PopulatePartialFPTreeParser")
+                .addTimer("FinalOptimization");
 
         this.sourcePath = "data/testdata/unittests/" + filename;
         if (SystemUtils.IS_OS_WINDOWS) {
@@ -80,7 +79,7 @@ public class Experiment {
         List<FullFPTree> fpTree = fullParser.getFpTree(); // ToDo: Should probably run more tests to see if multiple tables are handled properly.
         List<IIndex> indexList = new LinkedList<>();
         for (FullFPTree fullFPTree : fpTree) {
-            fullFPTree.findFrequentPatterns(MINSUP);
+            fullFPTree.findFrequentPatterns(MIN_SUP);
             indexList.addAll(fullFPTree.getFullIndexes());
         }
         Logger.getInstance().stopTimer("ExtractItem-sets");
@@ -125,8 +124,8 @@ public class Experiment {
         List<IIndex> fullIndices = new LinkedList<>();
 
         for (PartialFPTree partialFPTree : fpTree) {
-            partialFPTree.extractItemSets(MINSUP);
-            partialFPTree.findFrequentPatterns(MINSUP);
+            partialFPTree.extractItemSets(MIN_SUP);
+            partialFPTree.findFrequentPatterns(MIN_SUP);
             partialIndices.addAll(partialFPTree.getPartialIndexes());
             fullIndices.addAll(partialFPTree.getFullIndexes());
         }
@@ -179,9 +178,12 @@ public class Experiment {
         PostgreSql postSql = null;
         try {
             postSql = new PostgreSql();
+
+            Logger.getInstance().setTimer();
             postSql.estimateWeights(indexList, tp);
 
             DynamicProgramming.solveKP(indexList, STORAGE_CAPACITY);
+            Logger.getInstance().stopTimer("FinalOptimization");
 
             postSql.buildCandidateIndexes(indexList, tp);
             postSql.testIndexes(sourcePath);
@@ -204,16 +206,19 @@ public class Experiment {
         PostgreSql postSql = null;
         try {
             postSql = new PostgreSql();
+
+            Logger.getInstance().setTimer();
             postSql.estimateWeights(fullIndices, tp);
 
             int leftover = DynamicProgramming.solveKP(fullIndices, STORAGE_CAPACITY);
+            Logger.getInstance().stopTimer("FinalOptimization");
 
             postSql.buildCandidateIndexes(fullIndices, tp);
 
-            // ToDo: Is the time for index pruning recorded?
+            Logger.getInstance().setTimer();
             for (IIndex fullIndex : fullIndices) {
                 for(int i = partialIndices.size()-1; i >= 0; i--){
-                    if(fullIndex.isAPrefix(partialIndices.get(i).getColumnName())){
+                    if(fullIndex.containsPrefix(partialIndices.get(i))){
                         partialIndices.remove(i);
                     }
                 }
@@ -224,6 +229,7 @@ public class Experiment {
             System.out.println(leftover);
 
             DynamicProgramming.solveKP(partialIndices, STORAGE_CAPACITY - leftover);
+            Logger.getInstance().stopTimer("FinalOptimization");
 
             postSql.buildCandidateIndexes(partialIndices, tp);
 

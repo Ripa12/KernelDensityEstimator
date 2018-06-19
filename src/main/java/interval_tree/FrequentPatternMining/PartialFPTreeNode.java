@@ -3,7 +3,6 @@ package interval_tree.FrequentPatternMining;
 import interval_tree.CandidateIndex.CompoundPartialIndex;
 import interval_tree.CandidateIndex.FullIndex;
 import interval_tree.CandidateIndex.IIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 import interval_tree.SubspaceClustering.Clique;
 import interval_tree.SubspaceClustering.MyVector;
 
@@ -21,7 +20,7 @@ public class PartialFPTreeNode extends AbstractFPTreeNode {
         super(parent, name);
         this.dimensions = dim;
 
-        clique = new Clique<>(NR_OF_CELLS, CLUSER_MINSUP, IDEAL_COVERAGE, false, dim);
+        clique = new Clique<>(NR_OF_CELLS, CLUSTER_MIN_SUP, IDEAL_COVERAGE, false, dim);
     }
     PartialFPTreeNode(PartialFPTreeNode parent, String name) {
         super(parent, name);
