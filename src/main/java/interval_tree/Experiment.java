@@ -4,10 +4,10 @@ import interval_tree.CandidateIndex.*;
 import interval_tree.DBMS.PostgreSql;
 import interval_tree.Factory.SupportCountParser;
 import interval_tree.Factory.TableBaseProperties;
-import interval_tree.Factory.TableStats;
 import interval_tree.FrequentPatternMining.Full.FullFPTree;
 import interval_tree.FrequentPatternMining.Partial.PartialFPTree;
 import interval_tree.KnapsackProblem.DynamicProgramming;
+import interval_tree.Logger.Logger;
 import interval_tree.SqlParser.*;
 import interval_tree.SqlParser.FullParser.FullParser;
 import interval_tree.SqlParser.PartialParser.PopulateFPTreeParser;
@@ -94,7 +94,7 @@ public class Experiment {
             System.out.println(idx.createIdxStatementWithId(indexIDs, tableCount) + " val " + idx.getValue());
         }
 
-//        testIndexes(indexList, tableCount);
+        testIndexes(indexList, tableCount);
     }
 
     public void testPartialFPGrowth(TableBaseProperties tableCount){
@@ -149,7 +149,7 @@ public class Experiment {
         }
 
 
-//        testIndexes(partialIndices, fullIndices, tableCount);
+        testIndexes(partialIndices, fullIndices, tableCount);
     }
 
     private void parseQueries(IExpressionVisitor visitor){
@@ -182,6 +182,7 @@ public class Experiment {
         PostgreSql postSql = null;
         try {
             postSql = new PostgreSql();
+            postSql.dropAllIndexes(tp);
 
             Logger.getInstance().setTimer();
             postSql.estimateWeights(indexList, tp);
@@ -190,7 +191,11 @@ public class Experiment {
             Logger.getInstance().stopTimer("FinalOptimization");
 
             postSql.buildCandidateIndexes(indexList, tp);
+
+            Logger.getInstance().setNrOfIndexes(indexList.size());
+
             postSql.testIndexes(sourcePath);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -210,6 +215,7 @@ public class Experiment {
         PostgreSql postSql = null;
         try {
             postSql = new PostgreSql();
+            postSql.dropAllIndexes(tp);
 
             Logger.getInstance().setTimer();
             postSql.estimateWeights(fullIndices, tp);
@@ -236,6 +242,8 @@ public class Experiment {
             Logger.getInstance().stopTimer("FinalOptimization");
 
             postSql.buildCandidateIndexes(partialIndices, tp);
+
+            Logger.getInstance().setNrOfIndexes(partialIndices.size() + fullIndices.size());
 
             postSql.testIndexes(sourcePath);
 

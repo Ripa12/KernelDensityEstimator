@@ -7,6 +7,9 @@ import org.apache.commons.math3.random.RandomDataGenerator;
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
@@ -80,31 +83,33 @@ public class QueryGenerator {
                 tempStmt.setLength(0);
                 tempStmt.append(sqlPrefix);
 
+                List<Integer> selectedColumns = new LinkedList<>();
 
                 int[] columnIndexes = IntStream.rangeClosed(0, columnLabels.length - 1).toArray();
-                int selectedColumn = columnIndexes[rand.nextInt(columnIndexes.length - 1)];
+                int selectedColumn;
+                selectedColumns.add(selectedColumn = columnIndexes[rand.nextInt(columnIndexes.length - 1)]);
                 columnIndexes = ArrayUtils.removeElement(columnIndexes, selectedColumn);
-
-                generatePredicate(tempStmt, selectedColumn);
 
                 int compositeColumns = (int) randMean.nextPoisson(avgNrOfColumns);
                 while (compositeColumns > 0 && columnIndexes.length > 0) {
                     compositeColumns--;
 
-                    selectedColumn = columnIndexes[rand.nextInt(columnIndexes.length - 1)];
+                    selectedColumns.add(selectedColumn = columnIndexes[rand.nextInt(columnIndexes.length - 1)]);
                     columnIndexes = ArrayUtils.removeElement(columnIndexes, selectedColumn);
 
-                    tempStmt.append(" AND ");
-
-                    generatePredicate(tempStmt, selectedColumn);
                 }
 
-                tempStmt.append(";\n");
+                generateStatement(tempStmt, selectedColumns);
 
                 out.print(tempStmt.toString());
 
                 int duplicates = (int) randMean.nextPoisson(avgNrOfDuplicates);
                 for (int t = 0; t < duplicates; t++) {
+                    tempStmt.setLength(0);
+                    tempStmt.append(sqlPrefix);
+
+                    generateStatement(tempStmt, selectedColumns);
+
                     out.print(tempStmt.toString());
                 }
                 k += duplicates + 1;
@@ -117,8 +122,19 @@ public class QueryGenerator {
             out.close();
         }
     }
-
         System.out.println("NrOfQueries: " + k);
+    }
+
+    private void generateStatement(StringBuilder tempStmt, List<Integer> selectedColumns){
+
+        generatePredicate(tempStmt, selectedColumns.get(0));
+
+        for (int i = 1; i < selectedColumns.size(); i++) {
+            tempStmt.append(" AND ");
+            generatePredicate(tempStmt, selectedColumns.get(i));
+        }
+
+        tempStmt.append(";\n");
     }
 
     private static final double INTERVAL_PROBABILITY = 0.5;
@@ -171,11 +187,11 @@ public class QueryGenerator {
             }
 
             tempStmt.append(columnLabels[selectedColumn])
-                    .append(" < ") // ToDo: Should be >
+                    .append(" > ") // ToDo: Should be > (I changed it but have not tested)
                     .append(columnMinMax[selectedColumn][2] == 1 ? start : String.valueOf((int) start))
                     .append(" AND ")
                     .append(columnMinMax[selectedColumn][2] == 1 ? end : String.valueOf((int) end))
-                    .append(" < ")
+                    .append(" > ")
                     .append(columnLabels[selectedColumn]);
 
         } else {

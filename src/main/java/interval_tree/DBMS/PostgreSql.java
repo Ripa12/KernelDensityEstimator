@@ -44,9 +44,9 @@ public class PostgreSql {
     }
 
     public void close() throws SQLException{
-        for(;indexIDs > -1; indexIDs--){
-            stmt.execute("drop INDEX idx_" + indexIDs);
-        }
+//        for(;indexIDs > -1; indexIDs--){
+//            stmt.execute("drop INDEX idx_" + indexIDs);
+//        }
 
         stmt.close();
         c.close();
@@ -96,7 +96,7 @@ public class PostgreSql {
                 System.out.println("Weight: " + weight + "\t unit: kB");
             }
 
-            reset();
+            dropHypotheticalIndexes();
         }
 
         public void buildCandidateIndexes(List<? extends IIndex> items, TableBaseProperties tp) throws SQLException {
@@ -128,9 +128,30 @@ public class PostgreSql {
             long queryEndTime = System.nanoTime() - queryStartTime;
 
             System.out.println("Total query time: " + queryEndTime/1000000000.0);
+            interval_tree.Logger.Logger.getInstance().setQueryTime(queryEndTime);
         }
 
-        public void reset() throws SQLException {
+
+        public void dropAllIndexes(TableBaseProperties tp) throws SQLException {
+            for (String s : tp.getTableNames()) {
+                String stat = "DO\n" +
+                        "$$BEGIN\n" +
+                        "   EXECUTE (\n" +
+                        "   SELECT 'DROP INDEX ' || string_agg(indexrelid::regclass::text, ', ')\n" +
+                        "   FROM   pg_index  i\n" +
+                        "   LEFT   JOIN pg_depend d ON d.objid = i.indexrelid\n" +
+                        "                          AND d.deptype = 'i'\n" +
+                        "   WHERE  i.indrelid = '\"" + s + "\"'::regclass  -- possibly schema-qualified\n" +
+                        "   AND    d.objid IS NULL                                -- no internal dependency\n" +
+                        "   );\n" +
+                        "END$$;";
+
+                stmt.execute(stat);
+            }
+        }
+
+
+        private void dropHypotheticalIndexes() throws SQLException {
             stmt.executeQuery("SELECT hypopg_reset()");
         }
 

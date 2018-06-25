@@ -1,0 +1,13 @@
+Experiment
+---Partial Indexes---
+Execution time: 8.540078422
+Query time: 55.626292852
+Indexes: 22
+---Full Indexes---
+Execution time: 3.750085708
+Query time: 67.503409549
+Indexes: 14
+---Partial Indexes---
+Execution time: 11.570521236
+Query time: 75.713969474
+Indexes: 24
