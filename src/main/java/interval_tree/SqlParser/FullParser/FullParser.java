@@ -1,7 +1,7 @@
 package interval_tree.SqlParser.FullParser;
 
-import interval_tree.FrequentPatternMining.FullFPTree;
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
+import interval_tree.Factory.TableStats;
+import interval_tree.FrequentPatternMining.Full.FullFPTree;
 import interval_tree.SqlParser.AbstractParser;
 
 import java.util.*;
@@ -15,11 +15,11 @@ public class FullParser extends AbstractParser {
 
     private TreeSet<String> list;
 
-    public FullParser(TableProperties tableProperties){
-        super(tableProperties);
+    public FullParser(TableStats tableBaseProperties){
+        super(tableBaseProperties);
 
-        this.fpTreeBuilder = new FullFPTree.FullFPTreeBuilder(tableProperties);
-        this.list = new TreeSet<>(Comparator.comparingDouble(o -> this.tableProperties.getSupport(getCurrentTable(), o)));
+        this.fpTreeBuilder = new FullFPTree.FullFPTreeBuilder(tableBaseProperties);
+        this.list = new TreeSet<>(Comparator.comparingDouble(o -> this.tableStats.getSupport(getCurrentTable(), o)));
     }
 
     public List<FullFPTree> getFpTree(){
@@ -38,28 +38,28 @@ public class FullParser extends AbstractParser {
 
     @Override
     protected void finiteInterval(String column, double start, double end) {
-        if(tableProperties.isSufficient(getCurrentTable(), column)) {
+        if(tableStats.isSufficient(getCurrentTable(), column)) {
             list.add(column);
         }
     }
 
     @Override
     protected void equalsTo(String col, double point) {
-        if(tableProperties.isSufficient(getCurrentTable(), col)) {
+        if(tableStats.isSufficient(getCurrentTable(), col)) {
             list.add(col);
         }
     }
 
     @Override
     protected void greaterThan(String col, double point) {
-        if(tableProperties.isSufficient(getCurrentTable(), col)) {
+        if(tableStats.isSufficient(getCurrentTable(), col)) {
             list.add(col);
         }
     }
 
     @Override
     protected void MinorThan(String col, double point) {
-        if(tableProperties.isSufficient(getCurrentTable(), col)) {
+        if(tableStats.isSufficient(getCurrentTable(), col)) {
             list.add(col);
         }
     }

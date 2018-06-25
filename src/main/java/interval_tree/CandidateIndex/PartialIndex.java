@@ -1,6 +1,6 @@
 package interval_tree.CandidateIndex;
 
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
+import interval_tree.Factory.TableBaseProperties;
 
 public class PartialIndex extends AbstractIndex {
 
@@ -39,7 +39,7 @@ public class PartialIndex extends AbstractIndex {
     }
 
     @Override
-    public String createIdxStatement(TableProperties tp) {
+    public String createIdxStatement(TableBaseProperties tp) {
 
         Number start = tp.getCorrectType(tableName, columnNames, this.start);
         Number end = tp.getCorrectType(tableName, columnNames, this.end);
@@ -67,7 +67,7 @@ public class PartialIndex extends AbstractIndex {
     }
 
     @Override
-    public String createIdxStatementWithId(int id, TableProperties tp) {
+    public String createIdxStatementWithId(int id, TableBaseProperties tp) {
 
         Number start = tp.getCorrectType(tableName, columnNames, this.start);
         Number end = tp.getCorrectType(tableName, columnNames, this.end);
@@ -98,7 +98,7 @@ public class PartialIndex extends AbstractIndex {
         }
     }
 
-    String getPredicate(TableProperties tp) {
+    String getPredicate(TableBaseProperties tp) {
 
         Number start = tp.getCorrectType(tableName, columnNames, this.start);
         Number end = tp.getCorrectType(tableName, columnNames, this.end);

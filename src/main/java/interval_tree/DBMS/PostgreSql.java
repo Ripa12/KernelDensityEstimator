@@ -1,11 +1,9 @@
 package interval_tree.DBMS;
 
-import interval_tree.CandidateIndex.AbstractIndex;
 import interval_tree.CandidateIndex.IIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
+import interval_tree.Factory.TableBaseProperties;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
@@ -65,7 +63,7 @@ public class PostgreSql {
         super.finalize();
     }
 
-        public void estimateWeights(List<? extends IIndex> items, TableProperties tp) throws SQLException {
+        public void estimateWeights(List<? extends IIndex> items, TableBaseProperties tp) throws SQLException {
             System.out.println("-- Estimate Indexes --");
 
 //            outputResult(stmt.executeQuery("SELECT * FROM \"UCI_CBM\""));
@@ -101,7 +99,7 @@ public class PostgreSql {
             reset();
         }
 
-        public void buildCandidateIndexes(List<? extends IIndex> items, TableProperties tp) throws SQLException {
+        public void buildCandidateIndexes(List<? extends IIndex> items, TableBaseProperties tp) throws SQLException {
 
             System.out.println("-- Build Indexes --");
             for(IIndex idx : items) {

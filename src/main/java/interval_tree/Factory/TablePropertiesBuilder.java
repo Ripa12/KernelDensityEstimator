@@ -1,6 +1,5 @@
 package interval_tree.Factory;
 
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.math3.random.RandomDataGenerator;
@@ -22,11 +21,11 @@ public class TablePropertiesBuilder {
     private double avgDenseClusters;
     private int denseColumnProb;
 
-    private TableProperties tb;
+    private TableBaseProperties tb;
 
     private TreeSet<Integer> removeItems;
 
-    public TablePropertiesBuilder(TableProperties tb) {
+    public TablePropertiesBuilder(TableBaseProperties tb) {
         this.tb = tb;
 
         this.avgDenseClusters = 0.0;

@@ -1,54 +1,11 @@
 package interval_tree.CandidateIndex;
 
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
+import interval_tree.Factory.TableBaseProperties;
 
 import java.util.*;
 
 public class CompoundPartialIndex implements IIndex {
 
-    // ToDo: Really no need for this class. Partial Indexes are enough in CompositeClass.
-//    public static class Predicate {
-//        private List<PartialIndex> indexList;
-//
-//        public Predicate(){
-//            indexList = new ArrayList<>();
-//        }
-//
-//        public void addPartialIndex(PartialIndex p){
-//            indexList.add(p);
-//        }
-//
-//        double getValue(){
-//            return indexList.get(0).getValue();
-//        }
-//
-//        String getOrExpression(){
-//            assert indexList.size() > 0;
-//
-//            StringBuilder f = new StringBuilder("(");
-//            f.append(indexList.get(0).getPredicate());
-//            for (int i = 1; i < indexList.size(); i++) {
-//                f.append(" OR ");
-//                f.append(indexList.get(i).getPredicate());
-//            }
-//            f.append(")");
-//
-//            return f.toString();
-//        }
-//
-//        String getColumnName(){
-//            assert indexList.size() > 0;
-//
-//            return indexList.get(0).getColumnName();
-//        }
-//
-//        public boolean isEmpty(){
-//            return indexList.isEmpty();
-//        }
-//    }
-
-
-//    private List<Predicate> predicateList;
     private HashMap<String, PartialIndex> predicateList;
     private double totalValue;
     private double totalWeight;
@@ -71,7 +28,7 @@ public class CompoundPartialIndex implements IIndex {
     }
 
     @Override
-    public String createIdxStatement(TableProperties tp) {
+    public String createIdxStatement(TableBaseProperties tp) {
         assert predicateList.size() > 0;
 
         StringBuilder f = new StringBuilder("(");
@@ -91,7 +48,7 @@ public class CompoundPartialIndex implements IIndex {
     }
 
     @Override
-    public String createIdxStatementWithId(int id, TableProperties tp) {
+    public String createIdxStatementWithId(int id, TableBaseProperties tp) {
         assert predicateList.size() > 0;
 
         StringBuilder f = new StringBuilder("(");

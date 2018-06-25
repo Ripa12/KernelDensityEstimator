@@ -1,6 +1,6 @@
 package interval_tree.FrequentPatternMining;
 
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
+import interval_tree.Factory.TableStats;
 
 import java.util.*;
 
@@ -15,30 +15,30 @@ public abstract class AbstractFPTree {
      */
     private AbstractFPTreeNode root;
     protected HashMap<String, LinkedList<AbstractFPTreeNode>> header;
-    protected double minsup;
+    protected double minSup;
     protected double totalSupportCount;
     protected String tableName;
-    protected TableProperties tableProperties;
+    protected TableStats tableBaseProperties;
 
 
     /**
      * Constructor
      */
-    AbstractFPTree(TableProperties tableProperties, String tableName, AbstractFPTreeNode root) {
-        this.tableProperties = tableProperties;
-        this.totalSupportCount = tableProperties.getTotalSupportCount();
+    protected AbstractFPTree(TableStats tableBaseProperties, String tableName, AbstractFPTreeNode root) {
+        this.tableBaseProperties = tableBaseProperties;
+        this.totalSupportCount = tableBaseProperties.getTotalSupportCount();
         this.tableName = tableName;
         this.root = root;
-        header = tableProperties.buildHeader(tableName);
+        header = tableBaseProperties.buildHeader(tableName);
     }
 
-    AbstractFPTreeNode getRoot() {
+    protected AbstractFPTreeNode getRoot() {
         return this.root;
     }
 
-    abstract void extractItemSet(double frequency, List<String> columns, List<AbstractFPTreeNode> treeNodes);
+    protected abstract void extractItemSet(double frequency, List<String> columns, List<AbstractFPTreeNode> treeNodes);
 
-    AbstractFPTreeNode insertTree(Iterator<String> it) {
+    protected AbstractFPTreeNode insertTree(Iterator<String> it) {
         AbstractFPTreeNode node = root;
 
         while (it.hasNext()) {
@@ -109,7 +109,7 @@ public abstract class AbstractFPTree {
     }
 
     public void findFrequentPatterns(double minsup){
-        this.minsup = minsup * totalSupportCount;
+        this.minSup = minsup * totalSupportCount;
 
 //        Set<IIndex> frequentPatterns = new HashSet<>();
         Set<String> test = new HashSet<>();
@@ -130,7 +130,7 @@ public abstract class AbstractFPTree {
 
     // MIT license
     // https://github.com/PySualk/fp-growth-java/blob/master/src/main/java/org/sualk/fpgrowth/FPgrowth.java
-    private void fpGrowthStep(HashMap<String, LinkedList<AbstractFPTreeNode>> headerTable, Set<String> test,  String base) {
+    private void fpGrowthStep(HashMap<String, LinkedList<AbstractFPTreeNode>> headerTable, Set<String> test, String base) {
 
         for (String item : headerTable.keySet()) {
             List<AbstractFPTreeNode> treeNodes = headerTable.get(item);
@@ -176,7 +176,7 @@ public abstract class AbstractFPTree {
             }
 
             // Is the item frequent? (count >= minSupport)
-            if (frequentItemsetCount < minsup) {
+            if (frequentItemsetCount < minSup) {
                 // Skip the current item
                 continue;
             } else {
@@ -219,7 +219,7 @@ public abstract class AbstractFPTree {
             // Remove not frequent nodes
             Map<String, Double> tmp = new HashMap<>(conditionalItemFrequencies);
             for (String s : tmp.keySet())
-                if (conditionalItemFrequencies.get(s) < minsup)
+                if (conditionalItemFrequencies.get(s) < minSup)
                     conditionalItemFrequencies.remove(s);
 
             // Construct Conditional FPTree

@@ -36,7 +36,6 @@ import de.lmu.ifi.dbs.elki.utilities.BitsUtil;
 import de.lmu.ifi.dbs.elki.utilities.pairs.Pair;
 import interval_tree.CandidateIndex.CompoundPartialIndex;
 import interval_tree.CandidateIndex.PartialIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 
 /**
  * Represents a subspace of the original data space in the CLIQUE algorithm.

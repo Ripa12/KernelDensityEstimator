@@ -1,7 +1,7 @@
 package interval_tree.SqlParser.PartialParser;
 
-import interval_tree.FrequentPatternMining.PartialFPTree;
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
+import interval_tree.Factory.TableStats;
+import interval_tree.FrequentPatternMining.Partial.PartialFPTree;
 import interval_tree.SqlParser.AbstractParser;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyInterval;
@@ -17,7 +17,7 @@ public class ValidateFPTreeParser extends AbstractParser {
     private Map<String, PartialFPTree> fpTree;
     private TreeMap<String, MyData> list;
 
-    ValidateFPTreeParser(TableProperties tc, Map<String, PartialFPTree> fpTree, TreeMap<String, MyData> list){
+    ValidateFPTreeParser(TableStats tc, Map<String, PartialFPTree> fpTree, TreeMap<String, MyData> list){
         super(tc);
         this.fpTree = fpTree;
         this.list = list;
@@ -43,8 +43,6 @@ public class ValidateFPTreeParser extends AbstractParser {
 
     @Override
     protected void greaterThan(String col, double point) {
-//        list.put(col, new MyInterval(point,
-//                tableProperties.getPositiveInfinityLimit(getCurrentTable(), col)));
         list.put(col, new MyInterval(point,
                 Double.POSITIVE_INFINITY));
     }

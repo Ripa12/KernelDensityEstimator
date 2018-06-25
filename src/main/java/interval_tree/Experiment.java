@@ -2,9 +2,11 @@ package interval_tree;
 
 import interval_tree.CandidateIndex.*;
 import interval_tree.DBMS.PostgreSql;
-import interval_tree.FrequentPatternMining.FullFPTree;
-import interval_tree.FrequentPatternMining.PartialFPTree;
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
+import interval_tree.Factory.SupportCountParser;
+import interval_tree.Factory.TableBaseProperties;
+import interval_tree.Factory.TableStats;
+import interval_tree.FrequentPatternMining.Full.FullFPTree;
+import interval_tree.FrequentPatternMining.Partial.PartialFPTree;
 import interval_tree.KnapsackProblem.DynamicProgramming;
 import interval_tree.SqlParser.*;
 import interval_tree.SqlParser.FullParser.FullParser;
@@ -62,21 +64,22 @@ public class Experiment {
     }
 
 
-    public void testFullFPGrowth(TableProperties tableCount){
+    public void testFullFPGrowth(TableBaseProperties tableCount){
 
         Logger.getInstance().setTimer();
-        parseQueries(new SupportCountParser(tableCount));
+        SupportCountParser scp = new SupportCountParser(tableCount, MIN_SUP);
+        parseQueries(scp);
         Logger.getInstance().stopTimer("SupportCountParser");
 
 
         Logger.getInstance().setTimer();
-        FullParser fullParser = new FullParser(tableCount);
+        FullParser fullParser = new FullParser(scp.getStats());
         parseQueries(fullParser);
         Logger.getInstance().stopTimer("FullParser");
 
 
         Logger.getInstance().setTimer();
-        List<FullFPTree> fpTree = fullParser.getFpTree(); // ToDo: Should probably run more tests to see if multiple tables are handled properly.
+        List<FullFPTree> fpTree = fullParser.getFpTree();
         List<IIndex> indexList = new LinkedList<>();
         for (FullFPTree fullFPTree : fpTree) {
             fullFPTree.findFrequentPatterns(MIN_SUP);
@@ -91,18 +94,19 @@ public class Experiment {
             System.out.println(idx.createIdxStatementWithId(indexIDs, tableCount) + " val " + idx.getValue());
         }
 
-        testIndexes(indexList, tableCount);
+//        testIndexes(indexList, tableCount);
     }
 
-    public void testPartialFPGrowth(TableProperties tableCount){
+    public void testPartialFPGrowth(TableBaseProperties tableCount){
 
         Logger.getInstance().setTimer();
-        parseQueries(new SupportCountParser(tableCount));
+        SupportCountParser scp = new SupportCountParser(tableCount, MIN_SUP);
+        parseQueries(scp);
         Logger.getInstance().stopTimer("SupportCountParser");
 
 
         Logger.getInstance().setTimer();
-        InitializeFPTreeParser initialFPTreeParser = new InitializeFPTreeParser(tableCount);
+        InitializeFPTreeParser initialFPTreeParser = new InitializeFPTreeParser(scp.getStats());
         parseQueries(initialFPTreeParser);
         Logger.getInstance().stopTimer("InitializePartialFPTreeParser");
 
@@ -145,7 +149,7 @@ public class Experiment {
         }
 
 
-        testIndexes(partialIndices, fullIndices, tableCount);
+//        testIndexes(partialIndices, fullIndices, tableCount);
     }
 
     private void parseQueries(IExpressionVisitor visitor){
@@ -174,7 +178,7 @@ public class Experiment {
 
 
     // ToDo: Maybe pass a list of individual queries and not all queries in same string
-    private void testIndexes(List<? extends IIndex> indexList, TableProperties tp){
+    private void testIndexes(List<? extends IIndex> indexList, TableBaseProperties tp){
         PostgreSql postSql = null;
         try {
             postSql = new PostgreSql();
@@ -202,7 +206,7 @@ public class Experiment {
     }
 
     private void testIndexes(List<IIndex> partialIndices,
-                             List<IIndex> fullIndices, TableProperties tp){
+                             List<IIndex> fullIndices, TableBaseProperties tp){
         PostgreSql postSql = null;
         try {
             postSql = new PostgreSql();

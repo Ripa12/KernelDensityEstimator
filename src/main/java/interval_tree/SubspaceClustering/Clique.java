@@ -49,7 +49,6 @@ import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameters.Flag;
 import de.lmu.ifi.dbs.elki.utilities.optionhandling.parameters.IntParameter;
 import de.lmu.ifi.dbs.elki.utilities.pairs.Pair;
 import interval_tree.CandidateIndex.CompoundPartialIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 
 /**
  * <p/>

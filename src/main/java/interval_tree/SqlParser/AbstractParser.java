@@ -1,6 +1,6 @@
 package interval_tree.SqlParser;
 
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
+import interval_tree.Factory.TableStats;
 import net.sf.jsqlparser.expression.*;
 import net.sf.jsqlparser.expression.operators.arithmetic.*;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
@@ -11,15 +11,15 @@ import net.sf.jsqlparser.statement.select.SubSelect;
 
 public abstract class AbstractParser implements IExpressionVisitor{
 
-    protected TableProperties tableProperties;
+    protected TableStats tableStats;
     private double extractedValue; // ToDo: Only integers are considered as of now
     private String extractedColumn;
     private String currentTable;
 
 //    boolean isDecimal = false;
 
-    public AbstractParser(TableProperties tableProperties){
-        this.tableProperties = tableProperties;
+    public AbstractParser(TableStats tableStats){
+        this.tableStats = tableStats;
         this.extractedValue = 0.0;
         this.currentTable = "";
         this.extractedColumn = "";

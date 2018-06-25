@@ -1,10 +1,10 @@
 package interval_tree.FrequentPatternMining;
 
 import interval_tree.CandidateIndex.IIndex;
-import interval_tree.FrequentPatternMining.SupportCount.TableProperties;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -12,10 +12,10 @@ import java.util.TreeMap;
  */
 public abstract class AbstractFPTreeNode{
 
-    protected List<? extends IIndex> indices;
+    List<? extends IIndex> indices;
+    TreeMap<String, AbstractFPTreeNode> children;
     private AbstractFPTreeNode parent;
-    protected TreeMap<String, AbstractFPTreeNode> children;
-    protected int frequency;
+    private int frequency;
 
     protected String column;
 
@@ -45,7 +45,7 @@ public abstract class AbstractFPTreeNode{
         return temp;
     }
 
-    final AbstractFPTreeNode getChild(String name){
+    public final AbstractFPTreeNode getChild(String name){
         AbstractFPTreeNode temp = null;
         if (children.containsKey(name)) {
             temp = children.get(name);
@@ -54,7 +54,13 @@ public abstract class AbstractFPTreeNode{
         return temp;
     }
 
+    protected List<? extends IIndex> getIndices(){
+        return indices;
+    }
 
+    protected void setIndices(List<? extends IIndex> n){
+        indices = n;
+    }
 
     final boolean hasChild(String name){
         return children.containsKey(name);
@@ -76,7 +82,7 @@ public abstract class AbstractFPTreeNode{
         }
     }
 
-    final AbstractFPTreeNode getParent(){
+    public final AbstractFPTreeNode getParent(){
         return parent;
     }
     final void setParent(AbstractFPTreeNode parent){
@@ -95,5 +101,12 @@ public abstract class AbstractFPTreeNode{
         return this.children;
     }
 
-    abstract AbstractFPTreeNode clone(AbstractFPTreeNode other);
+    public Set<String> getNamesOfChildren(){
+        return children.keySet();
+    }
+
+    AbstractFPTreeNode clone(AbstractFPTreeNode other){
+        return doClone(other, other.indices);
+    }
+    protected abstract AbstractFPTreeNode doClone(AbstractFPTreeNode other, List<? extends IIndex> indices);
 }
