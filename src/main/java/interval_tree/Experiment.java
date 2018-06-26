@@ -212,6 +212,8 @@ public class Experiment {
 
     private void testIndexes(List<IIndex> partialIndices,
                              List<IIndex> fullIndices, TableBaseProperties tp){
+//        fullIndices.addAll(partialIndices); // ToDo: Check if partial- or full indexes are used by the planner, at the same time
+
         PostgreSql postSql = null;
         try {
             postSql = new PostgreSql();

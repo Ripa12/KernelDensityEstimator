@@ -1,5 +1,6 @@
 package interval_tree.DBMS;
 
+import interval_tree.CandidateIndex.CompoundPartialIndex;
 import interval_tree.CandidateIndex.IIndex;
 import interval_tree.Factory.TableBaseProperties;
 
@@ -7,7 +8,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PostgreSql {
 
@@ -68,6 +71,8 @@ public class PostgreSql {
 
 //            outputResult(stmt.executeQuery("SELECT * FROM \"UCI_CBM\""));
 
+//            HashMap<IIndex, String> id = new HashMap<>();
+
             for(IIndex idx : items) {
                 String sql = "SELECT * from hypopg_create_index(" + idx.createIdxStatement(tp) +");";
 
@@ -93,10 +98,38 @@ public class PostgreSql {
                 }
                 idx.setWeight(weight);
 
-                System.out.println("Weight: " + weight + "\t unit: kB");
+//                id.put(idx, idx_name);
+
+                System.out.println("Weight: " + weight + "\t unit: kB");// + " | " + idx.getColumnName() + " : " + idx_name);
             }
 
+//            checkUtility(items, id, tp);
+
             dropHypotheticalIndexes();
+        }
+
+        private void checkUtility(List<? extends IIndex> items, Map<IIndex, String> id, TableBaseProperties tp) throws SQLException {
+            for (int i = items.size() - 1; i >= 0; i--) {
+
+//                if(items.get(i) instanceof CompoundPartialIndex) {
+                String sql = "EXPLAIN " + items.get(i).createSelectStatement(tp);
+
+
+                ResultSet rs = stmt.executeQuery(sql);
+
+                boolean isUsed = false;
+                while (rs.next() && !isUsed){
+                    String temp = rs.getString(1);
+                    if(temp.contains("<" + id.get(items.get(i)) + ">")){
+//                    if(temp.contains("Seq")){
+                        isUsed = true;
+                    }
+                }
+
+                if(!isUsed){
+                    items.remove(i);
+                }
+            }
         }
 
         public void buildCandidateIndexes(List<? extends IIndex> items, TableBaseProperties tp) throws SQLException {
@@ -132,8 +165,9 @@ public class PostgreSql {
         }
 
 
-        public void dropAllIndexes(TableBaseProperties tp) throws SQLException {
+        public void dropAllIndexes(TableBaseProperties tp){
             for (String s : tp.getTableNames()) {
+
                 String stat = "DO\n" +
                         "$$BEGIN\n" +
                         "   EXECUTE (\n" +
@@ -146,7 +180,11 @@ public class PostgreSql {
                         "   );\n" +
                         "END$$;";
 
-                stmt.execute(stat);
+                try {
+                    stmt.execute(stat); // ToDo: Sometimes throws an error when no current indexes to delete exists (though there might be another reason)
+                } catch (SQLException e) {
+                    e.printStackTrace(); // Ignoring exception for the moment!!!
+                }
             }
         }
 

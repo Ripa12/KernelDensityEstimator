@@ -1,5 +1,7 @@
 package interval_tree.CandidateIndex;
 
+import interval_tree.Factory.TableBaseProperties;
+
 public abstract class AbstractIndex implements IIndex{
 
     private double value;
@@ -18,6 +20,24 @@ public abstract class AbstractIndex implements IIndex{
 //    public final boolean isAPrefix(String other) {
 //        return other.startsWith(columnNames);
 //    }
+
+    @Override
+    public String createSelectStatement(TableBaseProperties tp){
+
+        String[] columns = columnNames.split(",");
+
+        StringBuilder builder = new StringBuilder();
+
+        builder.append(columns[0] + " = " + tp.getCorrectType(tableName, columns[0], 0));
+        for (int i = 1; i < columns.length; i++) {
+            builder.append(" AND ");
+            builder.append(columns[i] + " = " + tp.getCorrectType(tableName, columns[0], 0));
+        }
+        builder.append(";");
+
+
+        return "SELECT * FROM " + tableName + " WHERE " + builder.toString();
+    }
 
     @Override
     public String getColumnName(){

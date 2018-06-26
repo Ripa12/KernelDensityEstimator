@@ -67,6 +67,27 @@ public class CompoundPartialIndex implements IIndex {
         return  "CREATE INDEX idx_" + id + " ON "+tableName+"("+ getColumnName() +") where " + f.toString(); // ToDo: what table-name to use?
     }
 
+    @Override
+    public String createSelectStatement(TableBaseProperties tp) {
+
+        assert predicateList.size() > 0;
+
+        StringBuilder f = new StringBuilder("(");
+        Iterator it = predicateList.entrySet().iterator();
+        Map.Entry pair = (Map.Entry)it.next();
+
+        f.append(((PartialIndex)pair.getValue()).getPredicate(tp));
+        while (it.hasNext()) {
+            pair = (Map.Entry)it.next();
+
+            f.append(" AND ");
+            f.append(((PartialIndex)pair.getValue()).getPredicate(tp));
+        }
+        f.append(");");
+
+        return  "SELECT * FROM " + tableName + " WHERE " + f.toString();
+    }
+
     private PartialIndex getPredicate(String name){
         return predicateList.get(name);
     }

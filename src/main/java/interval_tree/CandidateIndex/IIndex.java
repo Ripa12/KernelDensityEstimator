@@ -6,6 +6,8 @@ public interface IIndex {
     String createIdxStatement(TableBaseProperties tp);
     String createIdxStatementWithId(int id, TableBaseProperties tp);
 
+    String createSelectStatement(TableBaseProperties tp);
+
     String getColumnName();
     double getValue();
     double getWeight();
