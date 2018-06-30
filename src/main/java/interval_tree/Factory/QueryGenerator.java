@@ -87,10 +87,9 @@ public class QueryGenerator {
 
                 int[] columnIndexes = IntStream.rangeClosed(0, columnLabels.length - 1).toArray();
                 int selectedColumn;
-                selectedColumns.add(selectedColumn = columnIndexes[rand.nextInt(columnIndexes.length - 1)]);
-                columnIndexes = ArrayUtils.removeElement(columnIndexes, selectedColumn);
 
-                int compositeColumns = (int) randMean.nextPoisson(avgNrOfColumns);
+//                int compositeColumns = (int) randMean.nextPoisson(avgNrOfColumns);
+                int compositeColumns = (int)avgNrOfColumns;
                 while (compositeColumns > 0 && columnIndexes.length > 0) {
                     compositeColumns--;
 

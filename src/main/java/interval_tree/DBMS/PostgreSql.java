@@ -69,9 +69,6 @@ public class PostgreSql {
         public void estimateWeights(List<? extends IIndex> items, TableBaseProperties tp) throws SQLException {
             System.out.println("-- Estimate Indexes --");
 
-//            outputResult(stmt.executeQuery("SELECT * FROM \"UCI_CBM\""));
-
-//            HashMap<IIndex, String> id = new HashMap<>();
 
             for(IIndex idx : items) {
                 String sql = "SELECT * from hypopg_create_index(" + idx.createIdxStatement(tp) +");";
@@ -98,12 +95,30 @@ public class PostgreSql {
                 }
                 idx.setWeight(weight);
 
-//                id.put(idx, idx_name);
-
                 System.out.println("Weight: " + weight + "\t unit: kB");// + " | " + idx.getColumnName() + " : " + idx_name);
             }
 
-//            checkUtility(items, id, tp);
+            dropHypotheticalIndexes();
+        }
+
+        public void checkUtility(List<? extends IIndex> items, TableBaseProperties tp) throws SQLException {
+            System.out.println("-- Check Utility of Indexes --");
+
+            HashMap<IIndex, String> id = new HashMap<>();
+
+            for(IIndex idx : items) {
+                String sql = "SELECT * from hypopg_create_index(" + idx.createIdxStatement(tp) +");";
+
+                ResultSet rs = stmt.executeQuery(sql);
+
+                rs.next();
+                String idx_name = rs.getString(1);
+
+                id.put(idx, idx_name);
+
+            }
+
+            checkUtility(items, id, tp);
 
             dropHypotheticalIndexes();
         }
@@ -111,7 +126,6 @@ public class PostgreSql {
         private void checkUtility(List<? extends IIndex> items, Map<IIndex, String> id, TableBaseProperties tp) throws SQLException {
             for (int i = items.size() - 1; i >= 0; i--) {
 
-//                if(items.get(i) instanceof CompoundPartialIndex) {
                 String sql = "EXPLAIN " + items.get(i).createSelectStatement(tp);
 
 
@@ -121,12 +135,14 @@ public class PostgreSql {
                 while (rs.next() && !isUsed){
                     String temp = rs.getString(1);
                     if(temp.contains("<" + id.get(items.get(i)) + ">")){
-//                    if(temp.contains("Seq")){
                         isUsed = true;
                     }
                 }
 
                 if(!isUsed){
+                    //Debug
+                    System.out.println(items.get(i).createIdxStatement(tp) + " is not used!");
+
                     items.remove(i);
                 }
             }
@@ -183,7 +199,7 @@ public class PostgreSql {
                 try {
                     stmt.execute(stat); // ToDo: Sometimes throws an error when no current indexes to delete exists (though there might be another reason)
                 } catch (SQLException e) {
-                    e.printStackTrace(); // Ignoring exception for the moment!!!
+//                    e.printStackTrace(); // ToDo: Ignoring exception for the moment!!!
                 }
             }
         }

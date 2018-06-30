@@ -40,10 +40,10 @@ public class App
         int samples = NR_OF_SAMPLES;
         while(samples > 0) {
             qg = tpb.build(DATA_SET, "kegg");
-//            qg.setNrOfQueries(NR_OF_QUERIES)
-//                    .setAverageNrOfCompositeColumns(NR_OF_COMPOSITE_COLUMNS)
-//                    .setAverageNrOfDuplicates(NR_OF_DUPLICATES)
-//                    .generateBatchOfQueries(QUERY_BATCH_FILE);
+            qg.setNrOfQueries(NR_OF_QUERIES)
+                    .setAverageNrOfCompositeColumns(NR_OF_COMPOSITE_COLUMNS)
+                    .setAverageNrOfDuplicates(NR_OF_DUPLICATES)
+                    .generateBatchOfQueries(QUERY_BATCH_FILE);
 
             // Get the Java runtime
             runtime = Runtime.getRuntime();

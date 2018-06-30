@@ -188,6 +188,11 @@ public class Experiment {
             postSql.estimateWeights(indexList, tp);
 
             DynamicProgramming.solveKP(indexList, STORAGE_CAPACITY);
+
+            //
+//            postSql.checkUtility(indexList, tp);
+            //
+
             Logger.getInstance().stopTimer("FinalOptimization");
 
             postSql.buildCandidateIndexes(indexList, tp);
@@ -223,6 +228,11 @@ public class Experiment {
             postSql.estimateWeights(fullIndices, tp);
 
             int leftover = DynamicProgramming.solveKP(fullIndices, STORAGE_CAPACITY);
+
+            //
+//            postSql.checkUtility(fullIndices, tp);
+            //
+
             Logger.getInstance().stopTimer("FinalOptimization");
 
             postSql.buildCandidateIndexes(fullIndices, tp);
@@ -241,6 +251,11 @@ public class Experiment {
             System.out.println(leftover);
 
             DynamicProgramming.solveKP(partialIndices, STORAGE_CAPACITY - leftover);
+
+            //
+//            postSql.checkUtility(partialIndices, tp);
+            //
+
             Logger.getInstance().stopTimer("FinalOptimization");
 
             postSql.buildCandidateIndexes(partialIndices, tp);

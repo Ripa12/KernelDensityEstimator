@@ -1,29 +1,13 @@
 Experiment
 ---Partial Indexes---
-Execution time: 1.018660182
-Query time: 10.203876305
-Indexes: 20
+Execution time: 8.450334378
+Query time: 6.929863011
+Indexes: 21
 ---Full Indexes---
-Execution time: 0.406868947
-Query time: 14.355010765
-Indexes: 1
+Execution time: 3.931652334
+Query time: 7.634561329
+Indexes: 17
 ---Partial Indexes---
-Execution time: 1.001719428
-Query time: 10.30414104
-Indexes: 20
----Full Indexes---
-Execution time: 0.359180268
-Query time: 14.3097505
-Indexes: 1
----Partial Indexes---
-Execution time: 0.942643776
-Query time: 10.122526508
-Indexes: 20
----Full Indexes---
-Execution time: 0.347601235
-Query time: 14.022092081
-Indexes: 1
----Partial Indexes---
-Execution time: 0.911065592
-Query time: 10.144582086
-Indexes: 20
+Execution time: 12.303516619
+Query time: 6.742289276
+Indexes: 23
