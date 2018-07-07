@@ -125,6 +125,16 @@ public class CompoundPartialIndex implements IIndex {
         this.totalWeight = w;
     }
 
+    @Override
+    public void resetValue() {
+        totalValue = 0;
+    }
+
+    @Override
+    public void incValue() {
+        totalValue += 1;
+    }
+
     public int isLeftOf(CompoundPartialIndex other, String col){
         return Double.compare(predicateList.get(col).getStart(), other.predicateList.get(col).getStart());
     }

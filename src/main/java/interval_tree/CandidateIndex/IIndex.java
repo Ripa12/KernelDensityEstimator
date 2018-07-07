@@ -12,6 +12,8 @@ public interface IIndex {
     double getValue();
     double getWeight();
     void setWeight(double w);
+    void resetValue();
+    void incValue();
 
     default boolean isAPrefix(String other) {
         return other.startsWith(getColumnName());

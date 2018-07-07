@@ -185,13 +185,15 @@ public class Experiment {
             postSql.dropAllIndexes(tp);
 
             Logger.getInstance().setTimer();
+
+            //
+//            postSql.checkUtility(indexList, sourcePath, MIN_SUP, tp);
+            //
+
             postSql.estimateWeights(indexList, tp);
 
             DynamicProgramming.solveKP(indexList, STORAGE_CAPACITY);
 
-            //
-//            postSql.checkUtility(indexList, tp);
-            //
 
             Logger.getInstance().stopTimer("FinalOptimization");
 
@@ -224,13 +226,16 @@ public class Experiment {
             postSql = new PostgreSql();
             postSql.dropAllIndexes(tp);
 
+
             Logger.getInstance().setTimer();
+
+
             postSql.estimateWeights(fullIndices, tp);
 
             int leftover = DynamicProgramming.solveKP(fullIndices, STORAGE_CAPACITY);
 
             //
-//            postSql.checkUtility(fullIndices, tp);
+//            postSql.checkUtility(fullIndices, sourcePath, MIN_SUP, tp);
             //
 
             Logger.getInstance().stopTimer("FinalOptimization");
@@ -238,6 +243,7 @@ public class Experiment {
             postSql.buildCandidateIndexes(fullIndices, tp);
 
             Logger.getInstance().setTimer();
+
             for (IIndex fullIndex : fullIndices) {
                 for(int i = partialIndices.size()-1; i >= 0; i--){
                     if(fullIndex.containsPrefix(partialIndices.get(i))){
@@ -246,15 +252,17 @@ public class Experiment {
                 }
             }
 
+//            //
+//            postSql.checkUtility(partialIndices, sourcePath, MIN_SUP, tp);
+//            //
+
             postSql.estimateWeights(partialIndices, tp);
 
             System.out.println(leftover);
 
             DynamicProgramming.solveKP(partialIndices, STORAGE_CAPACITY - leftover);
 
-            //
-//            postSql.checkUtility(partialIndices, tp);
-            //
+
 
             Logger.getInstance().stopTimer("FinalOptimization");
 

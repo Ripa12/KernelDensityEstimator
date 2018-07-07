@@ -61,4 +61,14 @@ public abstract class AbstractIndex implements IIndex{
     public void setWeight(double w){
         this.weight = w;
     }
+
+    @Override
+    public void resetValue(){
+        value = 0;
+    }
+
+    @Override
+    public void incValue(){
+        value += 1;
+    }
 }

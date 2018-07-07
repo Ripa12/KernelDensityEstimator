@@ -3,6 +3,7 @@ package interval_tree.DBMS;
 import interval_tree.CandidateIndex.CompoundPartialIndex;
 import interval_tree.CandidateIndex.IIndex;
 import interval_tree.Factory.TableBaseProperties;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,6 +12,9 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PostgreSql {
 
@@ -95,18 +99,22 @@ public class PostgreSql {
                 }
                 idx.setWeight(weight);
 
-                System.out.println("Weight: " + weight + "\t unit: kB");// + " | " + idx.getColumnName() + " : " + idx_name);
+//                System.out.println("Weight: " + weight + "\t unit: kB");// + " | " + idx.getColumnName() + " : " + idx_name);
             }
 
             dropHypotheticalIndexes();
         }
 
-        public void checkUtility(List<? extends IIndex> items, TableBaseProperties tp) throws SQLException {
+        public void checkUtility(List<? extends IIndex> items, String sourcePath, double min_sup, TableBaseProperties tp) throws SQLException {
             System.out.println("-- Check Utility of Indexes --");
 
-            HashMap<IIndex, String> id = new HashMap<>();
+//            HashMap<IIndex, String> id = new HashMap<>();
+            HashMap<String, IIndex> id = new HashMap<>();
 
             for(IIndex idx : items) {
+
+                idx.resetValue();
+
                 String sql = "SELECT * from hypopg_create_index(" + idx.createIdxStatement(tp) +");";
 
                 ResultSet rs = stmt.executeQuery(sql);
@@ -114,38 +122,63 @@ public class PostgreSql {
                 rs.next();
                 String idx_name = rs.getString(1);
 
-                id.put(idx, idx_name);
+                id.put(idx_name, idx);
 
             }
 
-            checkUtility(items, id, tp);
+
+            int totalQueries = 0;
+            try(BufferedReader br = new BufferedReader(new FileReader(sourcePath))) {
+                for (String line; (line = br.readLine()) != null; ) {
+                    totalQueries += 1;
+                    checkUtility(line, items, id, tp);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+//            checkUtility(items, id, tp);
+
+            double finalTotalQueries = ((double) totalQueries);
+            items.removeIf((Predicate<IIndex>) iIndex -> iIndex.getValue() / finalTotalQueries < min_sup);
 
             dropHypotheticalIndexes();
         }
 
-        private void checkUtility(List<? extends IIndex> items, Map<IIndex, String> id, TableBaseProperties tp) throws SQLException {
-            for (int i = items.size() - 1; i >= 0; i--) {
+        private void checkUtility(String line, List<? extends IIndex> items, Map<String , IIndex> id, TableBaseProperties tp) throws SQLException {
+//            for (int i = items.size() - 1; i >= 0; i--) {
 
-                String sql = "EXPLAIN " + items.get(i).createSelectStatement(tp);
+//                String sql = "EXPLAIN " + items.get(i).createSelectStatement(tp);
+                String sql = "EXPLAIN " + line;
 
 
                 ResultSet rs = stmt.executeQuery(sql);
 
+//                Pattern regex = Pattern.compile("\\(<.*?>\\)");
+
+
                 boolean isUsed = false;
                 while (rs.next() && !isUsed){
                     String temp = rs.getString(1);
-                    if(temp.contains("<" + id.get(items.get(i)) + ">")){
-                        isUsed = true;
-                    }
+//                    Matcher regexMatcher = regex.matcher(temp);
+//                    if(regexMatcher.find()) {
+                        String idString = StringUtils.substringBetween(temp, "<", ">");
+
+//                    if(temp.contains("<" + id.get(items.get(i)) + ">")){
+                        if (id.containsKey(idString)) {
+                            isUsed = true;
+                            id.get(idString).incValue();
+                        }
+//                    }
                 }
 
                 if(!isUsed){
                     //Debug
-                    System.out.println(items.get(i).createIdxStatement(tp) + " is not used!");
-
-                    items.remove(i);
+//                    System.out.println(items.get(i).createIdxStatement(tp) + " is not used!");
+//
+//                    items.remove(i);
                 }
-            }
+//            }
         }
 
         public void buildCandidateIndexes(List<? extends IIndex> items, TableBaseProperties tp) throws SQLException {
@@ -168,6 +201,7 @@ public class PostgreSql {
 
                 int c = 0;
                 for (String line; (line = br.readLine()) != null; ) {
+//                    outputResult(stmt.executeQuery("explain analyze " + line));
                     stmt.executeQuery(line);
                 }
             } catch (IOException e) {
