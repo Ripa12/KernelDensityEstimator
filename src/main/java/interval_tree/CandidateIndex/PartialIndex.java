@@ -1,6 +1,8 @@
 package interval_tree.CandidateIndex;
 
 import interval_tree.Factory.TableBaseProperties;
+import interval_tree.SubspaceClustering.MyData;
+import interval_tree.SubspaceClustering.MyInterval;
 
 public class PartialIndex extends AbstractIndex {
 
@@ -146,5 +148,9 @@ public class PartialIndex extends AbstractIndex {
 
     double getEnd(){
         return end;
+    }
+
+    MyData getInterval(){
+        return new MyInterval(start, end);
     }
 }

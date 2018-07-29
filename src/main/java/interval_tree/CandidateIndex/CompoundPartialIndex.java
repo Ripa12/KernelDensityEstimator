@@ -1,6 +1,9 @@
 package interval_tree.CandidateIndex;
 
 import interval_tree.Factory.TableBaseProperties;
+import interval_tree.SubspaceClustering.MyData;
+import interval_tree.SubspaceClustering.MyInterval;
+import interval_tree.SubspaceClustering.MyVector;
 
 import java.util.*;
 
@@ -88,7 +91,7 @@ public class CompoundPartialIndex implements IIndex {
         return  "SELECT * FROM " + tableName + " WHERE " + f.toString();
     }
 
-    private PartialIndex getPredicate(String name){
+    public PartialIndex getPredicate(String name){
         return predicateList.get(name);
     }
 
@@ -139,6 +142,7 @@ public class CompoundPartialIndex implements IIndex {
         return Double.compare(predicateList.get(col).getStart(), other.predicateList.get(col).getStart());
     }
 
+
     public boolean merge(CompoundPartialIndex other){
         // ToDo: Assert that other is similar to this
         for (String s : predicateList.keySet()) {
@@ -181,5 +185,15 @@ public class CompoundPartialIndex implements IIndex {
         }
         result.add(temp);
         return result;
+    }
+
+    public MyVector getVector(List<String> order){
+        MyData[] data = new MyData[order.size()];
+
+        for (int i = 0; i < order.size(); i++) {
+            data[i] = predicateList.get(order.get(i)).getInterval();
+        }
+
+        return new MyVector(data);
     }
 }

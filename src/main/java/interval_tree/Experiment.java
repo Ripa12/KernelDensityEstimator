@@ -94,7 +94,7 @@ public class Experiment {
             System.out.println(idx.createIdxStatementWithId(indexIDs, tableCount) + " val " + idx.getValue());
         }
 
-        testIndexes(indexList, tableCount);
+//        testIndexes(indexList, tableCount);
     }
 
     public void testPartialFPGrowth(TableBaseProperties tableCount){
@@ -117,6 +117,7 @@ public class Experiment {
         Logger.getInstance().stopTimer("PopulatePartialFPTreeParser");
 
 
+        // ToDo: Validate seem to grow much faster than populate
         Logger.getInstance().setTimer();
         ValidateFPTreeParser validator = fpTreeParser.buildValidateFPTreeParser();
         parseQueries(validator);
@@ -149,7 +150,7 @@ public class Experiment {
         }
 
 
-        testIndexes(partialIndices, fullIndices, tableCount);
+//        testIndexes(partialIndices, fullIndices, tableCount);
     }
 
     private void parseQueries(IExpressionVisitor visitor){

@@ -21,6 +21,8 @@ public abstract class AbstractFPTree {
     protected TableStats tableBaseProperties;
 
 
+    private int debugSize;
+
     /**
      * Constructor
      */
@@ -30,6 +32,8 @@ public abstract class AbstractFPTree {
         this.tableName = tableName;
         this.root = root;
         header = tableBaseProperties.buildHeader(tableName);
+
+        debugSize = 0;
     }
 
     protected AbstractFPTreeNode getRoot() {
@@ -47,6 +51,7 @@ public abstract class AbstractFPTree {
             if (node.hasChild(entry)) {
                 node = node.incrementFrequencyOfChild(entry);
             } else {
+                debugSize++;
                 header.get(entry).add(node = node.incrementFrequencyOfChild(entry));
             }
         }
@@ -116,6 +121,8 @@ public abstract class AbstractFPTree {
         fpGrowthStep(header, test, "");
 
         System.out.println(test);
+
+        System.out.println("size of " + debugSize);
     }
 
     private class FPGrowthPair {
@@ -183,10 +190,6 @@ public abstract class AbstractFPTree {
                 test.add(currentPattern);
 
                 // ToDo: FullIndexes would create duplicates if not for SetList
-//                for (AbstractFPTreeNode treeNode : treeNodes) {
-//                    treeNode.extractIndexes(frequentItemsetCount, tableName,
-//                            Arrays.asList(currentPattern.split(PATTERN_DELIMITER)));
-//                }
                 extractItemSet(frequentItemsetCount, Arrays.asList(currentPattern.split(PATTERN_DELIMITER)),
                         treeNodes);
 

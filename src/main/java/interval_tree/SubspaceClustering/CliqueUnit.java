@@ -82,6 +82,14 @@ public class CliqueUnit<V extends MyVector> {
         return false;
     }
 
+    public boolean addFeatureVector(V vector, int amount) {
+        if(contains(vector)) {
+            coverage+=amount;
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Returns the number of feature vectors this unit contains.
      *

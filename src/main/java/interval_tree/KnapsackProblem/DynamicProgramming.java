@@ -7,7 +7,8 @@ import java.util.List;
 
 
 /**
- * Not my code!
+ * https://github.com/hzxie/Algorithm
+ * Apache License 2.0
  */
 public class DynamicProgramming {
     public boolean[] getKnapsackSolution(

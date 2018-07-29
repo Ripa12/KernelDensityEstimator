@@ -246,10 +246,18 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
 
     public void insertData(V featureVector){
         for (int i = 0; i < featureVector.getDimensionality(); i++) {
-            binaryInsert(units, i * (xsi + 1), ((i + 1) * (xsi + 1)) - 1, featureVector);
+            binaryInsert(units, i * (xsi + 1), ((i + 1) * (xsi + 1)) - 1, featureVector, 1);
         }
 
         total++; // ToDo: Only increment if featureVector is inserted successively!
+    }
+
+    public void insertData(V featureVector, int amount){
+        for (int i = 0; i < featureVector.getDimensionality(); i++) {
+            binaryInsert(units, i * (xsi + 1), ((i + 1) * (xsi + 1)) - 1, featureVector, amount);
+        }
+
+        total+=amount; // ToDo: Only increment if featureVector is inserted successively!
     }
 
     /**
@@ -292,6 +300,12 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
     public void validateClusters(V featureVector){
         for (Pair<Subspace, ModifiableDBIDs> modelAndCluster : modelsAndClusters) {
             ((CliqueSubspace) modelAndCluster.getFirst()).contains(featureVector);
+        }
+    }
+
+    public void validateClusters(V featureVector, int amount){
+        for (Pair<Subspace, ModifiableDBIDs> modelAndCluster : modelsAndClusters) {
+            ((CliqueSubspace) modelAndCluster.getFirst()).contains(featureVector, amount);
         }
     }
 
@@ -381,8 +395,8 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
 
 
 
-    // Code from GeeksForGeeks
-    private void binaryInsert(ArrayList<CliqueUnit<V>> units, int l, int u, V vector) {
+    // Code from GeeksForGeeks ToDo: l and u should be double
+    private void binaryInsert(ArrayList<CliqueUnit<V>> units, int l, int u, V vector, int amount) {
         assert u >= l;
 
         int j = 0;
@@ -408,12 +422,12 @@ public class Clique<V extends MyVector> extends AbstractAlgorithm<Clustering<Sub
         }
         j = curIn;
 
-        units.get(j).addFeatureVector(null, vector);
+        units.get(j).addFeatureVector(vector, amount);
 
         boolean terminate = false;
         while (!terminate) {
             j++;
-            if (j > u || !units.get(j).addFeatureVector(null, vector)) {
+            if (j > u || !units.get(j).addFeatureVector(vector, amount)) {
                 terminate = true;
             }
         }

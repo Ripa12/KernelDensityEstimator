@@ -5,11 +5,21 @@ import interval_tree.CandidateIndex.IIndex;
 import interval_tree.Factory.TableStats;
 import interval_tree.FrequentPatternMining.AbstractFPTree;
 import interval_tree.FrequentPatternMining.AbstractFPTreeNode;
+import interval_tree.SubspaceClustering.Clique;
 import interval_tree.SubspaceClustering.MyData;
 import interval_tree.SubspaceClustering.MyVector;
 
+import javax.xml.transform.Result;
 import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.function.Predicate;
+
+import static interval_tree.Globals.CLUSTER_MIN_SUP;
+import static interval_tree.Globals.IDEAL_COVERAGE;
+import static interval_tree.Globals.NR_OF_CELLS;
 
 public class PartialFPTree extends AbstractFPTree {
 
@@ -109,18 +119,55 @@ public class PartialFPTree extends AbstractFPTree {
     }
 
     private void initializeAllUnits() {
+//        for (LinkedList<AbstractFPTreeNode> list : header.values()) {
+//            //ToDo: This takes a lot of time!
+//            for (AbstractFPTreeNode node : list) {
+//                ((PartialFPTreeNode) node).getClique().initOneDimensionalUnits();
+//            }
+//        }
+
+        // ToDo: Multi-threading does seem to help here slightly
+        ExecutorService EXEC = Executors.newCachedThreadPool();
+        List<Callable<Result>> tasks = new ArrayList<>();
         for (LinkedList<AbstractFPTreeNode> list : header.values()) {
+            //ToDo: perhaps make AbstractFPTreeNode extend Callable
             for (AbstractFPTreeNode node : list) {
-                ((PartialFPTreeNode) node).getClique().initOneDimensionalUnits();
+                Callable<Result> c = () -> {
+                    ((PartialFPTreeNode) node).getClique().initOneDimensionalUnits();
+                    return null;
+                };
+                tasks.add(c);
             }
+        }
+        try {
+            List<Future<Result>> results = EXEC.invokeAll(tasks);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
     public void generateAllClusters() {
+//        for (LinkedList<AbstractFPTreeNode> list : header.values()) {
+//            for (AbstractFPTreeNode node : list) {
+//                ((PartialFPTreeNode) node).getClique().findClusters();
+//            }
+//        }
+
+        ExecutorService EXEC = Executors.newCachedThreadPool();
+        List<Callable<Result>> tasks = new ArrayList<>();
         for (LinkedList<AbstractFPTreeNode> list : header.values()) {
             for (AbstractFPTreeNode node : list) {
-                ((PartialFPTreeNode) node).getClique().findClusters();
+                Callable<Result> c = () -> {
+                    ((PartialFPTreeNode) node).getClique().findClusters();
+                    return null;
+                };
+                tasks.add(c);
             }
+        }
+        try {
+            List<Future<Result>> results = EXEC.invokeAll(tasks);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -167,25 +214,53 @@ public class PartialFPTree extends AbstractFPTree {
             tempList.addAll(0, treeNodes.get(i).extractIndexes(frequency, tableName, columns));
             tempList.remove(0);
         }
-        merge(columns, 0, tempList, partialIndexs);
+
+//        merge(columns, 0, tempList, partialIndexs);
+        merge(columns, tempList, partialIndexs);
     }
 
-    private void merge(List<String> columns, int dim, List<IIndex> indexes, List<IIndex> finalList){
-        if(dim >= columns.size()) {
-            for (int j = indexes.size() - 1; j > 0; j--) {
-                ((CompoundPartialIndex) indexes.get(j-1)).merge(((CompoundPartialIndex) indexes.get(j)));
-                indexes.remove(j);
-            }
+    private void merge(List<String> columns, List<IIndex> indexes, List<IIndex> finalList) {
+        Clique clique = new Clique<>(NR_OF_CELLS, CLUSTER_MIN_SUP, IDEAL_COVERAGE, false, columns.size());
 
-            indexes.removeIf(iIndex -> (iIndex.getValue()) < minSup);
-            finalList.addAll(indexes);
-            return;
+
+        List<MyVector> vecs = new ArrayList<>(indexes.size());
+        for (int i = 0; i < indexes.size(); i++) {
+            CompoundPartialIndex tempIdx = ((CompoundPartialIndex) indexes.get(i));
+            MyVector vec = tempIdx.getVector(columns);
+            vecs.add(vec);
+            clique.updateMinMax(vec);
         }
 
-        List<List<IIndex>> idxsList = CompoundPartialIndex.merge(indexes, columns.get(dim));
-        for (List<IIndex> idxs : idxsList) {
-            merge(columns, dim + 1, idxs, finalList);
+        clique.initOneDimensionalUnits();
+        for (int i = 0; i < vecs.size(); i++) {
+            clique.insertData(vecs.get(i), ((int) indexes.get(i).getValue()));
         }
+
+        clique.findClusters();
+
+        for (int i = 0; i < vecs.size(); i++) {
+            clique.validateClusters(vecs.get(i), ((int) indexes.get(i).getValue()));
+        }
+
+        finalList.addAll(clique.getClusters(tableName, columns));
     }
+
+//    private void merge(List<String> columns, int dim, List<IIndex> indexes, List<IIndex> finalList) {
+//        if (dim >= columns.size()) {
+//            for (int j = indexes.size() - 1; j > 0; j--) {
+//                ((CompoundPartialIndex) indexes.get(j - 1)).merge(((CompoundPartialIndex) indexes.get(j)));
+//                indexes.remove(j);
+//            }
+//
+//            indexes.removeIf(iIndex -> (iIndex.getValue()) < minSup);
+//            finalList.addAll(indexes);
+//            return;
+//        }
+//
+//        List<List<IIndex>> idxsList = CompoundPartialIndex.merge(indexes, columns.get(dim));
+//        for (List<IIndex> idxs : idxsList) {
+//            merge(columns, dim + 1, idxs, finalList);
+//        }
+//    }
 
 }

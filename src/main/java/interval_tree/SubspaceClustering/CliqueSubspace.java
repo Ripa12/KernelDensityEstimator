@@ -76,6 +76,21 @@ public class CliqueSubspace<V extends MyVector> extends Subspace {
         return true;
     }
 
+    boolean contains(MyVector other, int amount) {
+        if (other.getDimensionality() != dimensionality())
+            return false;
+
+        final long[] dims = getDimensions();
+        for (int dim = BitsUtil.nextSetBit(dims, 0); dim >= 0; dim = BitsUtil.nextSetBit(dims, dim + 1)) {
+            if (!other.contains(lowerBounds[dim], maximumBounds[dim], dim)) {
+                return false;
+            }
+        }
+
+        coverage+=amount;
+        return true;
+    }
+
     /**
      * Creates a new one-dimensional subspace of the original data space.
      *
