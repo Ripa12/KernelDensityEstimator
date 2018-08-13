@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/interval_tree.iml" filepath="$PROJECT_DIR$/interval_tree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/indexer.iml" filepath="$PROJECT_DIR$/indexer.iml" />
     </modules>
   </component>
 </project>

@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="interval_tree" />
+        <module name="indexer" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="interval_tree" target="1.8" />
+      <module name="indexer" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

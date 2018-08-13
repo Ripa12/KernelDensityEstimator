@@ -1,5 +1,0 @@
-Experiment
----Partial Indexes---
-Execution time: 23.526442361
-Query time: 0.0
-Indexes: 0

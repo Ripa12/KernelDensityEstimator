@@ -1,0 +1,8 @@
+
+Sample 1
+---Former Indexer---
+Query time: 3
+Indexes: 0
+---Extended Indexer---
+Query time: 11
+Indexes: 0
